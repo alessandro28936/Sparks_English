@@ -66,7 +66,7 @@
     const other={...original,day:later,raw:{...original.raw,'Report Key':`English|${later}|${set}|${code}`}};
     const laterReport=[{tier:'legacy',key:`English|${later}|${oldAdset||set}|${oldCode||code}`,leads:3,booking:2}];
     check('Alias is restricted to approved date '+center+'/'+code,applyVerifiedOutcomeAliases([other],laterReport).length===1);
-    check('Current-name report takes precedence '+center+'/'+code,applyVerifiedOutcomeAliases([original,[...historic][0]],[...historic,{tier:'legacy',key,leads:6,booking:1}]).length===2);
+    check('Current-name report takes precedence '+center+'/'+code,applyVerifiedOutcomeAliases([original],[...historic,{tier:'legacy',key,leads:6,booking:1}]).length===2);
   }
   // A single legacy outcome report must not be applied to two competing historical aliases.
   const aliasFirst={...make('20/10/26 - IAFBEOE_95',5000,0),day:'2026-10-20',center:'TMP',adset:'TMP_T_M_W_1/5/26',adCode:'IAFBEOE_95',account:'Main',raw:{'Report Key':'English|2026-10-20|TMP_T_M_W|IAFBEOE_95','Account ID':'304705508911066','Ad ID':'120249046668610027'}};
