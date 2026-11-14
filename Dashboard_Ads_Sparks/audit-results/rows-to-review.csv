@@ -1,0 +1,1420 @@
+﻿Raw Data row,Date,Account,Ad set,Ad,Issue,Detail,Expected,Actual
+5,2026-10-01,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.0625
+12,2026-10-01,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65174],,
+20,2026-10-01,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+23,2026-10-01,Main,C.SBY_T_M_W_ 23/6/25,8/7/26 - VAFTR_58,Rate above 100%,Leads exceed Results,,2
+25,2026-10-01,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65174],,
+34,2026-10-01,Main,CKR_T_M_W_ 7/10/25,30/7/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,2
+46,2026-10-01,Main,CL.JU_T_D_W_27/9/26,24/9/26 - VAFTR_12,Rate above 100%,Leads exceed Results,,3
+77,2026-10-01,Main,C.IN_T_E_W_SN_39_26/8/26,26/8/26 - VAFBE_22,Rate above 100%,Leads exceed Results,,1.1666666666666667
+81,2026-10-01,Main,C.IN_T_D_W_CB10_16/9/26,16/9/26 - IAFBE_42,Rate above 100%,Leads exceed Results,,1.5
+97,2026-10-01,Main,BTR_T_M_W_4/4/25,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0769230769230769
+98,2026-10-01,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65016],,
+124,2026-10-01,Main,CBN_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65016],,
+125,2026-10-01,Main,DSW_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0714285714285714
+127,2026-10-01,Main,TMI_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+128,2026-10-01,Main,BTR_T_M_W_4/4/25,30/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,3
+139,2026-10-01,Secondary,BGR_T_D_W_BA_  4/3/26,30/7/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,1.5
+145,2026-10-01,Secondary,DPK_T_D_W_BA_ 14/2/26,19/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.2857142857142858
+147,2026-10-01,Secondary,DPK_T_D_W_BA_ 14/2/26,30/9/26 - VAFTR_47,Rate above 100%,Leads exceed Results,,1.25
+160,2026-10-01,Secondary,TCT_T_D_W_BA_26/2/26,10/6/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.25
+164,2026-10-01,Secondary,TCT_T_D_W_BA_26/2/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+170,2026-10-02,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.125
+173,2026-10-02,Main,TMI_T_M_W_8/9/26,8/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.3333333333333333
+176,2026-10-02,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65627],,
+181,2026-10-02,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65627],,
+194,2026-10-02,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+201,2026-10-02,Main,C.SBY_T_M_W_ 23/6/25,23/6/25 - OLD_529,Rate above 100%,Leads exceed Results,,1.0769230769230769
+217,2026-10-02,Main,C.SBY_T_M_W_ 23/6/25,8/2/26 - OLD_501,Rate above 100%,Leads exceed Results,,1.3333333333333333
+241,2026-10-02,Main,YOG_T_M_W_21/11/25,12/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,3
+255,2026-10-02,Main,BHI_L_D_W_ 21/1/26,16/9/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,4
+261,2026-10-02,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+266,2026-10-02,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65481],,
+283,2026-10-02,Main,TMP_T_M_W_1/5/26,28/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [65618],,
+286,2026-10-02,Main,BDG_T_M_W_ 1/12/25,30/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,1.1176470588235294
+294,2026-10-02,Main,TMP_T_M_W_1/5/26,30/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [65618],,
+295,2026-10-02,Main,CBN_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65481],,
+301,2026-10-02,Secondary,BGR_T_D_W_BA_  4/3/26,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.6666666666666667
+331,2026-10-03,Main,TJD_T_M_W_EXT_11/9/26,11/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.2222222222222223
+334,2026-10-03,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1428571428571428
+341,2026-10-03,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66091],,
+344,2026-10-03,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+350,2026-10-03,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66091],,
+354,2026-10-03,Main,BSD_T_M_W_18/11/24,[BSD-GEN] Video - Mr.Jim Footage - 18/11/24,No matching report,Leads / Booking; report rows [],,
+356,2026-10-03,Main,TMP_T_M_W_1/5/26,17/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+363,2026-10-03,Main,BSD_T_M_W_18/11/24,15/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.6666666666666667
+364,2026-10-03,Main,CKR_T_M_W_ 7/10/25,14/7/26 - VAFCP_9,Rate above 100%,Leads exceed Results,,1.2
+368,2026-10-03,Main,C.SBY_T_M_W_ 23/6/25,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5
+392,2026-10-03,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.1111111111111112
+395,2026-10-03,Main,C.SBY_T_M_W_ 23/6/25,4/5/26 - VTRY_80,Rate above 100%,Leads exceed Results,,1.3333333333333333
+399,2026-10-03,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - VAFCU_42,Rate above 100%,Leads exceed Results,,1.125
+420,2026-10-03,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65923],,
+422,2026-10-03,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [65718],,
+423,2026-10-03,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [65718],,
+428,2026-10-03,Main,BHI_L_D_W_ 21/1/26,23/9/26 - VAFCP_8,Rate above 100%,Leads exceed Results,,1.5
+453,2026-10-03,Main,TJD_T_M_W_EXT_11/9/26,30/9/26 - VAFTR_47,Rate above 100%,Leads exceed Results,,1.5
+455,2026-10-03,Main,BDG_T_M_W_ 1/12/25,30/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,1.25
+466,2026-10-03,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+468,2026-10-03,Main,CBN_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [65923],,
+482,2026-10-03,Secondary,DPK_T_D_W_BA_ 14/2/26,7/5/26 - VTRY_86,Rate above 100%,Leads exceed Results,,1.4
+495,2026-10-03,Secondary,TCT_T_D_W_BA_26/2/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,3
+510,2026-10-04,Main,DSW_T_M_W_8/9/26,8/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.2857142857142858
+515,2026-10-04,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66530],,
+524,2026-10-04,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66530],,
+530,2026-10-04,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+542,2026-10-04,Main,CL.JU_T_D_W_27/9/26,18/9/26 - VEXSC_9,Rate above 100%,Leads exceed Results,,1.3333333333333333
+547,2026-10-04,Main,CL.JU_T_D_W_27/9/26,21/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.2857142857142858
+553,2026-10-04,Main,BSD_T_M_W_18/11/24,[BSD-GEN] Video - Mr.Jim Footage - 18/11/24,No matching report,Leads / Booking; report rows [],,
+554,2026-10-04,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - VAFCU_42,Rate above 100%,Leads exceed Results,,1.3333333333333333
+567,2026-10-04,Main,CL.JU_T_D_W_27/9/26,1/10/26 - VAFBE_34,Rate above 100%,Leads exceed Results,,1.3333333333333333
+598,2026-10-04,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66368],,
+602,2026-10-04,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [66177],,
+612,2026-10-04,Main,C.IN_T_E_W_CB17_G1_23/9/26,23/9/26 - VAFTR_129,Rate above 100%,Leads exceed Results,,1.5
+615,2026-10-04,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [66177],,
+627,2026-10-04,Main,TMP_T_M_W_1/5/26,28/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [66519],,
+631,2026-10-04,Main,CBN_T_M_W_1/5/26,23/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,2
+636,2026-10-04,Main,CBN_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66368],,
+646,2026-10-04,Main,TMP_T_M_W_1/5/26,30/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [66519],,
+650,2026-10-04,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3333333333333333
+667,2026-10-04,Secondary,DPK_T_D_W_BA_ 14/2/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+697,2026-10-05,Main,BSD_T_M_W_18/11/24,[BSD-GEN] Video - Mr.Jim Footage - 18/11/24,No matching report,Leads / Booking; report rows [],,
+714,2026-10-05,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66980],,
+716,2026-10-05,Main,KMG_T_M_W_17/4/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,1.5
+720,2026-10-05,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+724,2026-10-05,Main,C.SBY_T_M_W_ 23/6/25,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1818181818181819
+737,2026-10-05,Main,YOG_T_M_W_21/11/25,20/5/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.25
+744,2026-10-05,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66980],,
+767,2026-10-05,Main,C.IN_T_D_W_CB8_16/9/26,16/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,2
+777,2026-10-05,Main,CKR_T_M_W_ 7/10/25,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+789,2026-10-05,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66810],,
+790,2026-10-05,Main,BTR_T_M_W_4/4/25,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1666666666666667
+791,2026-10-05,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [66616],,
+792,2026-10-05,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [66616],,
+796,2026-10-05,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,2
+813,2026-10-05,Main,KMG_T_M_W_17/4/26,29/9/26 - VAFTR_36,Rate above 100%,Leads exceed Results,,1.5
+817,2026-10-05,Main,TMP_T_M_W_1/5/26,30/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [66969],,
+824,2026-10-05,Main,TMP_T_M_W_1/5/26,28/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [66969],,
+843,2026-10-05,Main,DSW_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5
+844,2026-10-05,Main,CBN_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [66810],,
+876,2026-10-05,Secondary,TCT_T_D_W_BA_26/2/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+882,2026-10-06,Main,TJD_T_M_W_EXT_11/9/26,11/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1428571428571428
+893,2026-10-06,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67474],,
+907,2026-10-06,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - OLD_49,Rate above 100%,Leads exceed Results,,2
+908,2026-10-06,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [67440],,
+911,2026-10-06,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67474],,
+917,2026-10-06,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+927,2026-10-06,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VTRY_54,No matching report,Leads / Booking; report rows [],,
+929,2026-10-06,Main,CBR_T_M_W_7/8/26,7/8/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.25
+936,2026-10-06,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+939,2026-10-06,Main,BLI_T_M_W_ 26/1/26,25/2/26 - OLD_1297,Rate above 100%,Leads exceed Results,,2
+942,2026-10-06,Main,YOG_T_M_W_21/11/25,20/5/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.3333333333333333
+946,2026-10-06,Main,BSD_T_M_W_18/11/24,[BSD-GEN] Video - Mr.Jim Footage - 18/11/24,No matching report,Leads / Booking; report rows [],,
+947,2026-10-06,Main,CL.JB_T_D_W_6/10/26,6/10/26 - IAFBE_48,No matching report,Leads / Booking; report rows [],,
+948,2026-10-06,Main,CL.JB_T_D_W_6/10/26,6/10/26 - ITRY_1,No matching report,Leads / Booking; report rows [],,
+950,2026-10-06,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.1428571428571428
+961,2026-10-06,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFTR_69,No matching report,Leads / Booking; report rows [],,
+964,2026-10-06,Main,C.SBY_T_M_W_ 23/6/25,4/5/26 - VTRY_80,Rate above 100%,Leads exceed Results,,4
+969,2026-10-06,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - IAFBE_48,No matching report,Leads / Booking; report rows [],,
+970,2026-10-06,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - ITRY_1,No matching report,Leads / Booking; report rows [],,
+971,2026-10-06,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,No matching report,Leads / Booking; report rows [],,
+979,2026-10-06,Main,TMP_T_M_W_1/5/26,29/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.6666666666666667
+997,2026-10-06,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,1.25
+999,2026-10-06,Main,BHI_L_D_W_ 21/1/26,23/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.6
+1000,2026-10-06,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67283],,
+1003,2026-10-06,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [67085],,
+1004,2026-10-06,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [67085],,
+1007,2026-10-06,Main,TJD_T_M_W_EXT_11/9/26,24/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [67440],,
+1021,2026-10-06,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67456],,
+1025,2026-10-06,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+1026,2026-10-06,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67456],,
+1027,2026-10-06,Main,TMP_T_M_W_1/5/26,30/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [67465],,
+1041,2026-10-06,Main,TMP_T_M_W_1/5/26,28/9/26 - VAFTR_47,Ambiguous ad match,Leads / Booking; report rows [67465],,
+1044,2026-10-06,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67283],,
+1049,2026-10-06,Main,TMI_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1111111111111112
+1056,2026-10-06,Main,BHI_T_M_W_ 30/9/26,5/10/26 - IAFBE_42,Rate above 100%,Leads exceed Results,,2
+1061,2026-10-06,Main,BTR_T_M_W_4/4/25,30/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.5
+1065,2026-10-06,Main,C.SBY_T_M_W_ 23/6/25,1/10/26 - VAFBE_34,Rate above 100%,Leads exceed Results,,2
+1079,2026-10-06,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+1086,2026-10-06,Secondary,DPK_T_D_W_BA_ 14/2/26,7/5/26 - VTRY_86,Rate above 100%,Leads exceed Results,,1.6666666666666667
+1100,2026-10-06,Secondary,TCT_T_D_W_BA_26/2/26,26/8/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.5
+1113,2026-10-07,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67966],,
+1133,2026-10-07,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [67933],,
+1136,2026-10-07,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67966],,
+1158,2026-10-07,Main,CL.JU_T_D_W_27/9/26,24/9/26 - VAFTR_12,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1170,2026-10-07,Main,C.SBY_T_M_W_ 23/6/25,23/6/25 - OLD_529,Rate above 100%,Leads exceed Results,,1.1428571428571428
+1214,2026-10-07,Main,CBR_T_M_W_7/8/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1224,2026-10-07,Main,TJD_T_M_W_EXT_11/9/26,24/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [67933],,
+1225,2026-10-07,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67775],,
+1228,2026-10-07,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [67569],,
+1229,2026-10-07,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [67569],,
+1235,2026-10-07,Main,BHI_L_D_W_ 21/1/26,16/9/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,2
+1241,2026-10-07,Main,C.IN_T_D_W_CB8_16/9/26,16/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,2
+1242,2026-10-07,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,2
+1254,2026-10-07,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67948],,
+1266,2026-10-07,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67948],,
+1274,2026-10-07,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [67775],,
+1305,2026-10-07,Secondary,DPK_T_D_W_BA_ 14/2/26,7/5/26 - VTRY_86,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1321,2026-10-07,Secondary,TCT_T_D_W_BA_26/2/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+1330,2026-10-08,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.0289855072463767
+1336,2026-10-08,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.0909090909090908
+1338,2026-10-08,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68503],,
+1347,2026-10-08,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.0769230769230769
+1350,2026-10-08,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [68373],,
+1357,2026-10-08,Main,TJD_T_M_W_EXT_11/9/26,24/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [68471],,
+1365,2026-10-08,Main,TJD_T_M_W_EXT_11/9/26,23/9/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [68471],,
+1369,2026-10-08,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68503],,
+1375,2026-10-08,Main,CL.JU_T_D_W_27/9/26,18/9/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1376,2026-10-08,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [68349],,
+1377,2026-10-08,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.25
+1381,2026-10-08,Main,CL.JB_T_D_W_6/10/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0588235294117647
+1393,2026-10-08,Main,CKR_T_M_W_ 7/10/25,14/7/26 - VAFCP_9,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1419,2026-10-08,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [68349],,
+1433,2026-10-08,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,No matching report,Leads / Booking; report rows [],,
+1433,2026-10-08,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,Publish date after data date,Check the date prefix against Meta publish date,,
+1437,2026-10-08,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [68312],,
+1438,2026-10-08,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [68312],,
+1444,2026-10-08,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [68373],,
+1455,2026-10-08,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68299],,
+1458,2026-10-08,Main,C.IN_L_D_W_BO_1/9/26,8/10/26 - IAFBE_73,Rate above 100%,Leads exceed Results,,2
+1460,2026-10-08,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [68075],,
+1464,2026-10-08,Main,BLI_L_D_W_ 22/5/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.5
+1470,2026-10-08,Main,BLI_L_D_W_ 22/5/26,11/6/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1473,2026-10-08,Main,C.IN_T_D_W_CB10_16/9/26,16/9/26 - IAFBE_42,Rate above 100%,Leads exceed Results,,2
+1476,2026-10-08,Main,C.IN_T_E_W_SN_39_26/8/26,26/8/26 - VAFBE_22,Rate above 100%,Leads exceed Results,,3
+1479,2026-10-08,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Ambiguous ad match,Leads / Booking; report rows [68075],,
+1482,2026-10-08,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68299],,
+1506,2026-10-08,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68487],,
+1517,2026-10-08,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Rate above 100%,Leads exceed Results,,2
+1522,2026-10-08,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68487],,
+1526,2026-10-08,Main,MDN_T_M_W_3/9/26,6/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1537,2026-10-08,Secondary,BGR_T_D_W_BA_  4/3/26,6/10/26 - IAFCU_23,Rate above 100%,Leads exceed Results,,1.5
+1545,2026-10-08,Secondary,DPK_T_D_W_BA_ 14/2/26,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+1555,2026-10-08,Secondary,TBT_T_D_W_BA_ 13/3/26,30/6/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,1.5
+1567,2026-10-09,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1666666666666667
+1573,2026-10-09,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,3.6666666666666665
+1579,2026-10-09,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69052],,
+1589,2026-10-09,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69052],,
+1606,2026-10-09,Main,PJT_T_M_W_ 1/9/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,1.5
+1624,2026-10-09,Main,CL.JU_T_D_W_27/9/26,1/10/26 - VAFBE_34,Rate above 100%,Leads exceed Results,,1.4
+1630,2026-10-09,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [68889],,
+1633,2026-10-09,Main,BTR_T_M_W_4/4/25,7/5/26 - VTRY_83,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1636,2026-10-09,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.1111111111111112
+1661,2026-10-09,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_7,Rate above 100%,Leads exceed Results,,1.1666666666666667
+1662,2026-10-09,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [68889],,
+1663,2026-10-09,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+1669,2026-10-09,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69031],,
+1670,2026-10-09,Main,BDG_T_M_W_ 1/12/25,30/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,2
+1671,2026-10-09,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [68847],,
+1672,2026-10-09,Main,TMP_T_M_W_1/5/26,29/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+1678,2026-10-09,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,No matching report,Leads / Booking; report rows [],,
+1678,2026-10-09,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,Publish date after data date,Check the date prefix against Meta publish date,,
+1682,2026-10-09,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [68847],,
+1687,2026-10-09,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.130718954248366
+1698,2026-10-09,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1699,2026-10-09,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68832],,
+1741,2026-10-09,Main,BTR_T_M_W_4/4/25,30/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,2
+1746,2026-10-09,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [68832],,
+1748,2026-10-09,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69031],,
+1756,2026-10-09,Main,PJT_T_M_W_ 1/9/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,2
+1770,2026-10-09,Main,BLI_T_M_W_ 26/1/26,6/10/26 - IAFCU_20,Rate above 100%,Leads exceed Results,,1.1428571428571428
+1786,2026-10-09,Secondary,DPK_T_D_W_BA_ 14/2/26,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,3
+1794,2026-10-09,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5
+1801,2026-10-09,Secondary,TCT_T_D_W_BA_26/2/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,1.5
+1808,2026-10-10,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.2857142857142858
+1809,2026-10-10,Main,TMP_T_M_W_1/5/26,17/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+1813,2026-10-10,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.75
+1814,2026-10-10,Main,TJD_T_M_W_EXT_11/9/26,11/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+1821,2026-10-10,Main,DSW_T_M_W_8/9/26,8/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.5
+1824,2026-10-10,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69603],,
+1826,2026-10-10,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,1.6666666666666667
+1836,2026-10-10,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69579],,
+1841,2026-10-10,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.1111111111111112
+1855,2026-10-10,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69603],,
+1866,2026-10-10,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [69437],,
+1871,2026-10-10,Main,CBR_T_M_W_7/8/26,7/8/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1873,2026-10-10,Main,CL.JU_T_D_W_27/9/26,21/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.125
+1885,2026-10-10,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [69437],,
+1888,2026-10-10,Main,C.IN_T_E_W_WM_9/10/26,9/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.5
+1896,2026-10-10,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+1906,2026-10-10,Main,C.IN_T_E_W_PH_AF_B_7/9/26,31/8/26 - IAFBE_22,Rate above 100%,Leads exceed Results,,3
+1915,2026-10-10,Main,CKR_T_M_W_ 7/10/25,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1917,2026-10-10,Main,BHI_T_M_W_ 30/9/26,10/10/26 - OLD_19,Rate above 100%,Leads exceed Results,,2
+1919,2026-10-10,Main,CKR_T_M_W_ 7/10/25,10/10/26 - OLD_35,Rate above 100%,Leads exceed Results,,2
+1928,2026-10-10,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+1935,2026-10-10,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [69400],,
+1936,2026-10-10,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [69400],,
+1942,2026-10-10,Main,C.SBY_T_M_W_ 23/6/25,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.3333333333333333
+1947,2026-10-10,Main,BHI_L_D_W_ 21/1/26,8/10/26 - IAFBE_73,Rate above 100%,Leads exceed Results,,1.5
+1948,2026-10-10,Main,BLI_L_D_W_ 22/5/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.375
+1952,2026-10-10,Main,GLK_T_M_W_17/4/26,8/7/26 - VAFTR_58,Rate above 100%,Leads exceed Results,,3
+1953,2026-10-10,Main,CKR_T_M_W_ 7/10/25,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+1965,2026-10-10,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69388],,
+1972,2026-10-10,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69579],,
+1974,2026-10-10,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69388],,
+1981,2026-10-10,Main,BHI_T_M_W_ 30/9/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,2
+2071,2026-10-11,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70155],,
+2075,2026-10-11,Main,BSD_T_M_W_18/11/24,15/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+2101,2026-10-11,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70155],,
+2107,2026-10-11,Main,CNR_T_M_W_23/9/26,18/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.2
+2115,2026-10-11,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [69986],,
+2132,2026-10-11,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.1111111111111112
+2133,2026-10-11,Main,YOG_T_M_W_21/11/25,20/5/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2136,2026-10-11,Main,CL.JU_T_D_W_27/9/26,7/10/26 - IAFSC_28,Rate above 100%,Leads exceed Results,,1.125
+2137,2026-10-11,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,1.25
+2142,2026-10-11,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2147,2026-10-11,Main,SKL_T_D_W_6/2/26,8/7/26 - VAFTR_58,Rate above 100%,Leads exceed Results,,2
+2152,2026-10-11,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [69986],,
+2164,2026-10-11,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [70020],,
+2170,2026-10-11,Main,TMP_T_M_W_1/5/26,10/10/26 - OLD_39,Rate above 100%,Leads exceed Results,,2
+2180,2026-10-11,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+2187,2026-10-11,Main,TJD_T_M_W_EXT_11/9/26,8/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.25
+2188,2026-10-11,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0425531914893618
+2190,2026-10-11,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [70020],,
+2195,2026-10-11,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69934],,
+2198,2026-10-11,Main,C.IN_L_D_W_BO_1/9/26,8/10/26 - IAFBE_73,Rate above 100%,Leads exceed Results,,2
+2206,2026-10-11,Main,BHI_L_D_W_ 21/1/26,16/9/26 - IAFBE_32,Rate above 100%,Leads exceed Results,,2
+2235,2026-10-11,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [69934],,
+2246,2026-10-11,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70134],,
+2251,2026-10-11,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70134],,
+2269,2026-10-11,Main,CBR_T_M_W_7/8/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.25
+2270,2026-10-11,Main,BLI_T_M_W_ 26/1/26,6/10/26 - IAFCU_21,Rate above 100%,Leads exceed Results,,1.4
+2289,2026-10-11,Secondary,DPK_T_D_W_BA_ 14/2/26,19/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.25
+2315,2026-10-12,Main,TMP_T_M_W_1/5/26,17/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+2321,2026-10-12,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.5
+2333,2026-10-12,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70678],,
+2344,2026-10-12,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70659],,
+2354,2026-10-12,Main,CBN_T_M_W_1/5/26,23/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,2
+2360,2026-10-12,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70678],,
+2374,2026-10-12,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [70528],,
+2387,2026-10-12,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.1428571428571428
+2388,2026-10-12,Main,YOG_T_M_W_21/11/25,20/5/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2391,2026-10-12,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [70528],,
+2392,2026-10-12,Main,BSD_T_M_W_18/11/24,12/8/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.5
+2428,2026-10-12,Main,BDG_T_M_W_ 1/12/25,10/10/26 - OLD_39,Rate above 100%,Leads exceed Results,,1.25
+2432,2026-10-12,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+2434,2026-10-12,Main,BSD_T_M_W_18/11/24,10/10/26 - OLD_44,Rate above 100%,Leads exceed Results,,2
+2438,2026-10-12,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,No matching report,Leads / Booking; report rows [],,
+2438,2026-10-12,Main,TMI_T_M_W_8/9/26,14/10/26 - IACCU_7,Publish date after data date,Check the date prefix against Meta publish date,,
+2443,2026-10-12,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0294117647058822
+2449,2026-10-12,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70468],,
+2454,2026-10-12,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,1.5
+2456,2026-10-12,Main,BLI_L_D_W_ 22/5/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.75
+2458,2026-10-12,Main,BHI_L_D_W_ 21/1/26,16/9/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.2
+2463,2026-10-12,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.25
+2477,2026-10-12,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70659],,
+2480,2026-10-12,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [70468],,
+2551,2026-10-12,Secondary,TBT_T_D_W_BA_ 13/3/26,8/10/26 - IACCU_7,Rate above 100%,Leads exceed Results,,1.5
+2563,2026-10-13,Main,CKR_T_M_W_ 7/10/25,16/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2567,2026-10-13,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71113],,
+2576,2026-10-13,Main,TJD_T_M_W_EXT_11/9/26,11/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+2585,2026-10-13,Main,YOG_T_M_W_21/11/25,12/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71248],,
+2590,2026-10-13,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.75
+2592,2026-10-13,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [71110],,
+2599,2026-10-13,Main,DSW_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+2601,2026-10-13,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71113],,
+2602,2026-10-13,Main,TMP_T_M_W_1/5/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71222],,
+2603,2026-10-13,Main,BDG_T_M_W_ 1/12/25,30/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,1.0833333333333333
+2607,2026-10-13,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71248],,
+2620,2026-10-13,Main,BKP_T_M_W_ 23/9/26,23/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.4615384615384615
+2626,2026-10-13,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [71078],,
+2633,2026-10-13,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [71078],,
+2639,2026-10-13,Main,CL.JU_T_D_W_27/9/26,1/10/26 - VAFBE_34,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2643,2026-10-13,Main,CL.JU_T_D_W_27/9/26,18/9/26 - VTRY_54,Rate above 100%,Leads exceed Results,,2
+2647,2026-10-13,Main,BLI_T_M_W_ 26/1/26,25/2/26 - OLD_1297,Rate above 100%,Leads exceed Results,,1.25
+2649,2026-10-13,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.2857142857142858
+2657,2026-10-13,Main,BSD_T_M_W_18/11/24,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+2664,2026-10-13,Main,C.IN_T_E_W_WM_9/10/26,9/10/26 - VAFTR_95,Rate above 100%,Leads exceed Results,,1.2
+2682,2026-10-13,Main,C.IN_T_E_W_PH_AF_B_7/9/26,31/8/26 - IAFBE_22,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2721,2026-10-13,Main,GLK_T_M_W_17/4/26,10/10/26 - OLD_35,Rate above 100%,Leads exceed Results,,1.75
+2723,2026-10-13,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71020],,
+2737,2026-10-13,Main,BTR_T_M_W_4/4/25,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,3
+2744,2026-10-13,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,2
+2747,2026-10-13,Main,YOG_T_M_W_21/11/25,12/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+2755,2026-10-13,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71222],,
+2763,2026-10-13,Main,CBR_T_M_W_7/8/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2769,2026-10-13,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71020],,
+2791,2026-10-13,Main,PJT_T_M_W_ 1/9/26,10/10/26 - OLD_44,Rate above 100%,Leads exceed Results,,1.5
+2797,2026-10-13,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [71032],,
+2798,2026-10-13,Main,CBR_T_M_W_7/8/26,8/10/26 - IEXTR_8,Ambiguous ad match,Leads / Booking; report rows [71032],,
+2799,2026-10-13,Main,TJD_T_M_W_EXT_11/9/26,8/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,2
+2801,2026-10-13,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+2802,2026-10-13,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [71110],,
+2811,2026-10-13,Main,CBN_T_M_W_1/5/26,8/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2831,2026-10-13,Secondary,DPK_T_D_W_BA_ 14/2/26,7/5/26 - VTRY_86,Rate above 100%,Leads exceed Results,,2.5
+2840,2026-10-13,Secondary,TBT_T_D_W_BA_ 13/3/26,30/6/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,1.6666666666666667
+2871,2026-10-14,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71828],,
+2878,2026-10-14,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.1666666666666667
+2881,2026-10-14,Main,C.SBY_T_M_W_ 23/6/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.2
+2883,2026-10-14,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1818181818181819
+2889,2026-10-14,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3333333333333333
+2891,2026-10-14,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71785],,
+2900,2026-10-14,Main,BHI_T_M_W_ 30/9/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.4285714285714286
+2901,2026-10-14,Main,C.SBY_T_M_W_ 23/6/25,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.1818181818181819
+2904,2026-10-14,Main,TMI_T_M_W_8/9/26,30/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0714285714285714
+2909,2026-10-14,Main,BDG_T_M_W_ 1/12/25,30/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,1.5
+2910,2026-10-14,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71828],,
+2924,2026-10-14,Main,CL.JU_T_D_W_27/9/26,13/10/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,1.6666666666666667
+2927,2026-10-14,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [71823],,
+2933,2026-10-14,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [71823],,
+2940,2026-10-14,Main,CL.JU_T_D_W_27/9/26,1/10/26 - VAFBE_34,Rate above 100%,Leads exceed Results,,2
+2942,2026-10-14,Main,CL.JU_T_D_W_27/9/26,21/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.1111111111111112
+2964,2026-10-14,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.1666666666666667
+2971,2026-10-14,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.1666666666666667
+2976,2026-10-14,Main,C.IN_T_E_W_PH_AF_B_7/9/26,31/8/26 - IAFBE_22,Rate above 100%,Leads exceed Results,,2
+2986,2026-10-14,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+3018,2026-10-14,Main,BSD_T_M_W_18/11/24,14/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [71529],,
+3023,2026-10-14,Main,CKR_T_M_W_ 7/10/25,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+3026,2026-10-14,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [71785],,
+3028,2026-10-14,Main,C.SBY_T_M_W_ 23/6/25,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.75
+3038,2026-10-14,Main,BLI_L_D_W_ 22/5/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.1538461538461537
+3039,2026-10-14,Main,BHI_L_D_W_ 21/1/26,23/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.3333333333333333
+3042,2026-10-14,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IACBE_11,Rate above 100%,Leads exceed Results,,3
+3050,2026-10-14,Main,CKR_T_M_W_ 7/10/25,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5
+3052,2026-10-14,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.5384615384615385
+3060,2026-10-14,Main,BDG_T_M_W_ 1/12/25,8/10/26 - IACBE_31,Rate above 100%,Leads exceed Results,,2
+3064,2026-10-14,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0392156862745099
+3068,2026-10-14,Main,YOG_T_M_W_21/11/25,8/10/26 - IAFBE_72,Rate above 100%,Leads exceed Results,,1.5
+3081,2026-10-14,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [71529],,
+3111,2026-10-14,Main,GLK_T_M_W_17/4/26,10/10/26 - OLD_35,Rate above 100%,Leads exceed Results,,2
+3112,2026-10-14,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+3143,2026-10-14,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,1.6666666666666667
+3146,2026-10-14,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.6666666666666667
+3149,2026-10-14,Secondary,TBT_T_D_W_BA_ 13/3/26,4/5/26 - VTRY_74,Rate above 100%,Leads exceed Results,,1.1666666666666667
+3156,2026-10-14,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+3156,2026-10-14,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VEXTR_30,Publish date after data date,Check the date prefix against Meta publish date,,
+3178,2026-10-15,Main,C.SBY_T_M_W_ 23/6/25,8/7/26 - VAFTR_58,Rate above 100%,Leads exceed Results,,1.1111111111111112
+3181,2026-10-15,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72392],,
+3191,2026-10-15,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72392],,
+3194,2026-10-15,Main,C.SBY_T_M_W_ 23/6/25,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+3205,2026-10-15,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72361],,
+3227,2026-10-15,Main,CL.JU_T_D_W_27/9/26,13/10/26 - IAFBE_60,Rate above 100%,Leads exceed Results,,2
+3229,2026-10-15,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [72393],,
+3230,2026-10-15,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+3232,2026-10-15,Main,CL.TGR_T_D_W_6/10/26,7/10/25 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+3234,2026-10-15,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [72393],,
+3279,2026-10-15,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [72223],,
+3314,2026-10-15,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72361],,
+3342,2026-10-15,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+3381,2026-10-15,Main,BSD_T_M_W_18/11/24,14/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [72223],,
+3398,2026-10-15,Main,BDG_T_M_W_ 1/12/25,13/10/26 - IAFBE_60,Rate above 100%,Leads exceed Results,,1.5
+3404,2026-10-15,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.3333333333333333
+3418,2026-10-15,Secondary,TBT_T_D_W_BA_ 13/3/26,30/6/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,1.2
+3434,2026-10-16,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73021],,
+3435,2026-10-16,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [72600],,
+3445,2026-10-16,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73021],,
+3465,2026-10-16,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [72600],,
+3473,2026-10-16,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [72791],,
+3485,2026-10-16,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72973],,
+3493,2026-10-16,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [72988],,
+3502,2026-10-16,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [72988],,
+3504,2026-10-16,Main,CL.JU_T_D_W_27/9/26,7/10/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+3555,2026-10-16,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+3584,2026-10-16,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+3588,2026-10-16,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [72973],,
+3589,2026-10-16,Main,BTR_T_M_W_4/4/25,12/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+3636,2026-10-16,Main,PJT_T_M_W_ 1/9/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.75
+3648,2026-10-16,Main,BSD_T_M_W_18/11/24,14/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [72791],,
+3682,2026-10-16,Secondary,BGR_T_D_W_BA_  4/3/26,8/10/26 - IAFBE_72,Rate above 100%,Leads exceed Results,,1.5
+3713,2026-10-17,Main,C.SBY_T_M_W_ 23/6/25,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.0357142857142858
+3720,2026-10-17,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73616],,
+3726,2026-10-17,Main,YOG_T_M_W_21/11/25,21/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+3733,2026-10-17,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73616],,
+3740,2026-10-17,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.010204081632653
+3759,2026-10-17,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73566],,
+3776,2026-10-17,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [73589],,
+3781,2026-10-17,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [73589],,
+3783,2026-10-17,Main,CL.JB_T_D_W_6/10/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.263157894736842
+3795,2026-10-17,Main,BLI_T_M_W_ 26/1/26,15/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.05
+3800,2026-10-17,Main,DSW_T_M_W_8/9/26,8/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.1666666666666667
+3806,2026-10-17,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.3333333333333333
+3824,2026-10-17,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+3827,2026-10-17,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+3853,2026-10-17,Main,BHI_L_D_W_ 21/1/26,16/10/26 - VACBE_59,Rate above 100%,Leads exceed Results,,1.2
+3855,2026-10-17,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [73566],,
+3861,2026-10-17,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,1.5
+3887,2026-10-17,Main,BDG_T_M_W_ 1/12/25,13/10/26 - IAFBE_60,Rate above 100%,Leads exceed Results,,1.1428571428571428
+3954,2026-10-17,Secondary,TBT_T_D_W_BA_ 13/3/26,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0179640718562875
+3955,2026-10-17,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.8888888888888888
+3961,2026-10-17,Secondary,TCT_T_D_W_BA_26/2/26,10/6/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+3969,2026-10-17,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.1111111111111112
+3974,2026-10-18,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [73978],,
+3975,2026-10-18,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.6
+3979,2026-10-18,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74204],,
+3988,2026-10-18,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74204],,
+4001,2026-10-18,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [73978],,
+4007,2026-10-18,Main,CKR_T_M_W_ 7/10/25,7/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.5
+4017,2026-10-18,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74175],,
+4034,2026-10-18,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [74197],,
+4038,2026-10-18,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [74197],,
+4088,2026-10-18,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+4115,2026-10-18,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+4135,2026-10-18,Main,C.IN_T_D_W_CB10_16/9/26,16/9/26 - IAFBE_42,Rate above 100%,Leads exceed Results,,2
+4141,2026-10-18,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74175],,
+4149,2026-10-18,Main,BDG_T_M_W_ 1/12/25,13/10/26 - IAFBE_60,Rate above 100%,Leads exceed Results,,1.5
+4186,2026-10-18,Main,BLI_T_M_W_ 26/1/26,14/10/26 - IAFBE_83,Rate above 100%,Leads exceed Results,,1.2
+4200,2026-10-18,Secondary,BGR_T_D_W_BA_  4/3/26,14/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+4215,2026-10-18,Secondary,TBT_T_D_W_BA_ 13/3/26,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0276243093922652
+4216,2026-10-18,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5714285714285714
+4218,2026-10-18,Secondary,TBT_T_D_W_BA_ 13/3/26,30/6/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,1.5
+4221,2026-10-18,Secondary,TBT_T_D_W_BA_ 13/3/26,8/10/26 - IAFBE_72,Rate above 100%,Leads exceed Results,,2
+4224,2026-10-18,Secondary,TCT_T_D_W_BA_26/2/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.3333333333333333
+4238,2026-10-19,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [74586],,
+4240,2026-10-19,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.5
+4246,2026-10-19,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74927],,
+4261,2026-10-19,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74927],,
+4278,2026-10-19,Main,TMP_T_M_W_1/5/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1428571428571428
+4281,2026-10-19,Main,PJT_T_M_W_ 1/9/26,6/10/26 - IAFCU_19,Rate above 100%,Leads exceed Results,,1.25
+4283,2026-10-19,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [74654],,
+4300,2026-10-19,Main,KMG_T_M_W_17/4/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.4
+4305,2026-10-19,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74863],,
+4307,2026-10-19,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.1538461538461537
+4326,2026-10-19,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [74885],,
+4337,2026-10-19,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0666666666666667
+4342,2026-10-19,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [74885],,
+4347,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VEXTR_31,No matching report,Leads / Booking; report rows [],,
+4348,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_87,No matching report,Leads / Booking; report rows [],,
+4349,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBEOE_62,No matching report,Leads / Booking; report rows [],,
+4350,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBE_60,No matching report,Leads / Booking; report rows [],,
+4351,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBE_59,No matching report,Leads / Booking; report rows [],,
+4352,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBEOG_63,No matching report,Leads / Booking; report rows [],,
+4353,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBEOG_64,No matching report,Leads / Booking; report rows [],,
+4354,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+4355,2026-10-19,Main,C.IN_T_E_W_OG_AR_19/10/26,19/10/26 - VACBE_61,No matching report,Leads / Booking; report rows [],,
+4356,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_86,No matching report,Leads / Booking; report rows [],,
+4357,2026-10-19,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,2
+4358,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_85,No matching report,Leads / Booking; report rows [],,
+4359,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_88,No matching report,Leads / Booking; report rows [],,
+4360,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+4361,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_92,No matching report,Leads / Booking; report rows [],,
+4362,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_91,No matching report,Leads / Booking; report rows [],,
+4363,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VAFCU_90,No matching report,Leads / Booking; report rows [],,
+4364,2026-10-19,Main,C.IN_T_E_W_OG_AP_19/10/26,19/10/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+4374,2026-10-19,Main,BSD_T_M_W_18/11/24,10/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.1428571428571428
+4388,2026-10-19,Main,YOG_T_M_W_21/11/25,16/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.1666666666666667
+4421,2026-10-19,Main,CBN_T_M_W_1/5/26,16/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.125
+4427,2026-10-19,Main,C.IN_L_D_W_BO_1/9/26,15/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,2
+4442,2026-10-19,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [74863],,
+4454,2026-10-19,Main,YOG_T_M_W_21/11/25,12/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.03125
+4463,2026-10-19,Main,BHI_L_D_W_ 21/1/26,23/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,2
+4489,2026-10-19,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [74586],,
+4497,2026-10-19,Main,TJD_T_M_W_EXT_11/9/26,10/10/26 - OLD-41,No matching report,Leads / Booking; report rows [],,
+4523,2026-10-19,Main,CNR_T_M_W_23/9/26,14/10/26 - VACBE_46,No matching report,Leads / Booking; report rows [],,
+4530,2026-10-19,Main,BSD_T_M_W_18/11/24,14/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [74654],,
+4538,2026-10-19,Main,BLI_T_M_W_ 26/1/26,14/10/26 - IAFBE_83,Rate above 100%,Leads exceed Results,,1.25
+4548,2026-10-19,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+4561,2026-10-19,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0909090909090908
+4572,2026-10-19,Secondary,TCT_T_D_W_BA_26/2/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,2
+4575,2026-10-19,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.1818181818181819
+4576,2026-10-20,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [75509],,
+4587,2026-10-20,Main,DSW_T_M_W_8/9/26,28/9/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [75288],,
+4608,2026-10-20,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [75509],,
+4623,2026-10-20,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [75316],,
+4645,2026-10-20,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [75463],,
+4659,2026-10-20,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [75504],,
+4683,2026-10-20,Main,CL.TGR_T_D_W_6/10/26,6/10/26 - VAFTR_69,Ambiguous ad match,Leads / Booking; report rows [75504],,
+4718,2026-10-20,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.1818181818181819
+4725,2026-10-20,Main,DSW_T_M_W_8/9/26,8/10/26 - OLD_529,Ambiguous ad match,Leads / Booking; report rows [75288],,
+4728,2026-10-20,Main,BLI_T_M_W_ 26/1/26,19/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.5
+4748,2026-10-20,Main,YOG_T_M_W_21/11/25,16/10/26 - VEXTR_31,Rate above 100%,Leads exceed Results,,1.3333333333333333
+4755,2026-10-20,Main,YOG_T_M_W_21/11/25,16/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.3333333333333333
+4762,2026-10-20,Main,CNR_T_M_W_23/9/26,20/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+4763,2026-10-20,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.0833333333333333
+4778,2026-10-20,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [75463],,
+4782,2026-10-20,Main,TMP_T_M_W_1/5/26,20/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+4784,2026-10-20,Main,CBN_T_M_W_1/5/26,20/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+4785,2026-10-20,Main,GLK_T_M_W_17/4/26,20/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+4793,2026-10-20,Main,C.IN_T_D_W_CB8_16/9/26,16/9/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,1.5
+4814,2026-10-20,Main,BSD_T_M_W_18/11/24,14/10/26 - IAFBE_24,Ambiguous ad match,Leads / Booking; report rows [75316],,
+4893,2026-10-20,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,1.2
+4911,2026-10-21,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76151],,
+4918,2026-10-21,Main,C.SBY_T_M_W_ 23/6/25,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.05
+4921,2026-10-21,Main,KMG_T_M_W_17/4/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.6666666666666667
+4930,2026-10-21,Main,BLI_T_M_W_ 26/1/26,15/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.2
+4933,2026-10-21,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76151],,
+4942,2026-10-21,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76081],,
+4961,2026-10-21,Main,BKP_T_M_W_ 23/9/26,10/10/26 - OLD_41,Rate above 100%,Leads exceed Results,,1.6666666666666667
+4966,2026-10-21,Main,CBR_T_M_W_7/8/26,6/10/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2727272727272727
+4970,2026-10-21,Main,BSD_T_M_W_18/11/24,7/10/26 - IAFBE_24,Rate above 100%,Leads exceed Results,,1.5
+4977,2026-10-21,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0294117647058822
+4979,2026-10-21,Main,DSW_T_M_W_8/9/26,8/9/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.3333333333333333
+4980,2026-10-21,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - OLD_18,No matching report,Leads / Booking; report rows [],,
+4981,2026-10-21,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,2
+5003,2026-10-21,Main,BTR_T_M_W_4/4/25,8/2/26 - OLD_1055,Rate above 100%,Leads exceed Results,,1.5
+5004,2026-10-21,Main,BDG_T_M_W_ 1/12/25,7/5/26 - VTRY_90,Rate above 100%,Leads exceed Results,,1.1666666666666667
+5007,2026-10-21,Main,CL.JU_T_D_W_27/9/26,21/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+5018,2026-10-21,Main,TMP_T_M_W_1/5/26,15/6/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.2
+5056,2026-10-21,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - VAFCU_87,No matching report,Leads / Booking; report rows [],,
+5057,2026-10-21,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+5059,2026-10-21,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - OLD_20,No matching report,Leads / Booking; report rows [],,
+5061,2026-10-21,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - OLD_19,No matching report,Leads / Booking; report rows [],,
+5062,2026-10-21,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+5064,2026-10-21,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - VAFCPOG_36,No matching report,Leads / Booking; report rows [],,
+5066,2026-10-21,Main,BKP_T_D_W_OG_21/10/26,21/10/26 - OLD_35,No matching report,Leads / Booking; report rows [],,
+5067,2026-10-21,Main,BKP_T_D_W_OG_21/10/26,21/10/26 - VAFCU_87,No matching report,Leads / Booking; report rows [],,
+5068,2026-10-21,Main,BKP_T_D_W_OG_21/10/26,21/10/26 - OLD_18,No matching report,Leads / Booking; report rows [],,
+5069,2026-10-21,Main,BKP_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+5071,2026-10-21,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - OLD_41,No matching report,Leads / Booking; report rows [],,
+5073,2026-10-21,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,No matching report,Leads / Booking; report rows [],,
+5090,2026-10-21,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - IAFSC_37,No matching report,Leads / Booking; report rows [],,
+5105,2026-10-21,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76081],,
+5109,2026-10-21,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_10,No matching report,Leads / Booking; report rows [],,
+5111,2026-10-21,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_41,No matching report,Leads / Booking; report rows [],,
+5124,2026-10-21,Main,BHI_L_D_W_ 21/1/26,23/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.75
+5126,2026-10-21,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_18,No matching report,Leads / Booking; report rows [],,
+5186,2026-10-21,Main,DSW_T_M_W_8/9/26,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.4
+5202,2026-10-21,Secondary,BGR_T_D_W_BA_  4/3/26,8/10/26 - IAFBE_72,Rate above 100%,Leads exceed Results,,2
+5203,2026-10-21,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+5219,2026-10-21,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0625
+5224,2026-10-21,Secondary,TCT_T_D_W_BA_26/2/26,10/6/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.1111111111111112
+5227,2026-10-21,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76143],,
+5231,2026-10-21,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76143],,
+5236,2026-10-22,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76735],,
+5247,2026-10-22,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76651],,
+5261,2026-10-22,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76735],,
+5379,2026-10-22,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [76615],,
+5382,2026-10-22,Main,BHI_T_D_W_EXT_22/10/26,22/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+5412,2026-10-22,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [76651],,
+5421,2026-10-22,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76744],,
+5424,2026-10-22,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76744],,
+5457,2026-10-22,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.1818181818181819
+5477,2026-10-22,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [76615],,
+5505,2026-10-22,Main,BTR_T_M_W_4/4/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,2
+5530,2026-10-22,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76561],,
+5533,2026-10-22,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76561],,
+5548,2026-10-22,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76727],,
+5551,2026-10-22,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76727],,
+5554,2026-10-22,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [76727],,
+5559,2026-10-23,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.1428571428571428
+5571,2026-10-23,Main,BLI_T_M_W_ 26/1/26,19/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+5582,2026-10-23,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.0588235294117647
+5583,2026-10-23,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77150],,
+5586,2026-10-23,Main,BDG_T_M_W_ 1/12/25,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.2
+5597,2026-10-23,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [77260],,
+5601,2026-10-23,Main,C.SBY_T_M_W_ 23/6/25,15/10/26 - VACBE_60,Rate above 100%,Leads exceed Results,,1.2
+5612,2026-10-23,Main,DSW_T_M_W_8/9/26,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.3333333333333333
+5628,2026-10-23,Main,BSD_T_M_W_18/11/24,16/10/26 - VEXTR_31,Ambiguous ad match,Leads / Booking; report rows [77331],,
+5631,2026-10-23,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - IAFSC_37,Rate above 100%,Leads exceed Results,,1.5
+5635,2026-10-23,Main,C.IN_T_D_W_CB12_16/9/26,8/10/26 - IAFBE_73,Rate above 100%,Leads exceed Results,,1.6666666666666667
+5637,2026-10-23,Main,C.IN_T_D_W_CB10_16/9/26,16/9/26 - IAFBE_42,Rate above 100%,Leads exceed Results,,2
+5642,2026-10-23,Main,KMG_T_M_W_17/4/26,22/6/26 - VAFCP_8,Rate above 100%,Leads exceed Results,,1.4
+5650,2026-10-23,Main,BSD_T_M_W_18/11/24,23/10/26 - VEXTR_31,Ambiguous ad match,Leads / Booking; report rows [77331],,
+5653,2026-10-23,Main,CBN_T_M_W_1/5/26,11/8/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [77169],,
+5659,2026-10-23,Main,BHI_L_D_W_ 21/1/26,19/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.5
+5663,2026-10-23,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77408],,
+5666,2026-10-23,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77408],,
+5685,2026-10-23,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,Rate above 100%,Leads exceed Results,,2
+5686,2026-10-23,Main,BHI_T_M_W_ 30/9/26,22/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.5
+5695,2026-10-23,Main,TMI_T_M_W_8/9/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77150],,
+5698,2026-10-23,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+5698,2026-10-23,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+5703,2026-10-23,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [77260],,
+5713,2026-10-23,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.1666666666666667
+5746,2026-10-23,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,1.125
+5748,2026-10-23,Main,CL.TGR_T_D_W_6/10/26,7/10/25 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0625
+5750,2026-10-23,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77176],,
+5771,2026-10-23,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77176],,
+5801,2026-10-23,Main,BLI_T_M_W_ 26/1/26,14/10/26 - IAFBE_83,Rate above 100%,Leads exceed Results,,2
+5815,2026-10-23,Main,CBN_T_M_W_1/5/26,6/10/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [77169],,
+5818,2026-10-23,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,1.4
+5819,2026-10-23,Main,GLK_T_M_W_17/4/26,17/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [77385],,
+5821,2026-10-23,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.1666666666666667
+5840,2026-10-23,Main,C.SBY_T_M_W_ 23/6/25,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.0416666666666667
+5849,2026-10-23,Main,GLK_T_M_W_17/4/26,30/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [77385],,
+5868,2026-10-23,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77201],,
+5870,2026-10-23,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77201],,
+5873,2026-10-23,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,2
+5885,2026-10-23,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77322],,
+5886,2026-10-23,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,1.6666666666666667
+5888,2026-10-23,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77322],,
+5891,2026-10-23,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77322],,
+5919,2026-10-24,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,1.3333333333333333
+5922,2026-10-24,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.5
+5953,2026-10-24,Main,C.SBY_T_M_W_ 23/6/25,7/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.2
+5966,2026-10-24,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77704],,
+5972,2026-10-24,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.6666666666666667
+5975,2026-10-24,Main,CL.JB_T_D_W_6/10/26,23/10/26 - IAFSC_28,Rate above 100%,Leads exceed Results,,1.3333333333333333
+5993,2026-10-24,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77704],,
+5997,2026-10-24,Main,CL.TGR_T_D_W_6/10/26,8/10/25 - IACCU_2,Rate above 100%,Leads exceed Results,,1.125
+6011,2026-10-24,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,2
+6030,2026-10-24,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0833333333333333
+6043,2026-10-24,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+6043,2026-10-24,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+6046,2026-10-24,Main,TMI_T_M_W_8/9/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77800],,
+6056,2026-10-24,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [77925],,
+6079,2026-10-24,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78048],,
+6091,2026-10-24,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78048],,
+6119,2026-10-24,Main,YOG_T_M_W_21/11/25,16/10/26 - VEXTR_31,Rate above 100%,Leads exceed Results,,1.5
+6142,2026-10-24,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [77925],,
+6151,2026-10-24,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [77800],,
+6152,2026-10-24,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.125
+6156,2026-10-24,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_20,Rate above 100%,Leads exceed Results,,1.0833333333333333
+6190,2026-10-24,Secondary,BGR_T_D_W_BA_  4/3/26,6/10/26 - IAFCU_23,Rate above 100%,Leads exceed Results,,1.25
+6201,2026-10-24,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77887],,
+6203,2026-10-24,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77887],,
+6219,2026-10-24,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77943],,
+6222,2026-10-24,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77943],,
+6225,2026-10-24,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [77943],,
+6251,2026-10-25,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,2
+6253,2026-10-25,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,3
+6254,2026-10-25,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.6666666666666667
+6307,2026-10-25,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [78391],,
+6310,2026-10-25,Main,CL.JB_T_D_W_6/10/26,23/10/26 - IAFSC_28,Rate above 100%,Leads exceed Results,,1.5
+6319,2026-10-25,Main,BKP_T_M_W_ 23/9/26,14/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+6327,2026-10-25,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [78391],,
+6344,2026-10-25,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.5
+6373,2026-10-25,Main,BDG_T_M_W_ 1/12/25,23/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,2
+6380,2026-10-25,Main,TMI_T_M_W_8/9/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [78367],,
+6383,2026-10-25,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+6383,2026-10-25,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+6387,2026-10-25,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [78586],,
+6410,2026-10-25,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78719],,
+6422,2026-10-25,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78719],,
+6428,2026-10-25,Main,KMG_T_M_W_17/4/26,22/6/26 - VAFCP_8,Rate above 100%,Leads exceed Results,,1.2
+6450,2026-10-25,Main,YOG_T_M_W_21/11/25,16/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,2
+6458,2026-10-25,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.1428571428571428
+6470,2026-10-25,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [78586],,
+6475,2026-10-25,Main,BDG_T_M_W_ 1/12/25,16/10/26 - VAFCU_91,Rate above 100%,Leads exceed Results,,2
+6476,2026-10-25,Main,BLI_T_M_W_ 26/1/26,19/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.3333333333333333
+6478,2026-10-25,Main,YOG_T_M_W_21/11/25,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.2
+6497,2026-10-25,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [78367],,
+6529,2026-10-25,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78564],,
+6531,2026-10-25,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78564],,
+6546,2026-10-25,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78636],,
+6549,2026-10-25,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78636],,
+6552,2026-10-25,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [78636],,
+6555,2026-10-26,Main,C.SBY_T_M_W_ 23/6/25,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.0769230769230769
+6556,2026-10-26,Main,BHI_T_M_W_ 30/9/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.1666666666666667
+6578,2026-10-26,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,1.2
+6584,2026-10-26,Main,TMP_T_M_W_1/5/26,17/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+6597,2026-10-26,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0543478260869565
+6606,2026-10-26,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [79295],,
+6614,2026-10-26,Main,C.IN_T_E_W_CMR_13/10/26,26/10/26 - VAFCUOG_100,No matching report,Leads / Booking; report rows [],,
+6636,2026-10-26,Main,BLI_T_M_W_ 26/1/26,14/10/26 - IAFBE_83,Rate above 100%,Leads exceed Results,,1.5
+6645,2026-10-26,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79083],,
+6646,2026-10-26,Main,CL.JB_T_D_W_6/10/26,23/10/26 - OLD_14,Rate above 100%,Leads exceed Results,,2
+6671,2026-10-26,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79083],,
+6673,2026-10-26,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.3333333333333333
+6703,2026-10-26,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.25
+6718,2026-10-26,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.2
+6736,2026-10-26,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - IAFBENE_104,Ambiguous ad match,Leads / Booking; report rows [79318],,
+6751,2026-10-26,Main,C.SBY_T_M_W_ 23/6/25,23/10/26 - IACBE_11,Rate above 100%,Leads exceed Results,,2
+6771,2026-10-26,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79419],,
+6772,2026-10-26,Main,BHI_L_D_W_ 21/1/26,21/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [79075],,
+6774,2026-10-26,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79419],,
+6782,2026-10-26,Main,BHI_L_D_W_ 21/1/26,26/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [79075],,
+6792,2026-10-26,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - IAFBENE_104,Ambiguous ad match,Leads / Booking; report rows [79318],,
+6803,2026-10-26,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.0909090909090908
+6813,2026-10-26,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.75
+6845,2026-10-26,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.6666666666666667
+6856,2026-10-26,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [79295],,
+6868,2026-10-26,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+6868,2026-10-26,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+6882,2026-10-26,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,Rate above 100%,Leads exceed Results,,2
+6895,2026-10-26,Main,YOG_T_D_W_OG_21/10/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.0588235294117647
+6898,2026-10-26,Secondary,BGR_T_D_W_BA_  4/3/26,14/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.2
+6901,2026-10-26,Secondary,BGR_T_D_W_BA_  4/3/26,22/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+6902,2026-10-26,Secondary,BGR_T_D_W_BA_  4/3/26,6/10/26 - IAFCU_23,Rate above 100%,Leads exceed Results,,1.2
+6913,2026-10-26,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79240],,
+6915,2026-10-26,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79240],,
+6930,2026-10-26,Secondary,TCT_T_D_W_BA_26/2/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.1111111111111112
+6931,2026-10-26,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79285],,
+6932,2026-10-26,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,1.4
+6934,2026-10-26,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79285],,
+6937,2026-10-26,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79285],,
+6942,2026-10-27,Main,PPN_T_M_W_ 9/10/26,9/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.6666666666666667
+6944,2026-10-27,Main,BHI_T_M_W_ 30/9/26,5/10/26 - IAFTR_24,Rate above 100%,Leads exceed Results,,1.25
+6962,2026-10-27,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.5714285714285714
+6997,2026-10-27,Main,PJT_T_M_W_ 1/9/26,15/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [79967],,
+7009,2026-10-27,Main,BTR_T_M_W_4/4/25,8/2/26 - OLD_658,Rate above 100%,Leads exceed Results,,1.5
+7025,2026-10-27,Main,BDG_T_M_W_ 1/12/25,14/10/26 - IAFBE_83,Rate above 100%,Leads exceed Results,,2
+7027,2026-10-27,Main,CL.JU_T_D_W_27/9/26,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.6666666666666667
+7029,2026-10-27,Main,CL.JB_T_D_W_6/10/26,26/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+7048,2026-10-27,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79674],,
+7058,2026-10-27,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79674],,
+7066,2026-10-27,Main,CL.TGR_T_D_W_6/10/26,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.75
+7083,2026-10-27,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_42,Rate above 100%,Leads exceed Results,,1.2
+7099,2026-10-27,Main,C.IN_T_E_W_PH_AF_B_7/9/26,31/8/26 - IAFBE_22,Rate above 100%,Leads exceed Results,,3
+7109,2026-10-27,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0769230769230769
+7130,2026-10-27,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - IAFBENE_104,Ambiguous ad match,Leads / Booking; report rows [80063],,
+7142,2026-10-27,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [79546],,
+7147,2026-10-27,Main,YOG_T_M_W_21/11/25,26/10/26 - VACBE_58,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7151,2026-10-27,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - IAFBENE_104,Ambiguous ad match,Leads / Booking; report rows [80063],,
+7163,2026-10-27,Main,BHI_L_D_W_ 21/1/26,21/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [79830],,
+7165,2026-10-27,Main,BHI_L_D_W_ 21/1/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [80122],,
+7173,2026-10-27,Main,BHI_L_D_W_ 21/1/26,26/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [79830],,
+7181,2026-10-27,Main,BHI_L_D_W_ 21/1/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [80122],,
+7184,2026-10-27,Main,YOG_T_M_W_21/11/25,12/6/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.1428571428571428
+7209,2026-10-27,Main,PLU_T_M_W_21/10/26,21/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.25
+7210,2026-10-27,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [79546],,
+7216,2026-10-27,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79539],,
+7227,2026-10-27,Main,BTR_T_M_W_4/4/25,20/10/26 - IACTR_2,Rate above 100%,Leads exceed Results,,2
+7229,2026-10-27,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.5714285714285714
+7232,2026-10-27,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.125
+7256,2026-10-27,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+7256,2026-10-27,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+7259,2026-10-27,Main,TMI_T_M_W_8/9/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [79539],,
+7262,2026-10-27,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_60,Ambiguous ad match,Leads / Booking; report rows [79967],,
+7272,2026-10-27,Main,TMP_T_M_W_1/5/26,23/10/26 - IAFBE_64,Rate above 100%,Leads exceed Results,,1.5
+7280,2026-10-27,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.25
+7309,2026-10-27,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.25
+7311,2026-10-27,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79914],,
+7314,2026-10-27,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79914],,
+7317,2026-10-27,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,2.25
+7320,2026-10-27,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.125
+7326,2026-10-27,Secondary,TBT_T_D_W_BA_ 13/3/26,8/10/26 - IACCU_7,Rate above 100%,Leads exceed Results,,2
+7329,2026-10-27,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79972],,
+7332,2026-10-27,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79972],,
+7335,2026-10-27,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [79972],,
+7339,2026-10-28,Main,CBN_T_M_W_1/5/26,28/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,2
+7361,2026-10-28,Main,C.IN_T_E_W_KLV_23/10/26,23/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7374,2026-10-28,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.2857142857142858
+7395,2026-10-28,Main,C.SBY_T_M_W_ 23/6/25,7/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.5
+7416,2026-10-28,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7417,2026-10-28,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [80384],,
+7425,2026-10-28,Main,CL.JB_T_D_W_6/10/26,26/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,2
+7433,2026-10-28,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [80384],,
+7450,2026-10-28,Main,CL.JU_T_D_W_OG_26/10/26,27/10/26 - OLD_18,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7454,2026-10-28,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0344827586206897
+7472,2026-10-28,Main,CL.JU_T_D_W_27/9/26,27/10/26 - OLD_18,Rate above 100%,Leads exceed Results,,2
+7476,2026-10-28,Main,CL.JB_T_D_W_6/10/26,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,2
+7495,2026-10-28,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.0454545454545454
+7534,2026-10-28,Main,BHI_L_D_W_ 21/1/26,26/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [80616],,
+7546,2026-10-28,Main,BHI_L_D_W_ 21/1/26,21/10/26 - IAFCPOG_9,Ambiguous ad match,Leads / Booking; report rows [80616],,
+7549,2026-10-28,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [80316],,
+7561,2026-10-28,Main,C.IN_T_D_W_CB14_13/10/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,2.5
+7573,2026-10-28,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.1176470588235294
+7586,2026-10-28,Main,BTR_T_M_W_4/4/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.6666666666666667
+7611,2026-10-28,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [80316],,
+7619,2026-10-28,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - VACBEOG_64,Rate above 100%,Leads exceed Results,,2
+7634,2026-10-28,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+7634,2026-10-28,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+7643,2026-10-28,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.0212765957446808
+7644,2026-10-28,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.2
+7657,2026-10-28,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [80545],,
+7659,2026-10-28,Secondary,BGR_T_D_W_BA_  4/3/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+7662,2026-10-28,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+7666,2026-10-28,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [80545],,
+7676,2026-10-28,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [80545],,
+7689,2026-10-29,Main,CNR_T_M_W_23/9/26,6/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.2
+7707,2026-10-29,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,2
+7733,2026-10-29,Main,C.SBY_T_M_W_ 23/6/25,7/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,2
+7736,2026-10-29,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0147058823529411
+7737,2026-10-29,Main,BKP_T_M_W_ 23/9/26,10/10/26 - OLD_41,Rate above 100%,Leads exceed Results,,2
+7756,2026-10-29,Main,CL.JB_T_D_W_6/10/26,26/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+7762,2026-10-29,Main,CL.JB_T_D_W_6/10/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81151],,
+7770,2026-10-29,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81151],,
+7787,2026-10-29,Main,C.IN_T_E_W_CMR_13/10/26,13/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.1111111111111112
+7822,2026-10-29,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81224],,
+7830,2026-10-29,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81082],,
+7831,2026-10-29,Main,CKR_T_M_W_ 7/10/25,28/10/26 - IAFBENG_93,Rate above 100%,Leads exceed Results,,1.1428571428571428
+7839,2026-10-29,Main,SMG_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.2352941176470589
+7841,2026-10-29,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.1176470588235294
+7855,2026-10-29,Main,BHI_L_D_W_ 21/1/26,26/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,2
+7903,2026-10-29,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+7903,2026-10-29,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+7908,2026-10-29,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81082],,
+7920,2026-10-29,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [80914],,
+7923,2026-10-29,Main,TMI_T_M_W_8/9/26,23/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [80914],,
+7934,2026-10-29,Main,BLI_T_D_W_OG_26/10/26,26/10/26 - IAFBENE_104,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7944,2026-10-29,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81224],,
+7947,2026-10-29,Main,BDG_T_M_W_ 1/12/25,23/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.5
+7948,2026-10-29,Main,BSD_T_M_W_18/11/24,23/10/26 - VEXTR_31,Rate above 100%,Leads exceed Results,,2
+7949,2026-10-29,Main,TMP_T_M_W_1/5/26,23/10/26 - IAFBE_64,Rate above 100%,Leads exceed Results,,2
+7952,2026-10-29,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81082],,
+7963,2026-10-29,Secondary,DPK_T_D_W_BA_ 14/2/26,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.3333333333333333
+7969,2026-10-29,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.6666666666666667
+7970,2026-10-29,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,3
+7975,2026-10-29,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+7979,2026-10-29,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [81206],,
+7990,2026-10-29,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [81206],,
+7993,2026-10-29,Secondary,TCT_T_D_W_BA_26/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [81206],,
+8001,2026-10-30,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+8001,2026-10-30,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+8003,2026-10-30,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+8003,2026-10-30,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+8018,2026-10-30,Main,C.IN_T_E_W_KLV_23/10/26,23/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,4
+8024,2026-10-30,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.2
+8042,2026-10-30,Main,PJT_T_M_W_ 1/9/26,6/10/26 - IAFCU_18,Rate above 100%,Leads exceed Results,,1.3333333333333333
+8056,2026-10-30,Main,BKP_T_M_W_ 23/9/26,23/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.05
+8071,2026-10-30,Main,CL.JU_T_D_W_OG_26/10/26,26/10/26 - VACBE_58,Rate above 100%,Leads exceed Results,,2
+8073,2026-10-30,Main,CL.JB_T_D_W_6/10/26,26/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.4
+8078,2026-10-30,Main,BSD_T_M_W_18/11/24,28/8/26 - IEXTR_4,Rate above 100%,Leads exceed Results,,2
+8087,2026-10-30,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.0833333333333333
+8122,2026-10-30,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.2142857142857142
+8132,2026-10-30,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81901],,
+8139,2026-10-30,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81653],,
+8209,2026-10-30,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81653],,
+8242,2026-10-30,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [81901],,
+8249,2026-10-30,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [81653],,
+8258,2026-10-30,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+8258,2026-10-30,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+8278,2026-10-30,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.3333333333333333
+8279,2026-10-30,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,3
+8280,2026-10-30,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.2
+8286,2026-10-30,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,1.5
+8300,2026-10-31,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+8300,2026-10-31,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+8302,2026-10-31,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+8302,2026-10-31,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+8320,2026-10-31,Main,C.IN_T_E_W_OG_AB_28/10/26,28/10/26 - IAFBEOG_110,Rate above 100%,Leads exceed Results,,1.25
+8327,2026-10-31,Main,C.IN_T_E_W_KLV_23/10/26,23/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,1.3333333333333333
+8337,2026-10-31,Main,BSD_T_M_W_18/11/24,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.5
+8340,2026-10-31,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.119047619047619
+8369,2026-10-31,Main,CL.JU_T_D_W_27/9/26,27/10/26 - OLD_20,Rate above 100%,Leads exceed Results,,1.5
+8378,2026-10-31,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.25
+8436,2026-10-31,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [82323],,
+8437,2026-10-31,Main,CKR_T_M_W_ 7/10/25,28/10/26 - IAFBENG_93,Rate above 100%,Leads exceed Results,,1.3333333333333333
+8450,2026-10-31,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.0588235294117647
+8452,2026-10-31,Main,SMG_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.125
+8476,2026-10-31,Main,BHI_L_D_W_ 21/1/26,28/10/26 - VAFCUOG_97,Rate above 100%,Leads exceed Results,,1.1428571428571428
+8481,2026-10-31,Main,C.IN_T_D_W_CB12_16/9/26,8/10/26 - IAFBE_73,Rate above 100%,Leads exceed Results,,1.5
+8495,2026-10-31,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [82410],,
+8499,2026-10-31,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.0588235294117647
+8502,2026-10-31,Main,BDG_T_M_W_ 1/12/25,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.2857142857142858
+8509,2026-10-31,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [82323],,
+8520,2026-10-31,Main,YOG_T_M_W_21/11/25,16/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,3
+8543,2026-10-31,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [82323],,
+8544,2026-10-31,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [82410],,
+8547,2026-10-31,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+8547,2026-10-31,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+8571,2026-10-31,Secondary,TCT_T_D_W_BA_26/2/26,21/9/26 - IAFCU_8,Rate above 100%,Leads exceed Results,,1.5
+8572,2026-10-31,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.1428571428571428
+8581,2026-10-31,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,3
+8595,2026-11-01,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+8595,2026-11-01,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+8607,2026-11-01,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+8607,2026-11-01,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+8624,2026-11-01,Main,BKP_T_M_W_ 23/9/26,23/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0476190476190477
+8646,2026-11-01,Main,MDN_T_M_W_3/9/26,6/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,1.5
+8677,2026-11-01,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,3
+8711,2026-11-01,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.0588235294117647
+8729,2026-11-01,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [83097],,
+8731,2026-11-01,Main,BLI_T_D_W_OG_26/10/26,29/10/26 - VAFCU_60,Rate above 100%,Leads exceed Results,,1.5
+8737,2026-11-01,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [83074],,
+8746,2026-11-01,Main,C.SBY_T_M_W_ 23/6/25,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.25
+8792,2026-11-01,Main,YOG_T_M_W_21/11/25,26/10/26 - IAFBENE_104,Rate above 100%,Leads exceed Results,,1.5
+8795,2026-11-01,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [83074],,
+8798,2026-11-01,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - OLD_20,Rate above 100%,Leads exceed Results,,2
+8801,2026-11-01,Main,BDG_T_M_W_ 1/12/25,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.2
+8815,2026-11-01,Main,YOG_T_M_W_21/11/25,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.6666666666666667
+8820,2026-11-01,Main,YOG_T_M_W_21/11/25,16/10/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.25
+8844,2026-11-01,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [83074],,
+8846,2026-11-01,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [83097],,
+8850,2026-11-01,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+8850,2026-11-01,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+8877,2026-11-01,Secondary,BGR_T_D_W_BA_  4/3/26,8/10/26 - IAFBE_72,Rate above 100%,Leads exceed Results,,2
+8886,2026-11-01,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [83107],,
+8892,2026-11-01,Secondary,DPK_T_D_W_BA_ 14/2/26,21/10/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [83107],,
+8894,2026-11-02,Main,C.IN_T_E_W_AR_30/10/26,30/10/26 - IACPNNE_6,Rate above 100%,Leads exceed Results,,1.375
+8896,2026-11-02,Main,TMP_T_M_W_1/5/26,15/6/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.5
+8897,2026-11-02,Main,BDG_T_M_W_ 1/12/25,6/2/26 - OLD_1200,Rate above 100%,Leads exceed Results,,3
+8907,2026-11-02,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+8907,2026-11-02,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+8909,2026-11-02,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+8909,2026-11-02,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+8922,2026-11-02,Main,C.IN_T_E_W_VS_30/10/26,30/10/26 - VAFCUOG_110,Rate above 100%,Leads exceed Results,,1.1428571428571428
+8963,2026-11-02,Main,C.IN_T_E_W_KLV_23/10/26,23/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,1.1428571428571428
+8990,2026-11-02,Main,CL.TGR_T_D_W_6/10/26,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.2
+8997,2026-11-02,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.0666666666666667
+9016,2026-11-02,Main,C.IN_T_E_W_PH_AF_B_7/9/26,31/8/26 - IAFBE_22,Rate above 100%,Leads exceed Results,,2.5
+9028,2026-11-02,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.1666666666666667
+9031,2026-11-02,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - IAFSC_28,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9045,2026-11-02,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [84093],,
+9066,2026-11-02,Main,CKR_T_M_W_ 7/10/25,28/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [84101],,
+9069,2026-11-02,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.2380952380952381
+9084,2026-11-02,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.6
+9085,2026-11-02,Main,BHI_L_D_W_ 21/1/26,23/10/26 - IAFTRNG_29,Rate above 100%,Leads exceed Results,,2
+9092,2026-11-02,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.1153846153846154
+9109,2026-11-02,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,2
+9113,2026-11-02,Main,BDG_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,Rate above 100%,Leads exceed Results,,3
+9116,2026-11-02,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.03125
+9123,2026-11-02,Main,BTR_T_M_W_4/4/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9135,2026-11-02,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [84101],,
+9155,2026-11-02,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+9155,2026-11-02,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+9169,2026-11-02,Main,CKR_T_M_W_ 7/10/25,26/10/26 - VACBEOE_62,Ambiguous ad match,Leads / Booking; report rows [84101],,
+9173,2026-11-02,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [84093],,
+9185,2026-11-02,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1666666666666667
+9191,2026-11-02,Secondary,BGR_T_D_W_BA_  4/3/26,14/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9192,2026-11-02,Secondary,TBT_T_D_W_BA_ 13/3/26,8/10/26 - IACCU_7,Rate above 100%,Leads exceed Results,,1.1666666666666667
+9194,2026-11-02,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,2
+9202,2026-11-02,Secondary,TBT_T_D_W_BA_ 13/3/26,30/6/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,2
+9243,2026-11-03,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+9243,2026-11-03,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+9245,2026-11-03,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+9245,2026-11-03,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+9246,2026-11-03,Main,C.IN_T_E_W_AR_30/10/26,30/10/26 - IACPNNE_6,Rate above 100%,Leads exceed Results,,1.25
+9250,2026-11-03,Main,BKP_T_M_W_ 23/9/26,23/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.0833333333333333
+9251,2026-11-03,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.1636363636363636
+9271,2026-11-03,Main,KMG_T_M_W_17/4/26,30/9/26 - IEXTR_8,Rate above 100%,Leads exceed Results,,2
+9316,2026-11-03,Main,CL.JB_T_D_W_6/10/26,23/10/26 - IAFSC_28,Rate above 100%,Leads exceed Results,,2
+9358,2026-11-03,Main,KMG_T_M_W_17/4/26,22/6/26 - VAFCP_8,Rate above 100%,Leads exceed Results,,2
+9373,2026-11-03,Main,C.IN_T_D_W_CB12_16/9/26,16/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,5
+9386,2026-11-03,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [84869],,
+9440,2026-11-03,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+9440,2026-11-03,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+9457,2026-11-03,Main,PLU_T_M_W_21/10/26,21/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,2
+9464,2026-11-03,Main,SMG_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.2272727272727273
+9469,2026-11-03,Main,BLI_T_D_W_OG_26/10/26,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.3
+9485,2026-11-03,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [84869],,
+9502,2026-11-03,Secondary,TBT_T_D_W_BA_OG_2/11/26,2/11/26 - IAFSC_39,Rate above 100%,Leads exceed Results,,1.0909090909090908
+9507,2026-11-03,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9509,2026-11-03,Secondary,BGR_T_D_W_BA_  4/3/26,6/10/26 - IAFCU_23,Rate above 100%,Leads exceed Results,,1.25
+9511,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+9512,2026-11-03,Secondary,TCT_T_D_W_BA_OG_2/11/26,2/11/26 - IAFSC_39,Rate above 100%,Leads exceed Results,,1.2
+9513,2026-11-03,Secondary,BGR_T_D_W_BA_  4/3/26,9/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+9514,2026-11-03,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [85006],,
+9516,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+9520,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+9523,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+9528,2026-11-03,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,3
+9537,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+9538,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+9541,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+9548,2026-11-03,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+9555,2026-11-03,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [85006],,
+9563,2026-11-04,Main,TMP_T_M_W_1/5/26,15/6/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.1666666666666667
+9567,2026-11-04,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,1.2857142857142858
+9568,2026-11-04,Main,BLI_T_M_W_ 26/1/26,15/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,5
+9582,2026-11-04,Main,PPN_T_M_W_ 9/10/26,9/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9598,2026-11-04,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+9598,2026-11-04,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+9599,2026-11-04,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9616,2026-11-04,Main,PLU_T_M_W_21/10/26,21/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.25
+9631,2026-11-04,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.1153846153846154
+9641,2026-11-04,Main,C.IN_T_E_W_VS_30/10/26,30/10/26 - VAFCUOG_110,Rate above 100%,Leads exceed Results,,1.125
+9643,2026-11-04,Main,CL.JU_T_D_W_27/9/26,27/10/26 - OLD_20,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9650,2026-11-04,Main,CL.JB_T_D_W_6/10/26,3/11/26 - VTRY_12,Rate above 100%,Leads exceed Results,,2
+9651,2026-11-04,Main,CL.JU_T_D_W_OG_26/10/26,27/10/26 - OLD_18,Rate above 100%,Leads exceed Results,,1.5
+9657,2026-11-04,Main,C.IN_L_D_W_BO_1/9/26,1/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.1666666666666667
+9668,2026-11-04,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFTR_69,Rate above 100%,Leads exceed Results,,1.2
+9674,2026-11-04,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.2
+9682,2026-11-04,Main,C.IN_T_E_W_OG_CT_28/10/26,28/10/26 - VAFCPOG_39,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9779,2026-11-04,Main,C.SBY_T_M_W_ 23/6/25,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.125
+9782,2026-11-04,Main,C.IN_T_D_W_CB_OG2_2/11/26,2/11/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.1014492753623188
+9789,2026-11-04,Main,C.IN_T_D_W_CB_NW1_2/11/26,2/11/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.1111111111111112
+9797,2026-11-04,Main,C.IN_T_D_W_CB_OG_AR2_3/11/26,3/11/26 - VACBEOE_88,Rate above 100%,Leads exceed Results,,1.5
+9808,2026-11-04,Main,BTR_T_D_W_OG_21/10/26,26/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,2
+9820,2026-11-04,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [85470],,
+9821,2026-11-04,Main,TMP_T_M_W_1/5/26,23/10/26 - IAFBE_64,Rate above 100%,Leads exceed Results,,1.5
+9836,2026-11-04,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+9836,2026-11-04,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+9848,2026-11-04,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [85470],,
+9866,2026-11-04,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.1304347826086956
+9887,2026-11-04,Secondary,TCT_T_D_W_BA_26/2/26,27/10/26 - IAFCUNG_29,Rate above 100%,Leads exceed Results,,1.0625
+9888,2026-11-04,Secondary,BHI_T_D_W_BA_OG_3/11/26,3/11/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,2
+9889,2026-11-04,Secondary,DPK_T_D_W_BA_ 14/2/26,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.3333333333333333
+9890,2026-11-04,Secondary,TCT_T_D_W_BA_OG_2/11/26,3/11/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.5
+9892,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+9893,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+9896,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+9899,2026-11-04,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,1.6666666666666667
+9908,2026-11-04,Secondary,TBT_T_D_W_BA_ 13/3/26,3/11/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+9911,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+9914,2026-11-04,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [85685],,
+9916,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+9917,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+9919,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+9920,2026-11-04,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [85685],,
+9926,2026-11-04,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+9935,2026-11-04,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [85493],,
+9941,2026-11-04,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [85493],,
+9956,2026-11-05,Main,BDG_T_M_W_ 1/12/25,9/9/26 - IAFBE_33,Rate above 100%,Leads exceed Results,,1.2
+9958,2026-11-05,Main,MDN_T_M_W_3/9/26,15/9/26 - OLD_14,Rate above 100%,Leads exceed Results,,2
+9969,2026-11-05,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,No matching report,Leads / Booking; report rows [],,
+9969,2026-11-05,Main,C.IN_T_E_W_AR_30/10/26,6/11/26 - IACBENE_39,Publish date after data date,Check the date prefix against Meta publish date,,
+10002,2026-11-05,Main,CKR_T_M_W_ 7/10/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,1.3333333333333333
+10026,2026-11-05,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,No matching report,Leads / Booking; report rows [],,
+10026,2026-11-05,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - IAFBENE_121,Publish date after data date,Check the date prefix against Meta publish date,,
+10104,2026-11-05,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.1666666666666667
+10105,2026-11-05,Main,C.IN_T_E_W_UKV_9/10/26,9/10/26 - VEXCU_21,Rate above 100%,Leads exceed Results,,1.5
+10136,2026-11-05,Main,SMG_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.03125
+10183,2026-11-05,Main,C.IN_T_D_W_CB_NW1_2/11/26,2/11/26 - VAFTR_52,Rate above 100%,Leads exceed Results,,1.04
+10200,2026-11-05,Main,BDG_T_D_W_OG_21/10/26,26/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [86205],,
+10213,2026-11-05,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_20,Rate above 100%,Leads exceed Results,,2
+10223,2026-11-05,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+10223,2026-11-05,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+10230,2026-11-05,Main,MKS_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,3
+10234,2026-11-05,Main,DSW_T_M_W_8/9/26,29/10/26 - IAFCU_11,Rate above 100%,Leads exceed Results,,1.2142857142857142
+10253,2026-11-05,Main,BDG_T_D_W_OG_21/10/26,29/10/26 - VAFCU_56,Ambiguous ad match,Leads / Booking; report rows [86205],,
+10256,2026-11-05,Main,C.SBY_T_M_W_ 23/6/25,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.0666666666666667
+10277,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+10278,2026-11-05,Secondary,BHI_T_D_W_BA_OG_3/11/26,3/11/26 - VAFCUOG_95,Rate above 100%,Leads exceed Results,,3
+10282,2026-11-05,Secondary,TCT_T_D_W_BA_26/2/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.1666666666666667
+10283,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+10285,2026-11-05,Secondary,TCT_T_D_W_BA_26/2/26,21/10/26 - IAFCPOG_9,Rate above 100%,Leads exceed Results,,1.1111111111111112
+10287,2026-11-05,Secondary,DPK_T_D_W_BA_ 14/2/26,3/11/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.3333333333333333
+10290,2026-11-05,Secondary,TCT_T_D_W_BA_26/2/26,3/11/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.3333333333333333
+10292,2026-11-05,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [86507],,
+10293,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+10295,2026-11-05,Secondary,BGR_T_D_W_BA_  4/3/26,14/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+10298,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+10304,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+10305,2026-11-05,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [86507],,
+10315,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+10318,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+10323,2026-11-05,Secondary,TBT_T_D_W_BA_ 13/3/26,8/10/26 - IACCU_7,Rate above 100%,Leads exceed Results,,2
+10326,2026-11-05,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+10327,2026-11-05,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [86281],,
+10332,2026-11-05,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [86281],,
+10367,2026-11-06,Main,C.IN_T_E_W_OG_AB_28/10/26,4/11/26 - IAFSCOG_47,Rate above 100%,Leads exceed Results,,2
+10381,2026-11-06,Main,BDG_T_M_W_ 1/12/25,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.125
+10389,2026-11-06,Main,BTR_T_M_W_4/4/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,2
+10412,2026-11-06,Main,BKP_T_M_W_ 23/9/26,10/10/26 - OLD_41,Rate above 100%,Leads exceed Results,,2
+10420,2026-11-06,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.5
+10454,2026-11-06,Main,CL.JB_T_D_W_6/10/26,28/10/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,2
+10457,2026-11-06,Main,CL.JB_T_D_W_6/10/26,26/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+10468,2026-11-06,Main,C.IN_T_E_W_CMR_13/10/26,26/10/26 - VAFCUOG_99,Rate above 100%,Leads exceed Results,,1.0555555555555556
+10578,2026-11-06,Main,BHI_L_D_W_ 21/1/26,28/10/26 - VAFCUOG_97,Rate above 100%,Leads exceed Results,,3
+10613,2026-11-06,Main,PJT_T_M_W_ 1/9/26,22/10/26 - VACBE_58,Rate above 100%,Leads exceed Results,,2
+10615,2026-11-06,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+10615,2026-11-06,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+10616,2026-11-06,Main,GLK_T_M_W_17/4/26,23/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.25
+10631,2026-11-06,Main,MKS_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0169491525423728
+10643,2026-11-06,Main,SMG_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.2105263157894737
+10670,2026-11-07,Main,BKP_T_M_W_ 23/9/26,23/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.2857142857142858
+10691,2026-11-07,Main,C.IN_T_E_W_TM_30/10/26,4/11/26 - IAFSCOG_44,Rate above 100%,Leads exceed Results,,1.1428571428571428
+10697,2026-11-07,Main,TMP_T_M_W_1/5/26,15/6/26 - VAFCU_16,Rate above 100%,Leads exceed Results,,1.6666666666666667
+10704,2026-11-07,Main,C.IN_T_E_W_VS_30/10/26,6/11/26 - VAFCUOG_114,Rate above 100%,Leads exceed Results,,1.3333333333333333
+10718,2026-11-07,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.7142857142857142
+10731,2026-11-07,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.1111111111111112
+10749,2026-11-07,Main,CL.JU_T_D_W_27/9/26,3/11/26 - IAFSCNG_46,Rate above 100%,Leads exceed Results,,2
+10777,2026-11-07,Main,CL.TGR_T_D_W_6/10/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.6666666666666667
+10847,2026-11-07,Main,MDN_T_M_W_3/9/26,4/11/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.3181818181818181
+10867,2026-11-07,Main,BHI_L_D_W_ 21/1/26,6/11/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.5
+10887,2026-11-07,Main,C.IN_T_D_W_CB_OG2_2/11/26,2/11/26 - VAFCU_85,Rate above 100%,Leads exceed Results,,1.0454545454545454
+10899,2026-11-07,Main,C.IN_T_D_W_CB_OG_AR2_3/11/26,3/11/26 - VACBEOG_80,Rate above 100%,Leads exceed Results,,1.0731707317073171
+10902,2026-11-07,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+10902,2026-11-07,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+10907,2026-11-07,Main,SMG_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,2.3333333333333335
+10914,2026-11-07,Main,C.SBY_T_M_W_ 23/6/25,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.0666666666666667
+10918,2026-11-07,Main,BDG_T_D_W_OG_21/10/26,28/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,3
+10932,2026-11-07,Main,BTR_T_D_W_OG_21/10/26,26/10/26 - IAFBEOE_101,Rate above 100%,Leads exceed Results,,2
+10941,2026-11-07,Main,CKR_T_M_W_ 7/10/25,28/10/26 - IAFBENG_93,Rate above 100%,Leads exceed Results,,1.25
+10942,2026-11-07,Main,BLI_T_D_W_OG_26/10/26,27/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.3333333333333333
+10955,2026-11-07,Main,SMG_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0212765957446808
+10964,2026-11-07,Main,DSW_T_M_W_8/9/26,29/10/26 - IAFCU_11,Rate above 100%,Leads exceed Results,,1.4285714285714286
+10984,2026-11-07,Secondary,TCT_T_D_W_BA_26/2/26,27/10/26 - IAFCUNG_29,Rate above 100%,Leads exceed Results,,1.2105263157894737
+10988,2026-11-07,Secondary,BGR_T_D_W_BA_  4/3/26,6/10/26 - IAFCU_23,Rate above 100%,Leads exceed Results,,1.125
+10989,2026-11-07,Secondary,TBT_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.1428571428571428
+10990,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+10991,2026-11-07,Secondary,TCT_T_D_W_BA_OG_2/11/26,3/11/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.25
+10993,2026-11-07,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [87945],,
+10994,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+10996,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+11000,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+11010,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+11018,2026-11-07,Secondary,TCT_T_D_W_BA_26/2/26,8/10/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.5
+11023,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+11024,2026-11-07,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [87535],,
+11033,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+11034,2026-11-07,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [87945],,
+11043,2026-11-07,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+11053,2026-11-07,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [87535],,
+11057,2026-11-08,Main,TMP_T_M_W_1/5/26,17/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+11083,2026-11-08,Main,C.IN_T_E_W_TM_30/10/26,4/11/26 - IAFSCOG_45,Rate above 100%,Leads exceed Results,,1.5
+11112,2026-11-08,Main,BDG_T_M_W_ 1/12/25,21/10/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.5
+11118,2026-11-08,Main,MDN_T_M_W_3/9/26,6/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,3.5
+11123,2026-11-08,Main,MDN_T_M_W_3/9/26,8/10/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.2272727272727273
+11132,2026-11-08,Main,CNR_T_D_W_EXT_16/10/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.1428571428571428
+11203,2026-11-08,Main,C.IN_T_E_W_TST_9/10/26,9/10/26 - VTRY_54,Rate above 100%,Leads exceed Results,,1.1538461538461537
+11269,2026-11-08,Main,C.IN_L_D_W_BO_1/9/26,29/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,2.5
+11287,2026-11-08,Main,C.IN_T_D_W_CB_NW1_2/11/26,2/11/26 - VACBE_3,Rate above 100%,Leads exceed Results,,1.1818181818181819
+11288,2026-11-08,Main,C.IN_T_D_W_CB_NW1_2/11/26,2/11/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.4
+11302,2026-11-08,Main,YOG_T_M_W_21/11/25,26/10/26 - IAFBENE_104,Rate above 100%,Leads exceed Results,,3
+11322,2026-11-08,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,No matching report,Leads / Booking; report rows [],,
+11322,2026-11-08,Main,CBN_T_M_W_1/5/26,9/11/26 - IAFSCNG_46,Publish date after data date,Check the date prefix against Meta publish date,,
+11328,2026-11-08,Main,CKR_T_M_W_ 7/10/25,26/10/26 - IEXPC_5,Rate above 100%,Leads exceed Results,,3
+11347,2026-11-08,Main,MKS_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0149253731343284
+11359,2026-11-08,Main,BKP_T_M_W_ 23/9/26,28/10/26 - IAFBENG_93,Rate above 100%,Leads exceed Results,,1.3333333333333333
+11380,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+11387,2026-11-08,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [88885],,
+11390,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+11394,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+11395,2026-11-08,Secondary,TBT_T_D_W_BA_OG_2/11/26,3/11/26 - IAFBE_21,Rate above 100%,Leads exceed Results,,1.5
+11397,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+11402,2026-11-08,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+11405,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+11410,2026-11-08,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [88885],,
+11414,2026-11-08,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [88710],,
+11418,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+11426,2026-11-08,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,2
+11436,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+11437,2026-11-08,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+11445,2026-11-08,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [88710],,
+11453,2026-11-06,Secondary,DPK_T_D_W_BA_ 14/2/26,16/10/26 - VAFCU_85,Rate above 100%,Leads exceed Results,,1.2222222222222223
+11456,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+11459,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+11462,2026-11-06,Secondary,TBT_T_D_W_BA_ 13/3/26,11/8/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1
+11464,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+11467,2026-11-06,Secondary,TCT_T_D_W_BA_26/2/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.1428571428571428
+11472,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+11473,2026-11-06,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [87933],,
+11475,2026-11-06,Secondary,TBT_T_D_W_BA_ 13/3/26,1/4/26 - VTRY_12,Rate above 100%,Leads exceed Results,,1.5
+11480,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+11486,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+11490,2026-11-06,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [87933],,
+11497,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+11498,2026-11-06,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [87557],,
+11508,2026-11-06,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+11523,2026-11-06,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [87557],,
+11566,2026-10-05,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.2222222222222223
+11596,2026-10-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,1.25
+11618,2026-10-10,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - VTRY_77,Rate above 100%,Leads exceed Results,,2
+11631,2026-10-11,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,3
+11639,2026-10-12,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+11640,2026-10-12,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - VAFTR_142,Rate above 100%,Leads exceed Results,,1.5
+11660,2026-10-14,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+11663,2026-10-14,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+11680,2026-10-16,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2
+11683,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5833333333333333
+11684,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.8181818181818181
+11685,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.3333333333333333
+11686,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,1.25
+11687,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,1.5
+11688,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,2
+11689,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,3
+11690,2026-10-17,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - VEXPC_4,Rate above 100%,Leads exceed Results,,2
+11691,2026-10-18,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.6923076923076923
+11692,2026-10-18,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.7142857142857142
+11693,2026-10-18,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.2
+11699,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3157894736842106
+11700,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.066666666666667
+11701,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+11702,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,2
+11703,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,2
+11704,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,2
+11706,2026-10-19,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - VEXPC_4,Rate above 100%,Leads exceed Results,,2
+11707,2026-10-20,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5263157894736843
+11708,2026-10-20,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.7058823529411764
+11710,2026-10-20,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11712,2026-10-20,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,3
+11714,2026-10-20,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+11718,2026-10-21,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.588235294117647
+11719,2026-10-21,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2
+11722,2026-10-21,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,3
+11724,2026-10-21,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,1.3333333333333333
+11725,2026-10-21,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,4
+11729,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.3636363636363635
+11730,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.5
+11731,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,2
+11732,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11735,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_48,Rate above 100%,Leads exceed Results,,3
+11737,2026-10-22,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+11743,2026-10-23,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.6363636363636365
+11744,2026-10-23,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.2857142857142856
+11747,2026-10-23,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11752,2026-10-23,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,2
+11756,2026-10-23,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - VACBEOE_62,Rate above 100%,Leads exceed Results,,2
+11757,2026-10-24,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2
+11758,2026-10-24,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.4166666666666667
+11760,2026-10-24,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+11766,2026-10-24,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,2
+11767,2026-10-24,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+11771,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.1
+11772,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,2.1818181818181817
+11774,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+11775,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11778,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+11780,2026-10-25,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+11785,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.4705882352941178
+11788,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,3
+11789,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11791,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+11795,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,2
+11796,2026-10-26,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - VEXPC_4,Rate above 100%,Leads exceed Results,,2
+11799,2026-10-27,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.4545454545454546
+11800,2026-10-27,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.4285714285714286
+11802,2026-10-27,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.7777777777777777
+11806,2026-10-27,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,3
+11807,2026-10-27,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,3
+11813,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.1333333333333333
+11814,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2
+11815,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.5
+11816,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,2
+11817,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,3
+11819,2026-10-28,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+11821,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.35
+11822,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,1.3333333333333333
+11823,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2
+11825,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.4285714285714286
+11826,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.5
+11827,2026-10-29,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+11830,2026-10-30,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.5
+11831,2026-10-30,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,1.2
+11832,2026-10-30,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11833,2026-10-30,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,3
+11836,2026-10-30,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Rate above 100%,Leads exceed Results,,3
+11837,2026-10-31,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.5217391304347827
+11838,2026-10-31,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,2
+11839,2026-10-31,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.3333333333333335
+11840,2026-10-31,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,1.2
+11841,2026-10-31,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.6
+11845,2026-11-01,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.0833333333333333
+11846,2026-11-01,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IACCU_2,Rate above 100%,Leads exceed Results,,1.8888888888888888
+11847,2026-11-01,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Rate above 100%,Leads exceed Results,,1.5
+11848,2026-11-01,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+11849,2026-11-01,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,2.5
+11850,2026-11-01,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.2
+11853,2026-11-01,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,2
+11856,2026-11-01,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+11858,2026-11-01,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Rate above 100%,Leads exceed Results,,2
+11864,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [84444],,
+11865,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [84431],,
+11866,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Ambiguous ad match,Leads / Booking; report rows [84410],,
+11867,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Ambiguous ad match,Leads / Booking; report rows [84393],,
+11868,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [83831, 84392]",,
+11869,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [84403],,
+11870,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [84444],,
+11871,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [84431],,
+11872,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_10,Ambiguous ad match,"Leads / Booking; report rows [83833, 84342]",,
+11873,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_20,Ambiguous ad match,"Leads / Booking; report rows [83820, 84325]",,
+11874,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [84403],,
+11875,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [84323],,
+11876,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [84300],,
+11877,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [84287],,
+11878,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - IAFSC_37,Ambiguous ad match,"Leads / Booking; report rows [83835, 84262]",,
+11879,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [84275],,
+11880,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [84323],,
+11881,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - OLD_125,Ambiguous ad match,Leads / Booking; report rows [84410],,
+11882,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - OLD_18,Ambiguous ad match,"Leads / Booking; report rows [83763, 84238]",,
+11883,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [84287],,
+11884,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [84275],,
+11885,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_9,Ambiguous ad match,Leads / Booking; report rows [84393],,
+11886,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [84300],,
+11887,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - OLD_10,Ambiguous ad match,"Leads / Booking; report rows [83833, 84342]",,
+11888,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84207],,
+11889,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - OLD_20,Ambiguous ad match,"Leads / Booking; report rows [83820, 84325]",,
+11890,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [83831, 84392]",,
+11891,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [84170],,
+11892,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84201],,
+11893,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84207],,
+11894,2026-11-02,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84201],,
+11895,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - IAFSC_37,Ambiguous ad match,"Leads / Booking; report rows [83835, 84262]",,
+11898,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84077],,
+11899,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_83,Ambiguous ad match,Leads / Booking; report rows [84045],,
+11900,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_18,Ambiguous ad match,"Leads / Booking; report rows [83763, 84238]",,
+11902,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_83,Ambiguous ad match,Leads / Booking; report rows [84045],,
+11903,2026-11-02,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84077],,
+11904,2026-11-02,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [84170],,
+11907,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [85136],,
+11908,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - OLD_125,Ambiguous ad match,Leads / Booking; report rows [85121],,
+11909,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85118],,
+11910,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85088],,
+11911,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [85059],,
+11912,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [84485, 85041]",,
+11913,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [85009],,
+11914,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - OLD_20,Ambiguous ad match,Leads / Booking; report rows [84999],,
+11915,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - OLD_10,Ambiguous ad match,Leads / Booking; report rows [85000],,
+11916,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [84995],,
+11917,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [84957],,
+11918,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84949],,
+11919,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84945],,
+11920,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_9,Ambiguous ad match,Leads / Booking; report rows [84870],,
+11921,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_83,Ambiguous ad match,Leads / Booking; report rows [84822],,
+11922,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84813],,
+11923,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85088],,
+11924,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84773],,
+11925,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - OLD_18,Ambiguous ad match,Leads / Booking; report rows [84769],,
+11926,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85118],,
+11927,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - OLD_125,Ambiguous ad match,Leads / Booking; report rows [85121],,
+11928,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [84485, 85041]",,
+11929,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [84680],,
+11930,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_20,Ambiguous ad match,Leads / Booking; report rows [84999],,
+11931,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [84995],,
+11932,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Ambiguous ad match,Leads / Booking; report rows [84870],,
+11933,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_10,Ambiguous ad match,Leads / Booking; report rows [85000],,
+11934,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [85136],,
+11935,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - OLD_10,Ambiguous ad match,Leads / Booking; report rows [85000],,
+11936,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84945],,
+11937,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [85059],,
+11938,2026-11-03,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [84957],,
+11939,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_83,Ambiguous ad match,Leads / Booking; report rows [84822],,
+11940,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_33,Ambiguous ad match,Leads / Booking; report rows [85009],,
+11941,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84813],,
+11942,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [84485, 85041]",,
+11943,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - OLD_18,Ambiguous ad match,Leads / Booking; report rows [84769],,
+11944,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - OLD_20,Ambiguous ad match,Leads / Booking; report rows [84999],,
+11945,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_1/11/26,1/11/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [84680],,
+11946,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [84949],,
+11947,2026-11-03,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IAFSC_37,Ambiguous ad match,Leads / Booking; report rows [84773],,
+11948,2026-11-03,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - VAFCU_89,Ambiguous ad match,Leads / Booking; report rows [84680],,
+11950,2026-11-04,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85832],,
+11951,2026-11-04,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [85239, 85786]",,
+11952,2026-11-04,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,3/11/26 - OLD_10,Rate above 100%,Leads exceed Results,,1.5
+11953,2026-11-04,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.2
+11956,2026-11-04,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+11978,2026-11-04,Third,ALLS-ENG-BLI_T_D_W_TA_ 1/11/26,1/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [85832],,
+11979,2026-11-04,Third,ALLS-ENG-JU_T_D_W_TA_2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,"Leads / Booking; report rows [85239, 85786]",,
+11991,2026-11-05,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.5
+11992,2026-11-05,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,2
+11997,2026-11-05,Third,ALLS-ENG-BLI_T_D_W_TA_ 2/11/26,4/11/26 - VAFCUOG_108,Rate above 100%,Leads exceed Results,,2
+12007,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [88142],,
+12010,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - VAFCUOG_115,Ambiguous ad match,Leads / Booking; report rows [88062],,
+12011,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [88142],,
+12014,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [87998],,
+12015,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [88033],,
+12019,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [88033],,
+12025,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [87646],,
+12027,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,5/11/26 - VAFCUOG_115,Ambiguous ad match,Leads / Booking; report rows [88062],,
+12029,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [87998],,
+12030,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [88142],,
+12036,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [87998],,
+12037,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - VAFCPOG_39,Ambiguous ad match,Leads / Booking; report rows [87166],,
+12038,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [87205],,
+12039,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFTR_23,Ambiguous ad match,Leads / Booking; report rows [87205],,
+12041,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - ITRY_1,Ambiguous ad match,Leads / Booking; report rows [87646],,
+12042,2026-11-06,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,4/11/26 - VAFCPOG_39,Ambiguous ad match,Leads / Booking; report rows [87166],,
+12050,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,29/9/26 - IAFPC_9,Rate above 100%,Leads exceed Results,,1.1
+12054,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Rate above 100%,Leads exceed Results,,2
+12055,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [87875],,
+12063,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [87676],,
+12064,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [87676],,
+12065,2026-11-07,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [87875],,
+12077,2026-11-08,Third,ALLS-ENG-JU_T_D_W_TA_3/11/26,4/11/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.2
+12078,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [88911],,
+12085,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [88819],,
+12086,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [88819],,
+12089,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [88755],,
+12096,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [88755],,
+12106,2026-11-08,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [88911],,
+12107,2026-11-09,Main,C.SBY_T_M_W_ 23/6/25,21/5/26 - ITRY_1,Rate above 100%,Leads exceed Results,,1.3333333333333333
+12162,2026-11-09,Main,TMI_T_M_W_8/9/26,21/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,3
+12176,2026-11-09,Main,BKP_T_M_W_ 23/9/26,14/10/26 - IAFPC_10,Rate above 100%,Leads exceed Results,,1.5
+12179,2026-11-09,Main,CBN_T_M_W_1/5/26,16/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,1.0909090909090908
+12180,2026-11-09,Main,CBN_T_M_W_1/5/26,16/10/26 - VAFCU_89,Rate above 100%,Leads exceed Results,,1.5
+12187,2026-11-09,Main,YOG_T_M_W_21/11/25,19/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,2
+12188,2026-11-09,Main,BTR_T_M_W_4/4/25,20/10/26 - VAFCU_82,Rate above 100%,Leads exceed Results,,2
+12200,2026-11-09,Main,CL.JB_T_D_W_6/10/26,5/11/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.5
+12215,2026-11-09,Main,CL.JB_T_D_W_6/10/26,3/11/26 - IAFBE_76,Rate above 100%,Leads exceed Results,,1.1666666666666667
+12221,2026-11-09,Main,CL.JB_T_D_W_6/10/26,6/10/26 - VAFCU_56,Rate above 100%,Leads exceed Results,,2
+12330,2026-11-09,Main,BHI_L_D_W_ 21/1/26,29/10/26 - VAFCUOG_95,Rate above 100%,Leads exceed Results,,1.3333333333333333
+12334,2026-11-09,Main,BHI_L_D_W_ 21/1/26,6/11/26 - IAFCU_25,Rate above 100%,Leads exceed Results,,1.3333333333333333
+12353,2026-11-09,Main,YOG_T_M_W_21/11/25,9/11/26 - VACBE_3,Rate above 100%,Leads exceed Results,,1.25
+12378,2026-11-09,Main,BLI_T_D_W_OG_26/10/26,28/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,2
+12410,2026-11-09,Main,SMG_T_M_W_28/10/26,28/10/26 - IEXBE_13,Rate above 100%,Leads exceed Results,,1.1666666666666667
+12450,2026-11-09,Main,MKS_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.015625
+12451,2026-11-09,Main,SMG_T_M_W_28/10/26,4/11/26 - OLD_529,Rate above 100%,Leads exceed Results,,1.0943396226415094
+12470,2026-11-09,Secondary,DPK_T_D_W_BA_ 14/2/26,22/10/26 - VEXTR_30,Rate above 100%,Leads exceed Results,,2
+12471,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+12475,2026-11-09,Secondary,TCT_T_D_W_BA_26/2/26,13/10/26 - VAFBE_33,Rate above 100%,Leads exceed Results,,1.7692307692307692
+12476,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VEXTR_30,No matching report,Leads / Booking; report rows [],,
+12477,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VACBE_58,No matching report,Leads / Booking; report rows [],,
+12485,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFBE_21,No matching report,Leads / Booking; report rows [],,
+12497,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_89,No matching report,Leads / Booking; report rows [],,
+12500,2026-11-09,Secondary,TBT_T_D_W_BA_ 13/3/26,10/10/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [89495],,
+12501,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_56,No matching report,Leads / Booking; report rows [],,
+12504,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - IAFSC_39,No matching report,Leads / Booking; report rows [],,
+12515,2026-11-09,Secondary,BGR_T_D_W_BA_OG_2/11/26,2/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [89409],,
+12527,2026-11-09,Secondary,BGR_T_D_W_BA_OG_2/11/26,3/11/26 - VEXTR_30,Ambiguous ad match,Leads / Booking; report rows [89409],,
+12528,2026-11-09,Secondary,DPK_T_D_W_BA_ OG_3/11/26,3/11/26 - VAFCU_60,No matching report,Leads / Booking; report rows [],,
+12536,2026-11-09,Secondary,TBT_T_D_W_BA_ 13/3/26,4/11/26 - OLD_14,Ambiguous ad match,Leads / Booking; report rows [89495],,
+12543,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [89677],,
+12545,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,28/9/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [89630],,
+12546,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - VAFCUOG_115,Rate above 100%,Leads exceed Results,,1.3333333333333333
+12549,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,20/10/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [89565],,
+12554,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,22/10/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [89514],,
+12561,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFPC_10,Ambiguous ad match,Leads / Booking; report rows [89514],,
+12565,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 28/9/26,6/11/26 - IAFBE_76,Ambiguous ad match,Leads / Booking; report rows [89565],,
+12571,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IAFBE_3,Ambiguous ad match,Leads / Booking; report rows [89677],,
+12572,2026-11-09,Third,ALLS-ENG-BGR_T_D_W_TA_ 2/11/26,2/11/26 - IACCU_2,Ambiguous ad match,Leads / Booking; report rows [89630],,

@@ -1,0 +1,71 @@
+<!doctype html><html lang="id"><meta charset="utf-8"><style>
+body{font:14px/1.5 Arial,sans-serif;color:#193c32;padding:8px 16px;background:#f7f9f6}h2{margin:4px 0 8px}p{margin:8px 0;color:#54665e}label{display:block;margin:12px 0 4px}select,input{box-sizing:border-box;width:100%;padding:9px;border:1px solid #cbd6ce;border-radius:6px;background:white;color:#193c32}.dates{display:flex;gap:12px}.dates label{flex:1}.buttons{display:flex;gap:10px;margin-top:18px}button{padding:10px 18px;border:1px solid #b8cbbf;border-radius:7px;background:white;cursor:pointer;font-weight:bold}#apply{background:#245b47;color:white}button:disabled{opacity:.45;cursor:default}.status{margin-top:18px;padding:14px;border:1px solid #d4ddd5;border-radius:8px;background:white}.status.success{background:#e5f4e9;border-color:#6ca980}.status.warning{background:#fff9e9;border-color:#d6b768}.status.error{background:#fff0ed;border-color:#c67d70}#heading{font-weight:bold;font-size:16px}#details{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 Arial;margin:8px 0 0}progress{display:block;width:100%;height:12px;margin-top:10px;accent-color:#29774f}progress[hidden],[hidden]{display:none!important}#elapsed{font-size:12px;color:#586c60;margin-top:8px}#hint{font-size:12px}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #81ae91;outline-offset:2px}
+</style><body><h2 id="title">Import Meta Ads</h2><p id="intro">Upload CSV export Meta dengan breakdown Day.</p><p>Tunggu pesan <b>Import completed</b> sebelum menutup jendela.</p>
+<p id="destination">Destination: Raw Data → Dashboard.</p>
+<label for="source">Source</label><select id="source"><option>SE Main</option><option>SE Secondary</option><option>SE Third</option><option>SLSA</option><option>Daily Report</option></select>
+<label for="file">CSV file</label><input id="file" type="file" accept=".csv">
+<label for="mode">Mode</label><select id="mode"><option value="upsert">Update ads in file</option><option value="replace">Replace complete source / date range</option></select>
+<div class="dates"><label>Start date<input type="date" id="start"></label><label>End date<input type="date" id="end"></label></div>
+<div class="buttons"><button id="preview" onclick="preview()">Preview</button><button id="apply" disabled onclick="apply()">Import</button><button id="check" hidden onclick="checkStatus()">Check status</button></div>
+<section id="status" class="status" aria-busy="false"><div id="heading" role="status" aria-live="polite">Ready to preview</div><progress id="progress" max="100" hidden aria-label="Import progress"></progress><div id="elapsed" hidden></div><pre id="details">Pilih sumber dan file, lalu klik Preview.</pre><p id="hint"></p></section>
+<script>
+let text='',token='',requestId='',busy=false,timer=null,pollTimer=null,checking=false,started=0,stage='idle',submissionPending=false;
+const el=id=>document.getElementById(id);
+function lock(value){busy=value;document.querySelectorAll('input,select').forEach(e=>e.disabled=value);el('preview').disabled=value;el('apply').disabled=value||!token;el('status').setAttribute('aria-busy',String(value));}
+function show(kind,title,details,hint=''){el('status').className='status '+kind;el('heading').textContent=title;el('details').textContent=details;el('hint').textContent=hint;el('check').hidden=!requestId||['idle','read','preview','success'].includes(stage);}
+function tick(){const seconds=Math.floor((Date.now()-started)/1000);el('elapsed').textContent='Elapsed: '+Math.floor(seconds/60)+'m '+seconds%60+'s';if(stage==='import'&&seconds>=360)el('hint').textContent='Menunggu konfirmasi Import ID ini. Jangan impor ulang. Status diperiksa otomatis; jika tetap belum selesai, periksa Apps Script → Executions.';else if(stage==='import'&&el('source').value==='Daily Report'&&seconds>=120)el('hint').textContent='Target 2 menit terlewati. Proses belum dikonfirmasi selesai; tahap terakhir ditampilkan di atas. Jangan impor ulang selama proses berjalan.';}
+function begin(next,title,description){stage=next;started=Date.now();clearInterval(timer);lock(true);show('',title,description);el('progress').hidden=false;el('progress').removeAttribute('value');el('elapsed').hidden=false;tick();timer=setInterval(tick,1000);}
+function stop(){clearInterval(timer);clearTimeout(pollTimer);timer=null;pollTimer=null;lock(false);}
+function sourceHelp(){const daily=el('source').value==='Daily Report';el('title').textContent=daily?'Import Daily Report':'Import Meta Ads';el('intro').textContent=daily?'Upload export harian dengan calendar_date. Data mulai 1 Juli 2026.':'Upload CSV export Meta dengan breakdown Day.';el('destination').textContent=daily?'Destination: Copy of Daily Report → Leads / Booking dashboard.':'Destination: Raw Data → Dashboard. Tab Import hanya untuk paste manual.';el('mode').options[0].textContent=daily?'Update ad / dates in file':'Update ads in file';el('mode').options[1].textContent=daily?'Replace all centers / date range':'Replace complete source / date range';}
+function changed(){if(busy)return;stop();sourceHelp();requestId='';token='';stage='idle';el('apply').disabled=true;el('progress').hidden=true;el('elapsed').hidden=true;show('','Ready to preview','Pilihan berubah. Klik Preview untuk memeriksa file.');}
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('change',changed));
+sourceHelp();
+function completed(r){
+ token='';submissionPending=false;stop();stage='success';el('progress').hidden=false;el('progress').value=100;
+ show('success','✓ Import completed · 100%',r.message||'Data tersimpan.',`Import ID: ${requestId}. SUCCESS terkonfirmasi untuk impor ini. Anda boleh menutup jendela atau mengimpor account berikutnya.`);
+}
+function scheduleCheck(delay=5000){clearTimeout(pollTimer);if(['import','busy','checking'].includes(stage))pollTimer=setTimeout(()=>checkStatus(),delay);}
+function receiveStatus(r){
+ if(!r||r.requestId!==requestId||stage==='success')return;
+ if(r.state==='SUCCESS'&&r.done===true){completed(r);return;}
+ if(r.state==='FAILED'){token='';submissionPending=false;stop();stage='error';el('progress').hidden=true;show('error','Import failed',r.message||'Periksa Import Log.',`Import ID: ${requestId}`);return;}
+ if(stage==='busy'&&!submissionPending&&r.ready&&r.state==='NOT_STARTED'){
+  stop();stage='preview';el('progress').hidden=true;show('','Ready to import','Importer sudah tersedia. File ini belum diimpor.','Klik Import untuk melanjutkan; Preview sebelumnya tetap valid.');return;
+ }
+ if(r.state==='RUNNING'){
+  stage='import';lock(true);show('','Import in progress',r.stage||'Server sedang memproses impor.',`Import ID: ${requestId}`);scheduleCheck();return;
+ }
+ if(r.state==='UNCONFIRMED'||(!submissionPending&&stage==='checking'&&r.state==='NOT_STARTED')){
+  token='';stop();stage='unconfirmed';el('progress').hidden=true;show('warning','Status needs checking',r.message||'Belum ada konfirmasi untuk Import ID ini.','Gunakan Check status atau periksa Import Log / Executions sebelum mengulang.');return;
+ }
+ if(r.state==='BUSY')show('warning',submissionPending?'Waiting for importer':'Importer busy',r.activeSource?`Proses ${r.activeSource} sedang memakai importer.`:'Importer sedang dipakai proses lain.',submissionPending?'Permintaan sedang diperiksa.': 'File ini belum diimpor. Menunggu importer tersedia; tidak ada penulisan ulang otomatis.');
+ scheduleCheck();
+}
+function checkStatus(){
+ if(!requestId||checking||stage==='success')return;const id=requestId;checking=true;el('check').disabled=true;
+ google.script.run.withSuccessHandler(r=>{checking=false;el('check').disabled=false;if(id===requestId)receiveStatus(r);})
+ .withFailureHandler(e=>{checking=false;el('check').disabled=false;if(id!==requestId||stage==='success')return;el('hint').textContent='Pengecekan status belum terhubung. Gunakan Check status atau periksa Import Log / Executions. Import ID: '+id;scheduleCheck(10000);}).getImportStatus(id);
+}
+function failed(error,importing){
+ const message=error&&error.message?error.message:String(error);
+ if(importing&&requestId){submissionPending=false;stage='checking';lock(true);show('warning','Checking import status',message,'Memastikan hasil berdasarkan Import ID, bukan catatan sukses account lain.');checkStatus();scheduleCheck();return;}
+ token='';stop();stage='error';el('progress').hidden=true;show('error','Preview failed',message,'Perbaiki file atau pilihan, lalu klik Preview lagi.');
+}
+function request(confirm){
+ const importing=!!confirm,id=requestId;if(importing)submissionPending=true;
+ google.script.run.withSuccessHandler(r=>{
+  if(id!==requestId||stage==='success')return;
+  if(importing){submissionPending=false;if(r?.state==='BUSY'){stage='busy';lock(true);receiveStatus(r);return;}if(r?.done===true&&r.requestId===id){completed(r);return;}failed(new Error('Server belum mengonfirmasi hasil impor ini.'),true);}
+  else{token=r.token||'';requestId=r.requestId||'';stop();stage='preview';el('apply').disabled=!token||!requestId;el('progress').hidden=true;show('','Preview ready — not imported yet',r.summary||'Tidak ada ringkasan.','Klik Import untuk menyimpan.');}
+ }).withFailureHandler(e=>{if(id===requestId&&stage!=='success')failed(e,importing);}).uploadCsv(el('source').value,text,el('mode').value,el('start').value,el('end').value,confirm,id);
+}
+function preview(){
+ if(busy)return;const file=el('file').files[0];if(!file){show('error','Choose a CSV file','Pilih file sebelum klik Preview.');return;}if(file.size>10000000){failed(new Error('File terlalu besar; bagi menjadi rentang tanggal lebih pendek.'),false);return;}
+ token='';requestId='';begin('read','Reading file','Membaca '+file.name);const reader=new FileReader();
+ reader.onprogress=e=>{if(e.lengthComputable){el('progress').value=e.loaded/e.total*100;el('heading').textContent='Reading file · '+Math.round(e.loaded/e.total*100)+'%';}};
+ reader.onerror=()=>failed(new Error('File tidak dapat dibaca. Pilih file kembali.'),false);reader.onabort=()=>failed(new Error('Pembacaan file dibatalkan.'),false);
+ reader.onload=()=>{text=reader.result;stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);
+}
+function apply(){if(busy||!token||!requestId)return;begin('import','Import in progress','Memvalidasi dan menyimpan perubahan.');request(token);scheduleCheck();}
+
+</script></body></html>

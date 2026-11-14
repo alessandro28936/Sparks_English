@@ -1,0 +1,73 @@
+(()=>{
+ const checks=[],check=(name,value)=>{checks.push({name,ok:!!value});if(!value)throw Error(name);},near=(a,b)=>Math.abs(a-b)<1e-8;
+ const make=(day,spend=100000,results=10,leads=8,booking=2,extra={})=>A.normalize([{'Campaign name':'Traffic_WA_Main','Ad set name':'BHI_T_M_W','Ad name':'1/10/26 - TEST','Reporting starts':day,'Ad delivery':'active','Amount spent (IDR)':spend,Results:results,Leads:leads,Booking:booking,'Result type':'Messaging conversations started','Week Num':day<'2026-11-09'?45:46,...extra}])[0];
+ // Reproduce the user's two displayed weeks, plus misleading earlier days that must NOT become the reference.
+ const prior=[make('2026-11-06',10000,3,2,0),make('2026-11-07',10000,3,2,0),make('2026-11-08',12620,3,2,1)];
+ const current=[make('2026-11-09',50000,7,6,2),make('2026-11-10',50000,7,6,2),make('2026-11-11',50000,7,7,3),make('2026-11-12',61561,7,7,3)];
+ const hidden=[2,3,4,5].map((d,i)=>make('2026-11-0'+d,200000,18,20,i===0?5:4));
+ const own=[...prior,...current],allOwn=[...hidden,...own],peers=allOwn.map(r=>({...r,ad:'PEER',spend:3*r.spend})),otherAccount=allOwn.map(r=>({...r,account:'Secondary',spend:999999,leads:999}));
+ const g={ad:'1/10/26 - TEST',items:own,history:{published:'2026-10-28'}},source=[...allOwn,...peers,...otherAccount];
+ const build=(grain,visible=own,all=source,from='2026-11-06',to='2026-11-12')=>AdPeriods.build(g,visible,all,grain,from,to);
+ const weeks=build('weekly'),weekly=weeks[0],daily=build('daily');
+ check('Weekly uses sheet Week Num',weekly.weekNum===46&&weeks[1].weekNum===45);
+ check('Screenshot counts reconcile',weekly.results===28&&weekly.leads===26&&weekly.booking===10&&weeks[1].booking===1);
+ check('Weekly costs use period sums',near(weekly.cpr,211561/28)&&near(weekly.cpl,211561/26)&&near(weekly.cpb,211561/10));
+ check('Conversions use correct totals',near(weekly.leadRate,26/28*100)&&near(weekly.bookingRate,10/26*100));
+ check('Share uses same account full adset spend',weekly.share===25);
+ check('Visible earlier row is reference',weekly.reference.start==='2026-11-06'&&weekly.reference.end==='2026-11-08'&&weekly.reference.booking===1);
+ check('Hidden 17 Bookings never become reference',weekly.reference.booking!==hidden.reduce((n,r)=>n+r.booking,0));
+ check('Booking 1 to 10 increases 900 percent',AdPeriods.change(weekly,'booking').tone==='better'&&near(AdPeriods.change(weekly,'booking').pct,900));
+ check('Results 9 to 28 increases',AdPeriods.change(weekly,'results').tone==='better'&&near(AdPeriods.change(weekly,'results').pct,(28/9-1)*100));
+ check('Leads 6 to 26 increases',AdPeriods.change(weekly,'leads').tone==='better'&&near(AdPeriods.change(weekly,'leads').pct,(26/6-1)*100));
+ check('CPR actually increases and is red',AdPeriods.change(weekly,'cpr').tone==='worse');
+ check('CPL actually increases and is red',AdPeriods.change(weekly,'cpl').tone==='worse');
+ check('CPB decreases 35.14 percent and is green',AdPeriods.change(weekly,'cpb').tone==='better'&&near(AdPeriods.change(weekly,'cpb').pct,(21156.1/32620-1)*100));
+ check('Lead conversion uses points',near(AdPeriods.change(weekly,'leadRate').points,26/28*100-6/9*100));
+ check('Booking conversion increases with points',AdPeriods.change(weekly,'bookingRate').tone==='better'&&near(AdPeriods.change(weekly,'bookingRate').points,10/26*100-1/6*100));
+ check('Spend and share are neutral',AdPeriods.change(weekly,'spend').tone==='neutral'&&AdPeriods.change(weekly,'share').tone==='neutral');
+ check('Earliest week has no hidden baseline',weeks[1].reference===null&&AdPeriods.change(weeks[1],'booking').tone==='neutral'&&AdPeriods.change(weeks[1],'booking').pct===undefined);
+ check('Daily dates respect selection',daily.length===7&&daily[0].start==='2026-11-12'&&daily.at(-1).start==='2026-11-06');
+ check('Daily reference is adjacent day shown',daily[0].reference.start==='2026-11-11'&&daily.at(-1).reference===null);
+ check('Daily averages change displayed count',AdPeriods.reading(weekly,'booking','average').value===2.5&&near(AdPeriods.reading(weekly.reference,'booking','average').value,1/3));
+ check('Daily average comparison matches display',near(AdPeriods.change(weekly,'booking','average').pct,650));
+ check('Costs do not get divided by days',AdPeriods.reading(weekly,'cpb','average').value===weekly.cpb);
+ check('Ratios do not get divided by days',AdPeriods.reading(weekly,'bookingRate','average').value===weekly.bookingRate);
+ const missing=own.map((r,i)=>({...r,booking:i===4?null:r.booking})),incomplete=build('weekly',missing,[...hidden,...missing,...peers])[0];
+ check('Incomplete CPB remains unavailable and unscored',incomplete.cpb===null&&AdPeriods.change(incomplete,'cpb').tone==='neutral');
+ check('Incomplete booking count is not scored',AdPeriods.change(incomplete,'booking').pct===undefined);
+ const gaps=build('daily',own.filter(r=>r.day!=='2026-11-11'));
+ check('Missing daily row stays missing',gaps[1].rows===0&&AdPeriods.reading(gaps[1],'results').value===null);
+ check('Missing day is not skipped for comparison',gaps[0].reference.rows===0&&AdPeriods.change(gaps[0],'results').tone==='neutral');
+ check('Missing weekly day is unscored',AdPeriods.change(build('weekly',own.filter(r=>r.day!=='2026-11-11'))[0],'booking').tone==='neutral');
+ check('Account rows never combine',build('weekly',[...own,...otherAccount])[0].leads===26);
+ check('Ad age stays as of row end',weekly.age===16&&weeks[1].age===12);
+ check('Weekly and daily totals reconcile',weeks.reduce((n,p)=>n+p.spend,0)===daily.reduce((n,p)=>n+p.spend,0));
+ const zeroStart=daily.find(p=>p.start==='2026-11-08');
+ check('Known 0 to 1 improves without infinity',AdPeriods.change(zeroStart,'booking').tone==='better'&&AdPeriods.change(zeroStart,'booking').zeroBaseline&&AdPeriods.change(zeroStart,'booking').pct===undefined);
+ check('Zero to zero is unchanged',AdPeriods.change(daily.find(p=>p.start==='2026-11-07'),'booking').pct===0);
+ // Test rendered values for the exact reported regression, not just the helper math.
+ const saved={rows,selected,from:$('startFilter').value,to:$('endFilter').value,grain:detailPeriodGrain,mode:detailPeriodMode};
+ try{
+   rows=source;selected=own;$('startFilter').value='2026-11-06';$('endFilter').value='2026-11-12';detailPeriodGrain='weekly';detailPeriodMode='totals';
+   const box=document.createElement('div');box.innerHTML=renderAdPeriods(g);window.adPeriodRegressionHtml=box.innerHTML;
+   const booking=box.querySelector('[data-ad-period-start="2026-11-09"] [data-ad-period-metric="booking"]');
+   check('Rendered Booking is 10, green, +900%, vs 1',booking.querySelector('b').textContent==='10'&&booking.classList.contains('better')&&booking.querySelector('.period-delta').textContent.includes('900')&&booking.querySelector('.ad-period-reference').textContent==='vs 1');
+   check('Rendered oldest week has no trend color',![...box.querySelectorAll('[data-ad-period-start="2026-11-06"] .ad-period-cell')].some(e=>e.classList.contains('better')||e.classList.contains('worse')));
+   detailPeriodMode='average';box.innerHTML=renderAdPeriods(g);
+   const avg=box.querySelector('[data-ad-period-start="2026-11-09"] [data-ad-period-metric="booking"]');
+   check('Rendered average and change use same basis',avg.querySelector('b').textContent==='2,5'&&avg.querySelector('.period-delta').textContent.includes('650'));
+ }finally{rows=saved.rows;selected=saved.selected;$('startFilter').value=saved.from;$('endFilter').value=saved.to;detailPeriodGrain=saved.grain;detailPeriodMode=saved.mode;}
+ const gLive=creatives.find(g=>g.ad.includes('VACBEOG_80'))||creatives.find(g=>g.items.length>3)||creatives[0];
+ const overviewGrain=chartGrain;showDetail(gLive.id);
+ check('Daily starts in totals mode',detailPeriodGrain==='daily'&&detailPeriodMode==='totals');
+ check('Metric order remains correct',JSON.stringify([...document.querySelectorAll('[data-ad-period-header]')].map(e=>e.dataset.adPeriodHeader))===JSON.stringify(AD_PERIOD_METRICS.map(m=>m[0])));
+ document.querySelector('[data-ad-period="weekly"]').click();
+ check('Weekly mode has value choice',!!$('adPeriodMode')&&$('adPeriodMode').value==='totals'&&chartGrain===overviewGrain);
+ $('adPeriodMode').value='average';$('adPeriodMode').dispatchEvent(new Event('change',{bubbles:true}));
+ check('Average control updates main values and labels',detailPeriodMode==='average'&&document.querySelector('[data-ad-period-header="booking"]').textContent.includes('per day'));
+ document.querySelector('[data-ad-period="daily"]').click();
+ check('Daily stays separate and uses totals',!$('adPeriodMode')&&!document.querySelector('[data-ad-period-header="booking"]').textContent.includes('per day'));
+ check('Action evidence remains separate',!!$('detailContent').querySelector('.action-evidence'));
+ detailPeriodMode='totals';
+ return {checks,ad:gLive.ad,bookingChange:AdPeriods.change(weekly,'booking').pct,cpbChange:AdPeriods.change(weekly,'cpb').pct};
+})()

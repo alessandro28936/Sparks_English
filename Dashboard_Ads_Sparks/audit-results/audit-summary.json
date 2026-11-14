@@ -1,0 +1,93 @@
+{
+  "period": [
+    "2026-10-01",
+    "2026-11-09"
+  ],
+  "raw_rows": 12571,
+  "daily_report_rows_in_period": 24874,
+  "daily_report_dates_scanned": 89762,
+  "earlier_relevant_rows": 0,
+  "accounts": {
+    "Main": {
+      "rows": 10258,
+      "spend": 1065577633,
+      "results": 31340,
+      "leads": 24272,
+      "leads_matched_rows": 9864,
+      "booking": 3290,
+      "booking_matched_rows": 9864
+    },
+    "Secondary": {
+      "rows": 1697,
+      "spend": 422382921,
+      "results": 24637,
+      "leads": 20378,
+      "leads_matched_rows": 1574,
+      "booking": 1455,
+      "booking_matched_rows": 1574
+    },
+    "Third": {
+      "rows": 616,
+      "spend": 81793377,
+      "results": 1963,
+      "leads": 1582,
+      "leads_matched_rows": 498,
+      "booking": 161,
+      "booking_matched_rows": 498
+    }
+  },
+  "metric_checks": {
+    "leads": 12571,
+    "booking": 12571,
+    "CPR": 12571,
+    "CPL": 12571,
+    "CPB": 12571,
+    "Results to Leads": 12571,
+    "CTR": 12571,
+    "Hook Rate": 12571,
+    "Views Rate": 12571,
+    "Spend share": 12571
+  },
+  "outcome_and_metric_mismatches": 0,
+  "missing": [
+    {
+      "account": "Main",
+      "reason": "Ambiguous ad match",
+      "rows": 289
+    },
+    {
+      "account": "Main",
+      "reason": "No matching report",
+      "rows": 105
+    },
+    {
+      "account": "Secondary",
+      "reason": "No matching report",
+      "rows": 57
+    },
+    {
+      "account": "Secondary",
+      "reason": "Ambiguous ad match",
+      "rows": 66
+    },
+    {
+      "account": "Third",
+      "reason": "Ambiguous ad match",
+      "rows": 118
+    }
+  ],
+  "raw_duplicate_groups": 0,
+  "raw_name_collision_groups": 19,
+  "report_exact_duplicate_groups": 5,
+  "report_duplicate_extra_rows": 5,
+  "identical_report_rows_confirmed_additional": true,
+  "confirmed_additional_leads": 8,
+  "confirmed_additional_booking": 1,
+  "invalid_report_outcome_cells": 0,
+  "scoped_report_total_mismatches": 0,
+  "publish_date_issues": 34,
+  "day_range_mismatches": 0,
+  "invalid_week_numbers": 0,
+  "unsafe_numeric_ids": 0,
+  "negative_metrics": 0
+}

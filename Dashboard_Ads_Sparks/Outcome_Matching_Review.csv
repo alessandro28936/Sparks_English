@@ -1,0 +1,10 @@
+﻿Center,Account,Ad set,Ad name,Dates without matched report,Missing daily rows,Spend on these rows (IDR),Results on these rows,Review needed
+TCT,Secondary,TCT_T_D_W_BA_26/2/26,15/10/26 - VEXTR_30,2026-10-14,1,12557,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+TMP,Main,TMP_T_M_W_1/5/26,20/10/26 - IAFBEOE_95,2026-10-20,1,4119,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+CBN,Main,CBN_T_M_W_1/5/26,20/10/26 - IAFBEOE_95,2026-10-20,1,39,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+GLK,Main,GLK_T_M_W_17/4/26,20/10/26 - IAFBEOE_95,2026-10-20,1,780,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+BTR,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - IAFBEOE_95,2026-10-21,1,1324,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+BTR,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - IAFSC_37,2026-10-21,1,40132,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+BTR,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_10,2026-10-21,1,10901,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+BTR,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_41,2026-10-21,1,10190,1,Confirm old creative code or confirm that no Daily Report row means zero outcomes
+BTR,Main,BTR_T_D_W_OG_21/10/26,21/10/26 - OLD_18,2026-10-21,1,2021,0,Confirm old creative code or confirm that no Daily Report row means zero outcomes

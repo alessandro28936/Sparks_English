@@ -1,0 +1,32 @@
+(()=>{
+ const checks=[],ok=(name,v)=>{checks.push({name,ok:!!v});if(!v)throw Error(name)};
+ const row=(ad,day,extra={})=>({brand:'English',account:'Secondary',center:'TBT',campaign:'Campaign',adset:'TBT_T_D_W_BA_ 13/3/26',ad,adCode:'OLD_14',day,objective:'Traffic',resultType:'Messaging conversations started',format:'Image',spend:0,results:0,impressions:0,clicks:0,views:0,plays3:0,plays100:0,frequency:1,leads:null,booking:null,status:'active',raw:{'Ad set trim':'TBT_T_D_W_BA'},...extra});
+ const pre=row('9/11/26 - IAFSCNG_46','2026-11-07',{center:'CBN',adset:'CBN_T_M_W_1/5/26'}),launch={...pre,day:'2026-11-09'};
+ ok('Empty pre-publish day is excluded',excludeUnpublishedRows([pre,launch]).length===1);
+ ok('Publish day remains missing until outcomes are reported',excludeUnpublishedRows([pre,launch])[0].leads===null);
+ ok('Actual pre-publish spend preserves conflicting history',excludeUnpublishedRows([{...pre,spend:1},launch]).length===2);
+ ok('Positive Booking is never discarded',excludeUnpublishedRows([{...pre,booking:1},launch]).length===2);
+ const one=row('10/10/26 - OLD_14','2026-11-05',{spend:100000,results:10}),two=row('4/11/26 - OLD_14','2026-11-05',{spend:200000,results:20});
+ const report={tier:'account',key:ReportSummary.rawKey(one)+'|Secondary',leads:24,booking:3};
+ const grouped=combineApprovedOutcomeAds([one,two],[report]),g=grouped[0];
+ ok('Approved pair becomes one combined daily row',grouped.length===1&&g.ad==='OLD_14 [Combined: 2 ads]');
+ ok('Spend and Results summed exactly',g.spend===300000&&g.results===30);
+ ok('Shared outcomes counted once',g.leads===24&&g.booking===3);
+ const total=ReportSummary.aggregate(grouped,ReportSummary.index(grouped,[report]));
+ ok('Summary does not recover combined outcomes twice',total.leads===24&&total.booking===3&&total.cpl===12500&&total.leadRate===80);
+ ok('Physical members and names preserved',g.combinedMembers.length===2&&g.combinedNames.length===2);
+ ok('Combined group never pretends to have a single publish date',Rules.published(g.ad)===null);
+ ok('Other account is not merged',combineApprovedOutcomeAds([one,{...two,account:'Main'}],[report]).length===2);
+ ok('Other full ad set is not merged',combineApprovedOutcomeAds([one,{...two,adset:'TBT_T_D_W_BA_2/11/26'}],[report]).length===2);
+ ok('Missing report remains unknown',combineApprovedOutcomeAds([one,two],[])[0].leads===null);
+ const different={...two,campaign:'Other'};
+ ok('Different campaign cannot join the group',combineApprovedOutcomeAds([one,different],[report]).length===2);
+ ok('Conflicting delivery is explained in audit',reportIssueLabel({items:excludeUnpublishedRows([{...pre,spend:1},launch])},'bookingRate').includes('Publish date conflict'));const renamed={...pre,brand:'English',account:'Main',raw:{'Ad ID':'120249097142890027'}};
+ const retained=excludeUnpublishedRows([renamed,{...renamed,day:'2026-11-09'}]);
+ ok('Confirmed renamed ad retains even empty earlier rows',retained.length===2&&retained[0].confirmedRenamed&&!retained[0].publishDateConflict);
+ const hist=Rules.history({...A.aggregate(retained),items:retained,end:'2026-11-09'},Rules.index(retained));
+ ok('Renamed ad name never creates a false publish age',hist.renamed&&hist.ageDays===null&&!hist.publishConflict);
+ ok('Renamed missing outcomes have a precise explanation',reportIssueLabel({items:retained},'bookingRate').startsWith('Renamed ad'));
+ ok('Rename exception is isolated to confirmed account and ID',!Rules.confirmedRenamed({...renamed,account:'Secondary'})&&!Rules.confirmedRenamed({...renamed,raw:{'Ad ID':'other'}}));
+ return {checks};
+})()

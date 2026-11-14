@@ -1,0 +1,40 @@
+const checks=[];function check(name,ok){checks.push({name,ok:!!ok});if(!ok)throw Error(name);}
+const rpc=[];function runner(){const r={};return {withSuccessHandler(fn){r.ok=fn;return this},withFailureHandler(fn){r.fail=fn;return this},uploadCsv(...args){rpc.push({...r,kind:'upload',args})},getImportStatus(id){rpc.push({...r,kind:'status',id})}}}
+window.google={script:{get run(){return runner()}}};
+const last=kind=>rpc.filter(r=>r.kind===kind).at(-1),uploads=()=>rpc.filter(r=>r.kind==='upload').length;
+function start(id){stop();token='fingerprint';requestId=id;lock(false);apply();}
+start('first-request');
+check('Import starts with indeterminate progress',busy&&!el('progress').hidden&&!el('progress').hasAttribute('value')&&stage==='import');
+check('Inputs and submit controls lock',el('source').disabled&&el('file').disabled&&el('preview').disabled&&el('apply').disabled);
+apply();check('Double click creates only one request',uploads()===1);
+started=Date.now()-370000;tick();check('Long waits do not fabricate success',el('hint').textContent.includes('Executions')&&stage==='import');
+last('upload').ok({done:true,state:'SUCCESS',requestId,message:'Berhasil: 10 baris.'});
+check('Matching server completion shows 100 percent',stage==='success'&&el('progress').value===100&&!busy);
+check('Completed preview cannot be submitted twice',!token&&el('apply').disabled&&timer===null);
+start('second-request');last('upload').ok({done:false,state:'BUSY',requestId,ready:false,activeSource:'SE Main'});
+check('Busy import is a warning not a failure',stage==='busy'&&busy&&el('heading').textContent==='Importer busy'&&!el('status').classList.contains('error'));
+check('Busy state names the other source',el('details').textContent.includes('SE Main')&&el('hint').textContent.includes('belum diimpor'));
+const n=uploads();checkStatus();last('status').ok({done:true,state:'SUCCESS',requestId:'first-request',ready:true,message:'Other account completed'});
+check('Another job completion is ignored',stage==='busy'&&uploads()===n);
+checkStatus();last('status').ok({done:false,state:'NOT_STARTED',requestId,ready:true});
+check('Freed importer restores valid preview without writing',stage==='preview'&&!busy&&!el('apply').disabled&&token==='fingerprint'&&uploads()===n);
+apply();last('upload').ok({done:true,state:'SUCCESS',requestId,message:'Secondary done'});
+check('User can submit once importer is available',stage==='success'&&uploads()===n+1);
+start('lost-callback');const lateFailure=last('upload').fail;lateFailure(new Error('Connection lost'));
+check('Transport failure checks exact job ID',stage==='checking'&&busy&&last('status').id==='lost-callback');
+last('status').ok({done:true,state:'SUCCESS',requestId,message:'Recovered SUCCESS'});
+check('Lost callback recovers completion without importing again',stage==='success'&&el('details').textContent==='Recovered SUCCESS');
+lateFailure(new Error('Late failure'));check('Late failure cannot overwrite success',stage==='success');
+start('running-request');checkStatus();last('status').ok({done:false,state:'RUNNING',requestId,ready:false,stage:'Writing 25 rows'});
+check('Progress reads the server stage',stage==='import'&&el('details').textContent==='Writing 25 rows');
+last('upload').fail(new Error('Connection lost'));last('status').ok({done:false,state:'UNCONFIRMED',requestId,ready:true,message:'No final confirmation'});
+check('Uncertain execution never becomes success or auto-retry',stage==='unconfirmed'&&!token&&el('progress').hidden&&!el('check').hidden);
+checkStatus();last('status').ok({done:false,state:'FAILED',requestId,ready:true,message:'Restored'});
+check('Confirmed failure is distinct from busy',stage==='error'&&el('heading').textContent==='Import failed');
+changed();request('');last('upload').ok({summary:'Preview: 10 rows',token:'new',requestId:'preview-request'});
+check('Preview includes a unique request ID',stage==='preview'&&requestId==='preview-request'&&!el('apply').disabled);
+changed();check('Changing settings invalidates both token and request',!token&&!requestId&&el('apply').disabled);
+el('source').value='Daily Report';changed();check('Daily Report explains its own destination',el('title').textContent==='Import Daily Report'&&el('destination').textContent.includes('Copy of Daily Report')&&el('mode').options[1].textContent==='Replace all centers / date range');
+start('two-minute-target');started=Date.now()-125000;tick();check('Two-minute target warning never fabricates completion',stage==='import'&&busy&&el('hint').textContent.includes('Target 2 menit terlewati')&&!el('progress').hasAttribute('value'));last('upload').ok({done:true,state:'SUCCESS',requestId,message:'Finished after confirmation'});
+el('source').value='SE Main';changed();check('Switching back restores Meta destination',el('title').textContent==='Import Meta Ads'&&el('destination').textContent.includes('Raw Data'));
+stop();document.body.insertAdjacentHTML('beforeend','<pre id="test-result"></pre>');document.getElementById('test-result').textContent=JSON.stringify(checks);
