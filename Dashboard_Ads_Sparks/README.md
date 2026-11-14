@@ -251,3 +251,14 @@ Verification: tests/hybrid_ranking_check.py includes center-relative eligibility
 ## Additional date presets ? 13 November 2026
 
 Date range includes MTD (first day of the latest-source-data month through the latest data date), Last month + MTD (first day of the prior month through that date), and Last 4 W (four completed Monday?Sunday weeks before the week containing that date). Last 28 days remains a distinct rolling range. Presets remain selected across sync and use the existing rolling-range behavior. Custom dates are unchanged. `tests/date_presets_check.py` verifies calendar boundaries and live shortcut clicks.
+
+## Verified historical outcome aliases — 14 November 2026
+
+A read-only check against the live Centers spreadsheet confirmed eight previously unmatched daily outcome identities. Dashboard reconciliation now uses exact brand, Main account, center, full ad set, verified Meta Ad ID, and day. It does **not** rewrite Raw Data or Daily Report, infer an alias across other dates, or assign outcomes by creative code alone.
+
+- **20 October 2026:** TMP `20/10/26 - IAFBEOE_95` (Ad ID `120249046668610027`) maps its historical Daily Report creative code `IAFBEOE_98`; CBN `120249046417170027` maps `IAFBEOE_96`; GLK `120249046440240027` maps `IAFBEOE_97`. Each historical report contains 0 Leads and 0 Bookings.
+- **21 October 2026:** BTR full ad set `BTR_T_D_W_OG_21/10/26` has report trim `BTR_T_D_W`, not `BTR_T_D_W_OG`. Five confirmed ad identities receive their exact day outcome (0 Leads and 0 Bookings): `IAFBEOE_95`, `IAFSC_37`, `OLD_10`, `OLD_41`, and `OLD_18`. `OLD_41` has one Meta Result on that date, so zero Leads does not mean zero Results.
+
+From live Raw Data through the last recorded day for each BTR ad: `IAFBEOE_95` has 6 Results, 5 previously matched Leads, 0 Bookings; `IAFSC_37` has 2/1/0; `OLD_10` has 4/3/1; `OLD_41` has 11/6/0; `OLD_18` has 0/0/0. Those Leads/Booking counts were recorded before the five zero-day aliases were filled. Only `OLD_18` is wholly zero-outcome over its available history.
+
+The previously approved CBN renamed-ad historical alias is unchanged. Run `tests/report-summary.js` through `tests/browser_check.py` after the generated HTML has been rebuilt, including its new regression assertions for wrong date/account/Ad ID and report precedence.
