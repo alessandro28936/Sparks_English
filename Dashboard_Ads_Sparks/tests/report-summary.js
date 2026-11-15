@@ -39,6 +39,41 @@
   check('Summary booking conversion uses paired outcomes',summaryMetric(incomplete,'bookingRate',percent).value===12.5);
   const mixed=resultTypeSummary([known,{...known,ad:'Other',resultType:'Clicks',results:100}],'cpr');
   check('Mixed CPR shows separate valid costs with result labels',mixed.includes('Messages')&&mixed.includes('Clicks')&&mixed.includes('Rp10.000')&&mixed.includes('Rp2.000'));
+  // Historical reports are never guessed by creative code alone.
+  // Every 20/21 October alias must be scoped to verified Ad ID, account, full ad set, and day.
+  const historicalAliases=[
+    ['TMP','TMP_T_M_W_1/5/26','120249046668610027','IAFBEOE_95','IAFBEOE_98','2026-10-20',null],
+    ['CBN','CBN_T_M_W_1/5/26','120249046417170027','IAFBEOE_95','IAFBEOE_96','2026-10-20',null],
+    ['GLK','GLK_T_M_W_17/4/26','120249046440240027','IAFBEOE_95','IAFBEOE_97','2026-10-20',null],
+    ['BTR','BTR_T_D_W_OG_21/10/26','120249061519580027','IAFBEOE_95',null,'2026-10-21','BTR_T_D_W'],
+    ['BTR','BTR_T_D_W_OG_21/10/26','120249061519540027','IAFSC_37',null,'2026-10-21','BTR_T_D_W'],
+    ['BTR','BTR_T_D_W_OG_21/10/26','120249061519560027','OLD_10',null,'2026-10-21','BTR_T_D_W'],
+    ['BTR','BTR_T_D_W_OG_21/10/26','120249061519530027','OLD_41',null,'2026-10-21','BTR_T_D_W'],
+    ['BTR','BTR_T_D_W_OG_21/10/26','120249061519590027','OLD_18',null,'2026-10-21','BTR_T_D_W']
+  ];
+  for(const [center,adset,adId,code,oldCode,day,oldAdset] of historicalAliases){
+    const set=adset.slice(0,adset.lastIndexOf('_'));
+    const key=`English|${day}|${set}|${code}`,oldKey=`English|${day}|${oldAdset||set}|${oldCode||code}`;
+    const original={...make('21/10/26 - '+code,11000,1),day,center,adset,adCode:code,account:'Main',raw:{'Report Key':key,'Account ID':'304705508911066','Ad ID':adId}};
+    const historic=[{tier:'legacy',key:oldKey,leads:0,booking:0}];
+    const matched=applyVerifiedOutcomeAliases([original],historic);
+    check('Verified alias matched '+center+'/'+code,matched.length===2&&matched[1].tier==='id'&&matched[1].leads===0&&matched[1].booking===0);
+    fillUniqueOutcomeReports([original],ReportSummary.index([original],matched));
+    check('Verified zero stays zero '+center+'/'+code,original.leads===0&&original.booking===0);
+    check('Wrong Ad ID is blocked '+center+'/'+code,applyVerifiedOutcomeAliases([{...original,raw:{...original.raw,'Ad ID':'000000000000000000'}}],historic).length===1);
+    check('Wrong account is blocked '+center+'/'+code,applyVerifiedOutcomeAliases([{...original,account:'Secondary'}],historic).length===1);
+    const later=day==='2026-10-20'?'2026-10-21':'2026-10-22';
+    const other={...original,day:later,raw:{...original.raw,'Report Key':`English|${later}|${set}|${code}`}};
+    const laterReport=[{tier:'legacy',key:`English|${later}|${oldAdset||set}|${oldCode||code}`,leads:3,booking:2}];
+    check('Alias is restricted to approved date '+center+'/'+code,applyVerifiedOutcomeAliases([other],laterReport).length===1);
+    check('Current-name report takes precedence '+center+'/'+code,applyVerifiedOutcomeAliases([original],[...historic,{tier:'legacy',key,leads:6,booking:1}]).length===2);
+  }
+  // A single legacy outcome report must not be applied to two competing historical aliases.
+  const aliasFirst={...make('20/10/26 - IAFBEOE_95',5000,0),day:'2026-10-20',center:'TMP',adset:'TMP_T_M_W_1/5/26',adCode:'IAFBEOE_95',account:'Main',raw:{'Report Key':'English|2026-10-20|TMP_T_M_W|IAFBEOE_95','Account ID':'304705508911066','Ad ID':'120249046668610027'}};
+  const competing={...aliasFirst,raw:{...aliasFirst.raw,'Ad ID':'120249046417170027'},adset:'CBN_T_M_W_1/5/26',center:'CBN'};
+  const claimed=applyVerifiedOutcomeAliases([aliasFirst,competing],[{tier:'legacy',key:'English|2026-10-20|TMP_T_M_W|IAFBEOE_98',leads:0,booking:0}]);
+  check('Historic alias is never allocated to an unverified competitor',claimed.filter(r=>r.tier==='id').length===1);
+
   check('Report Totals synced for live source',!reportSummaryError&&reportSummaryIndex?.buckets.length>0);
   const live=summaryAggregate(selected);
   check('Summary cannot reduce already matched Leads',live.leads>=A.aggregate(selected).leads);

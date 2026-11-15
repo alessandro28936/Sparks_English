@@ -44,24 +44,43 @@ const ReportSummary=(()=>{
 })();
 let reportSummaryIndex=null,reportSummaryError='';
 // Add a rename only after the old Daily Report code has been verified.
-const verifiedOutcomeAliases=[{brand:'English',account:'Main',center:'CBN',adset:'CBN_T_M_W_1/5/26',adId:'120249097142890027',oldCode:'IAFPC_10',start:'2026-10-23',end:'2026-11-08'}];
+const verifiedOutcomeAliases=[
+  // Previously confirmed CBN rename, preserved unchanged.
+  {brand:'English',account:'Main',center:'CBN',adset:'CBN_T_M_W_1/5/26',adId:'120249097142890027',oldCode:'IAFPC_10',start:'2026-10-23',end:'2026-11-08'},
+  // 20 October: three report codes predate their current IAFBEOE_95 names.
+  {brand:'English',account:'Main',center:'TMP',adset:'TMP_T_M_W_1/5/26',adId:'120249046668610027',oldCode:'IAFBEOE_98',start:'2026-10-20',end:'2026-10-20'},
+  {brand:'English',account:'Main',center:'CBN',adset:'CBN_T_M_W_1/5/26',adId:'120249046417170027',oldCode:'IAFBEOE_96',start:'2026-10-20',end:'2026-10-20'},
+  {brand:'English',account:'Main',center:'GLK',adset:'GLK_T_M_W_17/4/26',adId:'120249046440240027',oldCode:'IAFBEOE_97',start:'2026-10-20',end:'2026-10-20'},
+  // 21 October: BTR source trim includes _OG but Daily Report did not.
+  {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519580027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+  {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519540027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+  {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519560027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+  {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519530027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+  {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519590027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+];
 function applyVerifiedOutcomeAliases(source,reports,aliases=verifiedOutcomeAliases){
-  const output=[...reports],byKey=new Map(reports.map(r=>[r.tier+'|'+r.key,r])),seen=new Set();
+  const output=[...reports],byKey=new Map(reports.map(r=>[r.tier+'|'+r.key,r])),seen=new Set(),claimedOldReports=new Set();
   for(const alias of aliases)for(const r of source){
     if(r.brand!==alias.brand||r.account!==alias.account||r.center!==alias.center||r.adset.replace(/\s/g,'')!==alias.adset.replace(/\s/g,'')||String(r.raw?.['Ad ID']||'')!==alias.adId||r.day<alias.start||r.day>alias.end)continue;
-    const parts=ReportSummary.rawKey(r).split('|');parts[parts.length-1]=alias.oldCode;const oldKey=parts.join('|');
-    // If the old code still belongs to a source ad, its outcomes cannot be reused.
+    const currentKey=ReportSummary.rawKey(r),parts=currentKey.split('|');
+    if(alias.oldAdset)parts[parts.length-2]=alias.oldAdset;
+    if(alias.oldCode)parts[parts.length-1]=alias.oldCode;
+    const oldKey=parts.join('|');
+    // Never reuse a historical report already owned by a source row.
     if(source.some(x=>ReportSummary.rawKey(x)===oldKey))continue;
     const oldReport=byKey.get('account|'+oldKey+'|'+r.account)||byKey.get('legacy|'+oldKey);
-    const accountId=r.raw?.['Account ID'];if(!oldReport||!accountId)continue;
-    const prefix=parts.slice(0,-1).join('|');
+    const oldReportId=oldReport?.tier+'|'+oldReport?.key;
+    const accountId=r.raw?.['Account ID'];if(!oldReport||!accountId||claimedOldReports.has(oldReportId))continue;
+    // Check ownership in current source context: the reported ad-set trim may differ.
+    const prefix=currentKey.split('|').slice(0,-1).join('|');
     const owners=new Set(source.filter(x=>ReportSummary.rawKey(x).split('|').slice(0,-1).join('|')===prefix&&(oldReport.tier!=='account'||x.account===r.account)).map(ReportSummary.owner));
     if(owners.size!==1)continue;
     const key=[r.brand,r.day,accountId,alias.adId].join('|');if(byKey.has('id|'+key)||seen.has(key))continue;
-    // Do not override a report already found under the current name.
-    const current=byKey.get('account|'+ReportSummary.rawKey(r)+'|'+r.account)||byKey.get('legacy|'+ReportSummary.rawKey(r));
+    // Actual current-name reports always take precedence over historical aliases.
+    const current=byKey.get('account|'+currentKey+'|'+r.account)||byKey.get('legacy|'+currentKey);
     if(current)continue;
-    output.push({tier:'id',key,leads:oldReport.leads,booking:oldReport.booking});seen.add(key);r.verifiedReportAlias=alias.oldCode;
+    output.push({tier:'id',key,leads:oldReport.leads,booking:oldReport.booking});
+    claimedOldReports.add(oldReportId);seen.add(key);r.verifiedReportAlias=alias.oldCode||alias.oldAdset;
   }
   return output;
 }
