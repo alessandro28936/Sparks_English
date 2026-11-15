@@ -5,7 +5,11 @@ root = Path(__file__).resolve().parent
 shell = (root / 'src/shell.html').read_text(encoding='utf-8')
 for marker, source in [('/* STYLES */', 'styles.css'), ('/* ANALYTICS */', 'analytics.js'), ('/* APP */', 'app.js')]:
     content = (root / 'src' / source).read_text(encoding='utf-8')
+    if source == 'styles.css':
+        content += '\n' + (root / 'src/center-map.css').read_text(encoding='utf-8')
     if source == 'app.js':
+        content = content.replace('/* METRIC_SCORECARDS */', (root / 'src/metric-scorecards.js').read_text(encoding='utf-8') + '\n' + (root / 'src/scorecard-targets.js').read_text(encoding='utf-8'))
+        content = content.replace('/* CENTER_MAP */', (root / 'src/map-geography.js').read_text(encoding='utf-8') + '\n' + (root / 'src/center-map.js').read_text(encoding='utf-8'))
         content = content.replace('/* PRIORITIES */', (root / 'src/priorities.js').read_text(encoding='utf-8'))
         content = content.replace('/* COST_TARGETS */', (root / 'src/cost-targets.js').read_text(encoding='utf-8'))
         content = content.replace('/* WORK_SCOPE */', (root / 'src/work-scope.js').read_text(encoding='utf-8'))

@@ -251,3 +251,61 @@ Verification: tests/hybrid_ranking_check.py includes center-relative eligibility
 ## Additional date presets ? 13 November 2026
 
 Date range includes MTD (first day of the latest-source-data month through the latest data date), Last month + MTD (first day of the prior month through that date), and Last 4 W (four completed Monday?Sunday weeks before the week containing that date). Last 28 days remains a distinct rolling range. Presets remain selected across sync and use the existing rolling-range behavior. Custom dates are unchanged. `tests/date_presets_check.py` verifies calendar boundaries and live shortcut clicks.
+
+
+## Metric Scorecards
+
+Open **Metric Scorecards** from the sidebar or select a metric card in Overview. Global center, account, campaign, search, key-message and date filters are preserved. Choose Lead, Booking, Result or Conversion performance, or Custom to select two of the nine main metrics. No new table is added to Overview.
+
+Columns show up to four Monday?Sunday weeks, labeled using Raw Data Week Num. Navigate all weeks in a longer range with arrows. **Last 4 weeks incl. WTD** explicitly selects three preceding weeks plus the latest source week to date; the existing global Last 4 W shortcut still means four completed weeks. Missing/inconsistent Week Num is not silently guessed.
+
+WoW uses matching weekdays from the last two displayed consecutive weeks, never hidden dates outside the selected range. The weekly change and baseline use the latest column's included weekdays, displayed beneath them. Each weekly metric column retains its full selected total. Baselines use available complete observations: arithmetic means for counts and pooled ratios for costs/conversions. Missing dates/reports remain unavailable, partial outcome values carry a small asterisk and are not scored. Shared outcomes are counted once using the existing report aggregation. Conversion deltas use percentage points; a rise from zero is labeled without calculating an infinite percentage.
+
+Target colors follow Settings for CPR/CPL and the existing fixed CPB tiers (300k/400k/500k). Results to Leads uses 80%. No targets are invented for count metrics, Spend or Booking Conversion. Trend colors are separate from target compliance. Multiple incompatible Results contexts can be selected separately inside Scorecards; Results, CPR and Results to Leads are not combined across incompatible contexts.
+
+Validation: `python tests/scorecards_check.py` runs calculation, integration and browser layout checks against the built dashboard using an isolated Chrome profile.
+
+
+### Monthly scorecard plans
+
+Use **Targets** in Metric Scorecards to set monthly Spend budget (IDR), Results, Leads and Booking. Plans are independent by brand, month and exact filter scope (assignments/workspace, center, account, campaign, objective, Results type, role, key message, search and scorecard context). No sample targets are seeded. A different scope requires its own plan; all-brands view does not evaluate brand targets. Plans are saved in browser localStorage, not in Sheets or the backend.
+
+Week target sums monthly target / calendar days for each included date. Cross-month weeks require plans for both months. Cost and conversion targets are derived from pooled prorated planned amounts. Ach% uses actual/target for outcomes/conversions and target/actual for costs. Spend is budget utilization, neutral below budget and red if overspent. Incomplete reports or absent daily data have no achievement score. Confirmed zero outcomes with paid delivery produce 0% cost achievement. Empty or zero targets have no achievement percentage. Operational target colors and kill/iterate rules remain independent of these monthly plans.
+
+
+### Targets editor usability
+
+Targets sits with the date shortcut in a dedicated right-aligned action group. Input uses Indonesian thousands separators (8.000.000); budget supports comma decimals, while counts must be whole numbers. Plain digits and formatted Rupiah can be pasted. Invalid or ambiguous formats are rejected, not silently reinterpreted. Blank and zero remain distinct. Formula notes and the exact saved scope are collapsed; only essential saved/new/unsaved state remains visible. Header and save/cancel actions stay visible on small screens.
+
+Changing brand/month, closing, or pressing Escape with edits requires Save & continue, Discard, or Keep editing. Changing filter scope does not reuse a broader plan; the editor points out other plans for the same brand/month with different filters. Saves re-read browser storage, preserve unrelated plans, and reject a conflicting edit in another tab or malformed storage. Planning targets continue to use the same existing storage keys and formulas.
+
+
+## Overview center map
+
+The first Overview section is a Java/Bali illustration with block buildings, zoom, mouse drag and touch scrolling. Regional clusters expand into spaced center badges; hover or keyboard focus previews outcomes. Click a center for Summary, Weekly scorecards or the existing expandable Ad set Performance table. Popup filters stay local; global filters and Overview totals are preserved. Seven-day ad-set alerts now live in the map instead of a duplicate Review first panel.
+
+The 26 supplied English addresses form 23 location groups. CL.JU has one shared badge for Kelapa Gading, Sunter and Pulomas. DPK is a city-level report linked to the two Depok addresses; individual branch attribution is not inferred. SLSA temporarily uses the same addresses, clearly marked. No coordinates or street accuracy are claimed. Unverified codes, including MKS, stay accessible under Unmapped locations; BDS is not silently merged with BSD. Preheat audiences are not physical branches.
+
+Map metrics use the existing scoped summary/report recovery and selected dates. Latest recorded delivery determines confirmed inactivity; missing data and low samples remain unscored rather than becoming zero or inactive. English status thresholds: green requires sufficient spend/Results, complete outcomes, all costs below 90% of target and Results-to-Leads at least 80%; yellow covers approaching/exceeding targets or conversion below 80%; red covers CPR/CPL above 120%, CPB above 133%, conversion below 60%, or confirmed zero outcomes after sufficient spend. This center overview is not a new automatic ad kill rule. SLSA requires its own center-scoped monthly cost targets; it never inherits English map targets. Seven-day alert recommendations retain their existing action window. Rules are disclosed in a collapsed map panel.
+
+Weekly popup tables reuse Week Num, pooled cost/conversion formulas and matching-weekday WoW. Brand-wide monthly targets are not applied to an individual center. Validation: `python tests/center_map_check.py` runs calculation and interaction regressions against live data, checks center totals against Overview, popup isolation, scorecards and mobile overflow; screenshots use an isolated Chrome profile.
+
+
+### Geographic map and assignment scope - 15 November 2026
+
+Supersedes the schematic Jabodetabek grid above. Jabodetabek now uses north-up administrative outlines with approximate area pins, geographically anchored dots and collision-avoiding labels. Coordinates describe areas from the supplied addresses, not surveyed building entrances. No street or navigation accuracy is claimed. Shapes are bundled into the standalone HTML; no map API key or runtime map request is needed.
+
+My assignments now limits map locations to the existing assigned-center list, while All assignments exposes the full location catalog. Center/work filters apply, and narrower account/campaign/search/key-message filters require matching selected data. Third ownership uses the existing row rules, never just center code. Assigned centers without rows remain unscored, not inactive. Preheat and unconfirmed addresses stay in a separate list instead of becoming geographic locations.
+
+MKS is Makassar, confirmed by the user. It is shown on Sulawesi at city level; no branch address is invented. The user approved using Makassar generally until the address is known. Only islands containing locations in the chosen assignment scope appear. CL.JU retains one shared badge; SLSA remains a separate brand using temporary shared locations. Financial metrics, target thresholds, report matching and ad action rules are unchanged.
+
+Geographic sources: [geoBoundaries Indonesia ADM2](https://www.geoboundaries.org/api/current/gbOpen/IDN/ADM2/), based on BPS / WFP / OCHA, [CC BY 3.0 IGO](https://creativecommons.org/licenses/by/3.0/igo/), boundaries represented in 2020, simplified for display; [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/), public domain, 1:50m island outlines. These are geographic context, not a statement of current legal administrative boundaries.
+
+Validation: map-geography.js adds assignment, account, center, preheat, marker positioning, collision, Makassar data reconciliation and dialog checks to tests/center_map_check.py.
+
+Third-account assignment update confirmed by the user: both `ALLS-ENG-JU_T_D_W_TA_1/11/26` and `ALLS-ENG-JU_T_D_W_TA_3/11/26` are owned. The whitelist is shared across the dashboard; their ad-set identities are not merged. Other Third ad sets remain excluded from My assignments.
+
+The live verification found 18 owned Third-account rows dated 1-3 November 2026 for the newly confirmed 1/11 ad set. They correctly stay outside a 6-12 November selection; the map does not carry their metrics into later dates.
+
+
+Island-map decoration: Kalimantan and 16 nearby small islands use bundled Natural Earth public-domain outlines as non-interactive background land. The island projection fits their northern extent into the existing map panel. This decorative layer has no center badges, ownership, metrics, alerts or performance colors; assignment filtering and all calculations are unchanged. It is an explicit decorative exception to the previous rule of drawing only islands with visible centers.

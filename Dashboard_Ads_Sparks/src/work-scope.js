@@ -1,8 +1,9 @@
 let workView='centers';
 const MY_THIRD_ADSET='ALLS-ENG-JU_T_D_W_TA_3/11/26';
+const MY_THIRD_ADSETS=[MY_THIRD_ADSET,'ALLS-ENG-JU_T_D_W_TA_1/11/26'];
 const isPreheat=r=>r.center==='C.IN'||/^C\.IN(?:_|$)/i.test(r.adset);
 function ownedRow(r){
-  if(r.account==='Third')return r.brand==='English'&&r.adset===MY_THIRD_ADSET;
+  if(r.account==='Third')return r.brand==='English'&&MY_THIRD_ADSETS.includes(r.adset);
   return isPreheat(r)||A.MINE.includes(r.center);
 }
 function workspaceMatches(r){
