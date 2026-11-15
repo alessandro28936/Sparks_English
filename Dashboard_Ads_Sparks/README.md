@@ -251,3 +251,11 @@ Verification: tests/hybrid_ranking_check.py includes center-relative eligibility
 ## Additional date presets ? 13 November 2026
 
 Date range includes MTD (first day of the latest-source-data month through the latest data date), Last month + MTD (first day of the prior month through that date), and Last 4 W (four completed Monday?Sunday weeks before the week containing that date). Last 28 days remains a distinct rolling range. Presets remain selected across sync and use the existing rolling-range behavior. Custom dates are unchanged. `tests/date_presets_check.py` verifies calendar boundaries and live shortcut clicks.
+
+## Center performance by period
+
+Center Insights starts with a center-by-period comparison. Choose Daily, Weekly or Monthly and a metric pair (Leads/CPL, Booking/CPB, Results/CPR, conversions, or Spend). The global date range and all assignment/account/campaign filters still apply. Four periods are shown at a time; earlier/later buttons navigate the selected range. Both metric tables share one center order and can sort by the latest displayed period. Brands have separate rows; centers with history but no selected-period data remain blank.
+
+Week labels come from Raw Data's Week Num, with selected dates below. Count metrics offer totals or daily averages; costs/conversions are always ratios of pooled totals. The change column compares the latest visible period with the preceding calendar period inside the selected range, aligning weekdays (weekly) or day numbers (monthly), and displays both comparison values. Missing days/outcomes, conflicting week labels and incompatible Results contexts are not scored. Available partial values have an asterisk and expandable coverage details. Shared reports are recovered once at their proven scope. Color uses operational thresholds; it does not create center monthly targets or change ad actions.
+
+Validation: `tests/center-periods.js` covers calendar alignment, center/account/brand isolation, zero/missing outcomes and shared reports. `tests/center_periods_check.py` runs these plus existing scorecard tests in isolated Chromium, reconciles live cells with the existing summary, exercises all view/metric controls, and checks desktop/mobile layouts.

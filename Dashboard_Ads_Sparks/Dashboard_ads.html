@@ -249,6 +249,72 @@
 .empty-map-scene{min-width:0;padding:15px;min-height:200px}
 
 .metro-scene{min-width:900px;max-width:calc(940px * var(--map-zoom,1));margin-inline:auto}
+
+.cp-panel{margin-bottom:32px;min-width:0}
+.cp-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:12px}
+.cp-heading h2{font-size:21px}
+.cp-heading p{margin-top:6px;color:var(--muted);font-size:12px}
+.cp-controls{background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.cp-controls .scope-switch,.cp-heading .scope-switch{margin:0;flex:none;max-width:100%}
+.cp-pairs{flex-wrap:wrap;gap:3px}
+.cp-pairs button{white-space:nowrap}
+.cp-options{display:flex;flex-wrap:wrap;gap:12px;max-width:100%}
+.cp-options label{font-size:11px;color:var(--muted);display:grid;gap:5px;min-width:135px;max-width:310px;flex:1}
+.cp-options select{width:100%;min-width:0;padding:9px 28px 9px 10px;border:1px solid var(--line);border-radius:8px;color:var(--ink);background:#fff}
+.cp-toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0}
+.cp-legend{display:flex;flex-wrap:wrap;gap:12px;color:#6f7e76;font-size:10px;align-items:center}
+.cp-legend span{display:flex;gap:5px;align-items:center}
+.cp-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.cp-legend-good{background:#b3d4c1}.cp-legend-bad{background:#e8beb9}
+.cp-pages{display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:12px}
+.cp-pages>span{text-align:center;min-width:124px}
+.cp-pages .button{padding:7px 10px;min-height:32px}
+.cp-pages button:disabled{cursor:default}
+.cp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.cp-grid.cp-single{grid-template-columns:1fr}
+.cp-metric-card{overflow:hidden;margin:0;min-width:0}
+.cp-metric-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:#edf3ed;border-bottom:1px solid #dce5dc}
+.cp-metric-heading h3{font-size:16px}
+.cp-metric-heading small{color:#52665a;font-size:10px;white-space:nowrap}
+.cp-scroll{overflow:auto;max-height:530px;scrollbar-width:thin;overscroll-behavior:contain}
+.cp-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;min-width:530px;font-variant-numeric:tabular-nums}
+.cp-table th,.cp-table td{padding:8px 9px;border-bottom:1px solid var(--line);font-size:12px;vertical-align:middle}
+.cp-table thead th{position:sticky;top:0;z-index:2;background:#f4f7f2;font-size:11px;height:72px;color:#3b5547;text-align:right}
+.cp-table th:first-child{position:sticky;left:0;width:74px;z-index:1;text-align:left;background:#fff;border-right:1px solid var(--line)}
+.cp-table thead th:first-child{z-index:3;background:#f4f7f2}
+.cp-table tbody th b{display:block;font-size:13px}
+.cp-table th small{font-size:9px;font-weight:400;white-space:normal;color:#6d7c74;line-height:1.45;margin-top:5px}
+.cp-table thead th b{font-weight:700;font-size:12px}
+.cp-table .cp-change-heading,.cp-table .cp-change{width:110px;border-left:1px solid #dce5dc}
+.cp-partial{display:inline-block;font-size:8px;border-radius:3px;padding:1px 5px;margin-top:4px;color:#776e47;background:#eeeadc;text-transform:uppercase;letter-spacing:.5px}
+.cp-table td.cp-value{position:relative;font-size:12px;white-space:nowrap;height:48px}
+.cp-table td.cp-good{background:#e0eee4;color:#23553d}
+.cp-table td.cp-bad{background:#f5dfdc;color:#9d3b34}
+.cp-table td.cp-warning{background:#fbefce;color:#8a6416}
+.cp-table td.cp-review{background:#f6e2d3;color:#955329}
+.cp-table td.cp-neutral{background:#f1f3ef}
+.cp-bar{display:block;height:3px;background:#eaf0eb;border-radius:3px;margin-top:5px;width:100%}
+.cp-bar i{height:100%;display:block;max-width:100%;background:#7eaa95;border-radius:3px}
+.cp-change b{font-size:12px}.cp-change small{font-size:9px;line-height:1.4;margin-top:4px;color:#63756a;white-space:normal}
+.cp-change.better{background:#edf6f0;color:#226344}.cp-change.worse{background:#fbeeee;color:#ae4338}.cp-change.neutral{color:#7a857d;background:#fafbf8}
+.cp-table tfoot th,.cp-table tfoot td{border-top:2px solid #cbd9cc;border-bottom:0;background:#edf2ec;font-weight:700}
+.cp-table tfoot th{background:#edf2ec}
+.cp-table tfoot .cp-bar{display:none}
+.cp-help{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px 16px;color:#61756a;font-size:11px;line-height:1.7}
+.cp-help summary{cursor:pointer;font-weight:600}.cp-help p{margin-top:10px;max-width:1050px}
+.cp-help .table-wrap{max-height:320px;margin-top:12px}
+.cp-note{margin-top:12px;color:#8d6d21;font-size:11px}
+@media(max-width:900px){.cp-grid{grid-template-columns:1fr}.cp-options{width:100%}.cp-options label{max-width:none}}
+@media(max-width:680px){.cp-heading{align-items:flex-start;flex-direction:column;gap:12px}.cp-heading h2{font-size:18px}.cp-controls{padding:12px}.cp-pairs{width:100%;display:grid;grid-template-columns:1fr 1fr}.cp-pairs button{padding:9px 10px}.cp-options{gap:10px}.cp-options label{min-width:120px}.cp-toolbar{align-items:flex-start;flex-direction:column}.cp-legend{font-size:9px;gap:8px}.cp-pages{width:100%;justify-content:space-between}.cp-table th:first-child{width:74px}.cp-metric-heading{padding:15px}.cp-table{min-width:530px}.cp-table th,.cp-table td{padding:8px 9px}.cp-metric-heading h3{font-size:15px}}
+
+.cp-table tbody th b{color:var(--ink)}
+.cp-toolbar-notes{display:grid;gap:7px}
+.cp-window{font-size:11px;font-weight:600;color:#3d6550}
+
+@media(min-width:901px) and (max-width:1500px){.cp-table th,.cp-table td{padding:8px}.cp-table td.cp-value,.cp-table tbody th b,.cp-change b{font-size:11px}}
+
+.cp-table tbody tr{height:48px}
+.cp-change small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style></head>
 <body>
 <aside class="sidebar"><a class="brand" href="#overview"><span class="brand-mark">✳</span><span>sparks<span class="brand-small">CREATIVE INTELLIGENCE</span></span></a><div class="workspace"><span class="avatar">SR</span><div>Seven Retail Group<small>Performance workspace</small></div></div><p class="nav-label">WORKSPACE</p><nav aria-label="Navigasi utama"><button data-view="overview" class="active"><span>◫</span> Overview <i>01</i></button><button data-view="scorecards" title="Metric Scorecards"><span>&#9638;</span> Metric Scorecards</button><button data-view="meeting"><span>☑</span> Meeting &amp; Action</button><button data-view="centers"><span>⌘</span> Center Insights <i>02</i></button><button data-view="messages"><span>▦</span> Key Message Lab <i>03</i></button><button data-view="creatives"><span>◈</span> Creative Explorer <i>04</i></button><button data-view="alerts"><span>⚑</span> Alert Center <b id="navAlert">0</b></button><button data-view="data"><span>≡</span> Data & Methodology</button></nav><div class="sidebar-bottom"><span class="dot"></span> Google Sheets &middot; auto-sync<small>Ads: Raw Data &middot; Reports: Report Totals</small></div></aside>
@@ -1947,6 +2013,171 @@ document.addEventListener('pointermove',e=>{if(!mapDrag)return;mapDrag.v.scrollL
 function endMapDrag(){mapDrag?.v.classList.remove('map-dragging');mapDrag=null;}
 document.addEventListener('pointerup',endMapDrag);document.addEventListener('pointercancel',endMapDrag);
 
+/* Center-period comparisons retain report ownership and align comparison dates. */
+const CenterPeriods=(()=>{
+  const counts=MetricScorecards.counts, rates=MetricScorecards.rates;
+  const days=(start,end)=>Array.from({length:PeriodLearning.dayCount(start,end)},(_,i)=>PeriodLearning.shift(start,i));
+  const identity=r=>JSON.stringify([r.center,r.brand]);
+  function build(items,{from,to,latest,grain='weekly',entities=[]},aggregate=scorecardAggregate){
+    const end=latest&&latest<to?latest:to;
+    if(!from||!end||from>end)return {periods:[],groups:[],items:[],aggregate};
+    const chosen=items.filter(r=>r.day>=from&&r.day<=end),byPeriod=new Map(),byCenter=new Map();
+    for(const r of entities){const key=identity(r);if(!byCenter.has(key))byCenter.set(key,{key,center:r.center,brand:r.brand,items:[],buckets:new Map()});}
+    for(const r of chosen){
+      const pk=A.period(r.day,grain).start,key=identity(r);
+      if(!byPeriod.has(pk))byPeriod.set(pk,[]);byPeriod.get(pk).push(r);
+      if(!byCenter.has(key))byCenter.set(key,{key,center:r.center,brand:r.brand,items:[],buckets:new Map()});
+      const group=byCenter.get(key);group.items.push(r);
+      if(!group.buckets.has(pk))group.buckets.set(pk,[]);group.buckets.get(pk).push(r);
+    }
+    const periods=[];
+    for(let cursor=from;cursor<=end;){
+      const natural=A.period(cursor,grain),start=natural.start<from?from:natural.start,last=natural.end>end?end:natural.end;
+      const own=byPeriod.get(natural.start)||[],nums=new Set(own.map(r=>r.weekNum));
+      const number=nums.size===1&&Number.isInteger([...nums][0])?[...nums][0]:null;
+      periods.push({key:natural.start,start,end:last,natural,grain,number,mappingIssue:grain==='weekly'&&number===null,
+        partial:start!==natural.start||last!==natural.end,dates:days(start,last)});
+      cursor=PeriodLearning.shift(natural.end,1);
+    }
+    const cell=(p,list)=>({period:p,items:list,s:aggregate(list)});
+    const groups=[...byCenter.values()].map(g=>({...g,cells:periods.map(p=>cell(p,g.buckets.get(p.key)||[]))}));
+    const total={key:'ALL',center:'All centers',brand:'',items:chosen,cells:periods.map(p=>cell(p,byPeriod.get(p.key)||[]))};
+    return {periods,groups,total,items:chosen,aggregate};
+  }
+  function read(cell,key,basis='total'){
+    if(!cell)return {value:null,partial:false,reason:'No data'};
+    const r=MetricScorecards.read(cell.s,key),expected=cell.period.dates.length,observed=cell.s.days.size;
+    const missing=observed<expected&&cell.s.rows>0;
+    const value=basis==='daily'&&counts.has(key)&&Number.isFinite(r.value)?r.value/observed:r.value;
+    return {...r,value,partial:r.partial||missing,reason:missing?`${observed}/${expected} days with data. Missing days are not zero.`:r.reason,
+      note:[missing?`${observed}/${expected} days with data`:'',r.note||r.reason].filter(Boolean).join(' · ')};
+  }
+  function compare(group,index,key,basis='total',aggregate=scorecardAggregate){
+    const current=group.cells[index],previous=group.cells[index-1];
+    const none=reason=>({text:'—',tone:'neutral',reason,current:null,previous:null});
+    if(!current||!previous)return none('Previous period is outside the selected date range');
+    const p=current.period,q=previous.period;
+    if(p.mappingIssue||q.mappingIssue)return none('Week Num is missing or inconsistent');
+    const pairs=p.dates.map(day=>{
+      if(p.grain!=='monthly')return [day,PeriodLearning.shift(day,p.grain==='weekly'?-7:-1)];
+      const offset=Number(day.slice(-2)),last=Number(q.natural.end.slice(-2));
+      return offset>last?null:[day,q.natural.start.slice(0,8)+String(offset).padStart(2,'0')];
+    }).filter(Boolean);
+    if(!pairs.length||pairs.some(([,day])=>day<q.start||day>q.end))return none('Matching dates are outside the selected date range');
+    const pick=(cell,ds)=>{const wanted=new Set(ds),items=cell.items.filter(r=>wanted.has(r.day));return {items,s:aggregate(items),period:{...cell.period,dates:ds}};};
+    const cur=pick(current,pairs.map(d=>d[0])),ref=pick(previous,pairs.map(d=>d[1]));
+    const a=read(cur,key,basis),b=read(ref,key,basis);
+    const dateInfo={dates:cur.period.dates,referenceDates:ref.period.dates};
+    const different=contextSensitive(key)&&A.aggregate([...cur.items,...ref.items]).mixed;
+    const reason=different?'Different Results contexts':a.partial||b.partial?'Incomplete reports or missing days':!Number.isFinite(a.value)||!Number.isFinite(b.value)?a.reason||b.reason||'No data / zero denominator':'';
+    if(reason)return {...none(reason),...dateInfo};
+    const diff=a.value-b.value,flat=Math.abs(diff)<1e-9;
+    const tone=flat||key==='spend'?'neutral':(PeriodLearning.costKeys.includes(key)?diff<0:diff>0)?'better':'worse';
+    const pct=b.value===0?null:diff/b.value*100;
+    const text=rates.has(key)?(flat?'0':(diff>0?'↑ ':'↓ ')+decimal(Math.abs(diff)))+' pp':flat?'0%':b.value===0?'↑ from 0':(pct>0?'↑ ':'↓ ')+percent(Math.abs(pct));
+    return {text,tone,pct,diff,current:a.value,previous:b.value,...dateInfo,reason:''};
+  }
+  return {build,read,compare,identity,counts,rates};
+})();
+
+const CENTER_PERIOD_PAIRS={
+  leads:{label:'Leads & CPL',keys:['leads','cpl']},
+  booking:{label:'Booking & CPB',keys:['booking','cpb']},
+  results:{label:'Results & CPR',keys:['results','cpr']},
+  conversions:{label:'Conversions',keys:['leadRate','bookingRate']},
+  spend:{label:'Spend',keys:['spend']}
+};
+let centerPeriodGrain='weekly',centerPeriodPair='leads',centerPeriodBasis='total',centerPeriodOffset=0,centerPeriodSort='center',centerPeriodContext='ALL',centerPeriodRangeKey='';
+const centerPeriodName=k=>SCORECARD_METRICS.find(m=>m[0]===k)?.[1]||k;
+const centerPeriodFormat=(v,k)=>scorecardFormat(v,k);
+function centerPeriodHeading(p){
+  const date=new Date(p.start+'T00:00:00Z');
+  const name=p.grain==='weekly'?(p.number===null?'Week ?':'Week '+p.number):p.grain==='monthly'?date.toLocaleDateString('en-GB',{month:'long',timeZone:'UTC'}):scorecardDate(p.start);
+  const detail=p.grain==='daily'?date.toLocaleDateString('en-GB',{weekday:'short',timeZone:'UTC'})+' · '+p.start.slice(0,4):scorecardDate(p.start)+'–'+scorecardDate(p.end)+' · '+p.start.slice(0,4)+(p.start.slice(0,4)!==p.end.slice(0,4)?'/'+p.end.slice(0,4):'');
+  return `<b>${esc(name)}</b><small>${esc(detail)}</small>${p.partial?'<span class="cp-partial">'+(p.start===p.natural.start?'To date':'Partial')+'</span>':''}`;
+}
+function renderCenterPeriodTable(model,groups,periods,indexes,key){
+  const showBrand=new Set(groups.map(g=>g.brand)).size>1;
+  const count=CenterPeriods.counts.has(key),basis=count&&centerPeriodBasis==='daily'?'Daily average':count?'Period total':'Ratio of totals';
+  const format=v=>centerPeriodFormat(v,key),last=indexes.at(-1),known=groups.flatMap(g=>indexes.map(i=>CenterPeriods.read(g.cells[i],key,centerPeriodBasis))).filter(r=>!r.partial&&r.value!==null).map(r=>r.value),max=Math.max(1,...known);
+  const cell=(g,i)=>{
+    const c=g.cells[i],r=CenterPeriods.read(c,key,centerPeriodBasis),tone=r.partial?'neutral':MetricScorecards.tone(c.s,key);
+    const target=['cpr','cpl','cpb','leadRate'].includes(key),toneClass=target?'cp-'+tone:'';
+    const tip=[r.note||r.reason,Number.isFinite(r.value)&&target?scorecardTarget(key):''].filter(Boolean).join(' · ');
+    return `<td class="num cp-value ${toneClass}" data-cp-value="${key}" data-cp-center="${esc(g.key)}" data-cp-period="${i}" title="${esc(tip)}"><b>${format(r.value)}</b>${r.partial?'<sup class="coverage-mark">*</sup>':''}${!target&&key!=='spend'&&r.value!==null&&!r.partial?`<span class="cp-bar" aria-hidden="true"><i style="width:${Math.max(0,r.value/max*100)}%"></i></span>`:''}</td>`;
+  };
+  const change=g=>{
+    const d=CenterPeriods.compare(g,last,key,centerPeriodBasis,model.aggregate),dateLabel=ds=>ds?.length?`${scorecardDate(ds[0])}–${scorecardDate(ds.at(-1))}`:'';
+    const explanation=d.reason||`${format(d.current)} vs ${format(d.previous)}${count&&centerPeriodBasis==='daily'?' / day':''}; ${dateLabel(d.dates)} vs ${dateLabel(d.referenceDates)}`;
+    return `<td class="num cp-change ${d.tone}" title="${esc(explanation)}"><b>${esc(d.text)}</b>${d.current!==null?`<small>${format(d.current)} <span>vs</span> ${format(d.previous)}</small>`:'<small>Not comparable</small>'}</td>`;
+  };
+  return `<section class="card cp-metric-card" data-cp-metric="${key}"><div class="cp-metric-heading"><h3>${centerPeriodName(key)}</h3><small>${basis}</small></div><div class="cp-scroll" role="region" aria-label="${centerPeriodName(key)} by center and ${centerPeriodGrain} period" tabindex="0"><table class="cp-table"><caption class="sc-sr">${centerPeriodName(key)} by center. ${basis}. Change compares matching dates in the latest displayed period with the preceding period in the selected range.</caption><thead><tr><th scope="col">Center</th>${periods.map(p=>`<th scope="col" class="num">${centerPeriodHeading(p)}</th>`).join('')}<th scope="col" class="num cp-change-heading">${centerPeriodGrain==='daily'?'DoD':centerPeriodGrain==='weekly'?'WoW':'MoM'} Δ<small>Matched ${centerPeriodGrain==='weekly'?'weekdays':'dates'}</small></th></tr></thead><tbody>${groups.map(g=>`<tr><th scope="row" title="${esc(labels[g.center]||g.center)}"><b>${esc(g.center)}</b>${showBrand?`<small>${esc(g.brand==='English'?'Sparks English':g.brand)}</small>`:''}</th>${indexes.map(i=>cell(g,i)).join('')}${change(g)}</tr>`).join('')}</tbody>${groups.length>1?`<tfoot><tr><th scope="row">All centers</th>${indexes.map(i=>cell(model.total,i)).join('')}${change(model.total)}</tr></tfoot>`:''}</table></div></section>`;
+}
+function renderCenterPeriods(){
+  const from=$('startFilter').value,to=$('endFilter').value;
+  const rangeKey=JSON.stringify([from,to,...['centerFilter','accountFilter','brandFilter','campaignFilter','objectiveFilter','resultFilter','roleFilter','messageFilter','searchFilter'].map(id=>$(id).value),scope,workView]);
+  if(rangeKey!==centerPeriodRangeKey){centerPeriodOffset=0;centerPeriodRangeKey=rangeKey;}
+  const contexts=[...new Map(selected.map(r=>[resultContext(r),r])).entries()];
+  if(centerPeriodContext!=='ALL'&&!contexts.some(([k])=>k===centerPeriodContext))centerPeriodContext='ALL';
+  const items=centerPeriodContext==='ALL'?selected:selected.filter(r=>resultContext(r)===centerPeriodContext);
+  const history=trendHistoryRows().filter(r=>centerPeriodContext==='ALL'||resultContext(r)===centerPeriodContext);
+  const model=CenterPeriods.build(items,{from,to,latest:latestSourceDay(),grain:centerPeriodGrain,entities:history});
+  const pageSize=4,pages=Math.max(1,Math.ceil(model.periods.length/pageSize));centerPeriodOffset=Math.max(0,Math.min(centerPeriodOffset,pages-1));
+  const end=model.periods.length-centerPeriodOffset*pageSize,start=Math.max(0,end-pageSize),periods=model.periods.slice(start,end),indexes=periods.map((p,i)=>start+i),last=indexes.at(-1);
+  const keys=CENTER_PERIOD_PAIRS[centerPeriodPair].keys;
+  const sorts=[['center','Center A–Z'],...keys.flatMap(k=>[[k+':desc','Highest '+centerPeriodName(k)],[k+':asc','Lowest '+centerPeriodName(k)]])];
+  if(!sorts.some(([k])=>k===centerPeriodSort))centerPeriodSort='center';
+  const groups=[...model.groups].sort((a,b)=>{
+    if(centerPeriodSort!=='center'){
+      const [key,dir]=centerPeriodSort.split(':'),x=CenterPeriods.read(a.cells[last],key,centerPeriodBasis),y=CenterPeriods.read(b.cells[last],key,centerPeriodBasis);
+      const xv=x.partial?null:x.value,yv=y.partial?null:y.value;
+      if(xv===null&&yv!==null)return 1;if(yv===null&&xv!==null)return -1;
+      if(xv!==null&&yv!==null&&xv!==yv)return (dir==='asc'?1:-1)*(xv-yv);
+    }
+    return a.center.localeCompare(b.center)||a.brand.localeCompare(b.brand);
+  });
+  const choices=(opts,current)=>opts.map(([v,label])=>`<option value="${esc(v)}" ${current===v?'selected':''}>${esc(label)}</option>`).join('');
+  const controls=`<div class="cp-heading"><div><h2>Center performance by period</h2><p>${esc(scorecardDate(from))} – ${esc(scorecardDate(to))} · ${new Set(groups.map(g=>g.center)).size} centers</p></div><div class="scope-switch" role="group" aria-label="Center comparison period">${['daily','weekly','monthly'].map(g=>`<button data-cp-grain="${g}" aria-pressed="${g===centerPeriodGrain}" class="${g===centerPeriodGrain?'selected':''}">${GRAINS[g]}</button>`).join('')}</div></div><div class="cp-controls"><div class="scope-switch cp-pairs" role="group" aria-label="Center comparison metrics">${Object.entries(CENTER_PERIOD_PAIRS).map(([v,p])=>`<button data-cp-pair="${v}" aria-pressed="${centerPeriodPair===v}" class="${centerPeriodPair===v?'selected':''}">${p.label}</button>`).join('')}</div><div class="cp-options">${centerPeriodGrain!=='daily'?`<label>Counts<select id="centerPeriodBasis">${choices([['total','Period totals'],['daily','Daily averages']],centerPeriodBasis)}</select></label>`:''}<label>Sort latest period<select id="centerPeriodSort">${choices(sorts,centerPeriodSort)}</select></label>${contexts.length>1?`<label>Results context<select id="centerPeriodContext">${choices([['ALL','All contexts'],...contexts.map(([k,r])=>[k,contextLabel(r)])],centerPeriodContext)}</select></label>`:''}</div></div>`;
+  if(!periods.length||!groups.length)return `<div class="cp-panel">${controls}${empty('No center data for this selection','Adjust the date range or filters.')}</div>`;
+  const missing=groups.flatMap(g=>indexes.flatMap(i=>{const c=g.cells[i],bad=keys.filter(k=>CenterPeriods.read(c,k,centerPeriodBasis).partial);return bad.length?[{g,c,bad}]:[];}));
+  const first=periods[0],latest=periods.at(-1);
+  const alignment=CenterPeriods.compare(groups[0],last,keys[0],centerPeriodBasis,model.aggregate),dates=ds=>scorecardDate(ds[0])+(ds.length>1?'\u2013'+scorecardDate(ds.at(-1)):'');
+  const windowNote=alignment.dates?`<span class="cp-window">${centerPeriodGrain==='weekly'?'WoW':centerPeriodGrain==='monthly'?'MoM':'DoD'} \u0394: ${dates(alignment.dates)} vs ${dates(alignment.referenceDates)}</span>`:'';
+  const tools=`<div class="cp-toolbar"><div class="cp-toolbar-notes">${windowNote}<div class="cp-legend"><span><i class="cp-legend-good"></i>On target</span><span><i class="cp-legend-bad"></i>Above cost / below conversion target</span><span>Δ <b class="period-good">Improved</b> / <b class="period-bad">Declined</b></span></div></div><div class="cp-pages"><button class="button secondary" data-cp-page="older" aria-label="Earlier periods" ${start===0?'disabled':''}>←</button><span aria-live="polite">${scorecardDate(first.start)}–${scorecardDate(latest.end)}<small>${start+1}–${end} of ${model.periods.length} periods</small></span><button class="button secondary" data-cp-page="newer" aria-label="Later periods" ${centerPeriodOffset===0?'disabled':''}>→</button></div></div>`;
+  return `<div class="cp-panel">${controls}${tools}<div class="cp-grid ${keys.length===1?'cp-single':''}">${keys.map(k=>renderCenterPeriodTable(model,groups,periods,indexes,k)).join('')}</div>${missing.length?`<details class="cp-help"><summary>* Data coverage · ${missing.length} center-periods</summary><div class="table-wrap"><table><thead><tr><th>Center</th><th>Dates</th><th>Metrics</th><th>Coverage</th></tr></thead><tbody>${missing.map(({g,c,bad})=>`<tr><td>${esc(g.center)} · ${esc(g.brand)}</td><td>${c.period.start} – ${c.period.end}</td><td>${bad.map(centerPeriodName).join(', ')}</td><td>${bad.map(k=>esc(CenterPeriods.read(c,k,centerPeriodBasis).note)).filter((v,i,a)=>a.indexOf(v)===i).join('<br>')}</td></tr>`).join('')}</tbody></table></div></details>`:''}${periods.some(p=>p.mappingIssue)?'<p class="cp-note">Week ? means Week Num is missing or inconsistent in Raw Data.</p>':''}<details class="cp-help"><summary>How to read this comparison</summary><p>Every cell follows the selected filters and date range. Accounts are combined within each center; brands remain separate. Both tables keep the same center order. Sorting uses the latest displayed period; missing or incomplete values sort last.</p><p>Period totals show Spend, Results, Leads and Booking totals. Daily averages divide those totals by days with data. CPR = Spend ÷ Results; CPL = Spend ÷ Leads; CPB = Spend ÷ Booking. Results → Leads = Leads ÷ Results; Leads → Booking = Booking ÷ Leads. Ratios always use pooled totals.</p><p>The change column compares the latest displayed period with the preceding calendar period within your selected range, including one on the previous page. Weekly changes compare matching weekdays; monthly changes compare matching day numbers. Both values are shown under the change; hover for dates. A partial week is never compared with a full week. Conversion changes use percentage points (pp). Counts rising or costs falling improve; Spend stays neutral.</p><p>Week labels come from Raw Data’s Week Num, on Monday–Sunday periods. Missing or conflicting week labels, missing days, incomplete reports and incompatible Results contexts are not scored. An asterisk marks available but incomplete data; missing values are never zero. Shared outcomes are counted once at their proven scope.</p><p>Cost and conversion backgrounds use the dashboard’s operational thresholds; they do not set an ad action. CPB: safe ≤Rp300,000, warning ≤Rp400,000, review ≤Rp500,000, above Rp500,000 is red. No fixed targets are assumed for outcome counts, Spend or Leads → Booking. Center targets are not inferred from brand-wide monthly plans.</p></details></div>`;
+}
+function refreshCenterPeriods(focus){
+  const host=$('centerPeriodsSlot');if(!host)return;
+  host.innerHTML=renderCenterPeriods();
+  if(focus)host.querySelector(focus)?.focus({preventScroll:true});
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-cp-grain],[data-cp-pair],[data-cp-page]');if(!b)return;
+  if(b.dataset.cpGrain){centerPeriodGrain=b.dataset.cpGrain;centerPeriodOffset=0;refreshCenterPeriods(`[data-cp-grain="${centerPeriodGrain}"]`);}
+  if(b.dataset.cpPair){centerPeriodPair=b.dataset.cpPair;centerPeriodSort='center';refreshCenterPeriods(`[data-cp-pair="${centerPeriodPair}"]`);}
+  if(b.dataset.cpPage){centerPeriodOffset+=b.dataset.cpPage==='older'?1:-1;refreshCenterPeriods(`[data-cp-page="${b.dataset.cpPage}"]`);}
+});
+document.addEventListener('change',e=>{
+  const id=e.target.id;
+  if(id==='centerPeriodBasis')centerPeriodBasis=e.target.value;
+  else if(id==='centerPeriodSort')centerPeriodSort=e.target.value;
+  else if(id==='centerPeriodContext'){centerPeriodContext=e.target.value;centerPeriodOffset=0;}
+  else return;
+  refreshCenterPeriods('#'+id);
+});
+
+// Keep the same center visible in the paired scorecards on wide screens.
+document.addEventListener('scroll',e=>{
+  const panel=e.target;
+  if(!panel.matches?.('#centerPeriodsSlot .cp-scroll'))return;
+  const grid=panel.closest('.cp-grid');
+  if(getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length<2)return;
+  for(const other of grid.querySelectorAll('.cp-scroll'))if(other!==panel){
+    if(Math.abs(other.scrollTop-panel.scrollTop)>1)other.scrollTop=panel.scrollTop;
+    if(Math.abs(other.scrollLeft-panel.scrollLeft)>1)other.scrollLeft=panel.scrollLeft;
+  }
+},true);
+
 /* Today/Yesterday use Jakarta calendar dates; historical ranges follow the latest source date. */
 let datePreset='last7';
 const DATE_PRESETS={today:'Today',yesterday:'Yesterday',last3:'Last 3 days',last7:'Last 7 days',last14:'Last 14 days',last28:'Last 28 days',last30:'Last 30 days',lastWeek:'Last week',lastMonth:'Last month',lastMonthMtd:'Last month + MTD',mtd:'MTD',last4Weeks:'Last 4 W'};
@@ -2192,7 +2423,7 @@ function renderCenters(){
     const items=selected.filter(r=>r.center===c),s=summaryAggregate(items),best=bestMessage(c),alert=creatives.filter(g=>g.center===c&&needsReview(g)).length,tag=A.state(s,config);
     return `<article class="center-card"><div class="row"><div><h3>${esc(c)}</h3><small>${esc(labels[c]||'Center')}</small></div>${pill(tag)}</div>${centerSummaryMetricStrip(s)}${centerSummaryCoverage(s)}<p>${c==='BDS'&&!s.rows?'Dalam pembangunan. Belum diiklankan; tidak dinilai sebagai underperform.':!s.rows?'Belum ada data pada filter ini.':best?`Pesan potensial: <b>${esc(best.message)}</b> · ${money(best.cpr)} CPR · ${integer(best.results)} Results.`:items.some(r=>r.message)?'Belum ada key message yang memenuhi target dan ambang sampel.':'Key message belum diisi. Lengkapi Creative Mapping sebelum menentukan pesan yang cocok.'}</p><div class="row"><button class="text-button" data-center="${esc(c)}">Eksplorasi center →</button><small>${alert?`${alert} ad perlu review`:s.rows?'Tidak ada alert CPR':'Belum dinilai'}</small></div></article>`;
   }).join('');
-  return renderContentRankings()+`<div class="center-grid center-insight-cards">${cards}</div>`;
+  return `<div id="centerPeriodsSlot">${renderCenterPeriods()}</div>`+renderContentRankings()+`<div class="center-grid center-insight-cards">${cards}</div>`;
 }
 function renderMessages(){
   const groups=messageGroups(),total=A.aggregate(selected),mapped=selected.filter(r=>r.message),coverage=A.ratio(mapped.reduce((s,r)=>s+r.spend,0),total.spend,100);

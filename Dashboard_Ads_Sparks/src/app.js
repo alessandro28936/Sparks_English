@@ -24,6 +24,7 @@ const labels={...A.LABELS};
 /* CONTENT_RANKING */
 /* PRIORITIES */
 /* CENTER_MAP */
+/* CENTER_PERIODS */
 /* DATE_RANGE */
 /* DATA_FLOW */
 let chartGrain='daily',explorerGrain='summary',periodCreatives=[],explorerWeek='ALL';
@@ -210,7 +211,7 @@ function renderCenters(){
     const items=selected.filter(r=>r.center===c),s=summaryAggregate(items),best=bestMessage(c),alert=creatives.filter(g=>g.center===c&&needsReview(g)).length,tag=A.state(s,config);
     return `<article class="center-card"><div class="row"><div><h3>${esc(c)}</h3><small>${esc(labels[c]||'Center')}</small></div>${pill(tag)}</div>${centerSummaryMetricStrip(s)}${centerSummaryCoverage(s)}<p>${c==='BDS'&&!s.rows?'Dalam pembangunan. Belum diiklankan; tidak dinilai sebagai underperform.':!s.rows?'Belum ada data pada filter ini.':best?`Pesan potensial: <b>${esc(best.message)}</b> · ${money(best.cpr)} CPR · ${integer(best.results)} Results.`:items.some(r=>r.message)?'Belum ada key message yang memenuhi target dan ambang sampel.':'Key message belum diisi. Lengkapi Creative Mapping sebelum menentukan pesan yang cocok.'}</p><div class="row"><button class="text-button" data-center="${esc(c)}">Eksplorasi center →</button><small>${alert?`${alert} ad perlu review`:s.rows?'Tidak ada alert CPR':'Belum dinilai'}</small></div></article>`;
   }).join('');
-  return renderContentRankings()+`<div class="center-grid center-insight-cards">${cards}</div>`;
+  return `<div id="centerPeriodsSlot">${renderCenterPeriods()}</div>`+renderContentRankings()+`<div class="center-grid center-insight-cards">${cards}</div>`;
 }
 function renderMessages(){
   const groups=messageGroups(),total=A.aggregate(selected),mapped=selected.filter(r=>r.message),coverage=A.ratio(mapped.reduce((s,r)=>s+r.spend,0),total.spend,100);

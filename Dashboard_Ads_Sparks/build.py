@@ -7,7 +7,9 @@ for marker, source in [('/* STYLES */', 'styles.css'), ('/* ANALYTICS */', 'anal
     content = (root / 'src' / source).read_text(encoding='utf-8')
     if source == 'styles.css':
         content += '\n' + (root / 'src/center-map.css').read_text(encoding='utf-8')
+        content += '\n' + (root / 'src/center-periods.css').read_text(encoding='utf-8')
     if source == 'app.js':
+        content = content.replace('/* CENTER_PERIODS */', (root / 'src/center-periods.js').read_text(encoding='utf-8'))
         content = content.replace('/* METRIC_SCORECARDS */', (root / 'src/metric-scorecards.js').read_text(encoding='utf-8') + '\n' + (root / 'src/scorecard-targets.js').read_text(encoding='utf-8'))
         content = content.replace('/* CENTER_MAP */', (root / 'src/map-geography.js').read_text(encoding='utf-8') + '\n' + (root / 'src/center-map.js').read_text(encoding='utf-8'))
         content = content.replace('/* PRIORITIES */', (root / 'src/priorities.js').read_text(encoding='utf-8'))
