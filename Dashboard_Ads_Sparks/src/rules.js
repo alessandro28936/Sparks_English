@@ -48,6 +48,10 @@ const Rules=(()=>{
     const valid=!stats.mixed&&own.every(r=>r.resultType&&r.resultType!=='Tidak tercatat'),active=h.lastStatus==='active';
     const leadsComplete=stats.rows>0&&stats.leadRows===stats.rows,bookingComplete=stats.rows>0&&stats.bookingRows===stats.rows;
     const eligible=stats.spend>=config.minSpend,rateReady=leadsComplete&&stats.results>=config.minResults&&Number.isFinite(stats.leadRate);
+    // K5 exception follows the same green thresholds used by action metrics/scorecards.
+    // All three must be complete, comparable and green within this SAME 7-day action window.
+    const k5FunnelHealthy=rateReady&&CostTargets.meets(stats.cpr,'cpr',config)&&CostTargets.meets(stats.cpl,'cpl',config)&&stats.leadRate>=80;
+    const k5ReviewProtected=bookingComplete&&stats.booking>0&&stats.cpb>500000&&k5FunnelHealthy;
     const age=h.ageDays,ageKnown=Number.isFinite(age),moneyText=n=>'Rp'+Math.round(n).toLocaleString('id-ID'),rateText=n=>n.toLocaleString('id-ID',{maximumFractionDigits:2})+'%';
     const daily=A.group(own,r=>r.day),fourDays=Array.from({length:4},(_,i)=>dayOffset(h.asOf,-i));
     const zeroFour=fourDays.every(day=>{const g=daily.find(x=>x.key===day);return !!g&&g.results===0;})&&daily.filter(g=>fourDays.includes(g.key)).some(g=>g.spend>0);

@@ -72,6 +72,35 @@
  check('K5 does not require age above twelve',has(ev({'Ad name':'26/9/26 - V_TEST',Leads:7,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
  check('K5 age thirteen allowed',has(ev({'Ad name':'25/9/26 - V_TEST',Leads:7,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
  check('K5 zero Booking not infinite CPB',!has(ev({Leads:7,Booking:0,'Amount spent (IDR)':1000001}),'K5'));
+ // CPB >500k is review, never K5 kill, only when CPR, CPL and Results-to-Leads are ALL green on the same 7 days.
+ const healthyK5=ev({Results:20,Leads:17,Booking:1,'Amount spent (IDR)':510000});
+ check('K5 green funnel downgrades to review',healthyK5.state==='CRITICAL'&&!has(healthyK5,'K5')&&healthyK5.actionEvidence.k5ReviewProtected);
+ check('K5 review retains red CPB and green CPR/CPL/Results-to-Leads',healthyK5.operational.cpb>500000&&CostTargets.cpbTier(healthyK5.operational.cpb)==='bad'&&healthyK5.operational.cpr<=cfg.target&&healthyK5.operational.cpl<=CostTargets.limit('cpl',cfg)&&healthyK5.operational.leadRate>=80);
+ check('K5 review gives explicit actionable explanation',healthyK5.diagnosis.reasons.some(r=>r.includes('K5:')&&r.includes('prioritas review')));
+ const badCprK5=ev({Results:10,Leads:9,Booking:1,'Amount spent (IDR)':510000});
+ check('K5 still kills when CPR and CPL are not green',badCprK5.state==='KILL'&&has(badCprK5,'K5'));
+ const badRateK5=ev({Results:24,Leads:14,Booking:1,'Amount spent (IDR)':510000});
+ check('K5 still kills when Results-to-Leads is red',has(badRateK5,'K5'));
+ const missingLeadK5=ev({Results:20,Leads:null,Booking:1,'Amount spent (IDR)':510000});
+ check('Missing Leads do not qualify for K5 green exception',has(missingLeadK5,'K5')&&!missingLeadK5.actionEvidence.k5ReviewProtected);
+ const lowSampleK5=ev({Results:4,Leads:4,Booking:1,'Amount spent (IDR)':510000});
+ check('Fewer than minimum Results cannot qualify for K5 green exception',has(lowSampleK5,'K5'));
+ // Real TCT 13/10/26 - VAFBE_33, Secondary, 9-15 November 2026; raw daily figures verified against Centers.
+ const tctDays=[
+  ['2026-11-09',174671,13,22,0],['2026-11-10',64809,0,5,0],
+  ['2026-11-11',51921,4,5,1],['2026-11-12',60273,2,6,0],
+  ['2026-11-13',49634,3,6,0],['2026-11-14',202247,1,2,0],['2026-11-15',70432,0,1,0]
+ ];
+ const tctRows=tctDays.map(([day,spend,results,leads,booking])=>make({
+  'Campaign name':'Traffic_WA_Diversified_BA_14/2/26','Ad set name':'TCT_T_D_W_BA_26/2/26',
+  'Ad name':'13/10/26 - VAFBE_33','Reporting starts':day,'Account Group':'Secondary','Brand':'English',
+  'Ad ID':'120255686712150664','Amount spent (IDR)':spend,Results:results,Leads:leads,Booking:booking
+ }));
+ const tct=run(tctRows,[],{start:'2026-11-09',end:'2026-11-15'});
+ check('Live TCT seven-day totals reconcile to source',tct.operational.spend===673987&&tct.operational.results===23&&tct.operational.leads===47&&tct.operational.booking===1);
+ check('Live TCT becomes K5 review, with existing other kill rules respected',tct.state==='CRITICAL'&&!has(tct,'K5')&&tct.actionEvidence.k5ReviewProtected&&tct.actionEvidence.killCodes.length===0);
+ check('TCT review keeps the 7-day source window',tct.actionEvidence.start==='2026-11-09'&&tct.actionEvidence.end==='2026-11-15');
+
  check('Inactive no kill',ev({Leads:0,Booking:0,'Ad delivery':'inactive'}).state==='INACTIVE');
  check('Unknown status no kill',ev({Leads:0,Booking:0,'Ad delivery':''}).state==='MIXED');
  const weakAdditional=ev({'Link clicks':1,'3-second video plays':1,'Video plays at 100%':1,Frequency:5},[bp]);
