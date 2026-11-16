@@ -68,7 +68,7 @@
   'Ad name':'13/10/26 - VAFBE_33','Reporting starts':day,'Account Group':'Secondary','Brand':'English',
   'Ad ID':'120255686712150664','Amount spent (IDR)':spend,Results:results,Leads:leads,Booking:booking
  }));
- const tct=run(tctRows);
+ const tct=run(tctRows,[],{start:'2026-11-09',end:'2026-11-15'});
  check('Live TCT seven-day totals reconcile to source',tct.operational.spend===673987&&tct.operational.results===23&&tct.operational.leads===47&&tct.operational.booking===1);
  check('Live TCT becomes K5 review, with existing other kill rules respected',tct.state==='CRITICAL'&&!has(tct,'K5')&&tct.actionEvidence.k5ReviewProtected&&tct.actionEvidence.killCodes.length===0);
  check('TCT review keeps the 7-day source window',tct.actionEvidence.start==='2026-11-09'&&tct.actionEvidence.end==='2026-11-15');
