@@ -41,6 +41,34 @@
  check('K5 CPB above million',has(ev({Leads:7,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
  check('K5 exactly 500k excluded',!has(ev({Leads:7,Booking:1,'Amount spent (IDR)':500000}),'K5'));
  check('K5 applies even with good lead conversion',has(ev({Leads:8,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
+ check('K5 healthy CPR/CPL/lead rate is review, not kill',(()=>{
+   const g=ev({Results:23,Leads:47,Booking:1,'Amount spent (IDR)':673987});
+   return g.state==='CRITICAL'&&g.actionEvidence.k5Review&&g.actionEvidence.k5HealthyFunnel&&!has(g,'K5')&&g.diagnosis.reasons.some(r=>r.includes('K5:')&&r.includes('Prioritas review'));
+ })());
+ check('K5 red CPB remains red in review',CostTargets.cpbTier(ev({Results:23,Leads:47,Booking:1,'Amount spent (IDR)':673987}).operational.cpb)==='bad');
+ check('K5 fails protection when CPR red',has(ev({Results:20,Leads:47,Booking:1,'Amount spent (IDR)':673987}),'K5'));
+ check('K5 fails protection when CPL red',has(ev({Results:23,Leads:12,Booking:1,'Amount spent (IDR)':673987}),'K5'));
+ check('K5 fails protection when lead rate red',has(ev({Results:30,Leads:23,Booking:1,'Amount spent (IDR)':673987}),'K5'));
+ check('K5 incomplete Leads never gets green protection',has(ev({Results:23,Leads:null,Booking:1,'Amount spent (IDR)':673987}),'K5'));
+ check('K5 protected review is not a blanket exception to other kills',(()=>{
+   const items=Array.from({length:4},(_,i)=>make({'Reporting starts':'2026-10-0'+(4+i),Results:0,Leads:0,Booking:0,'Amount spent (IDR)':20000}));
+   // Add valid Results on an earlier day outside K2's four-calendar-day window.
+   const past=make({'Reporting starts':'2026-10-01',Results:23,Leads:47,Booking:1,'Amount spent (IDR)':593987});
+   const g=run([past,...items]);
+   return has(g,'K2')&&g.state==='KILL'&&g.actionEvidence.k5Review;
+ })());
+ check('TCT 13/10 VAFBE_33 is review on verified 9-15 Nov 7-day sample',(()=>{
+   const samples=[
+     ['2026-11-09',174671,13,22,0],['2026-11-10',64809,0,5,0],['2026-11-11',51921,4,5,1],
+     ['2026-11-12',60273,2,6,0],['2026-11-13',49634,3,6,0],['2026-11-14',202247,1,2,0],['2026-11-15',70432,0,1,0]
+   ];
+   const items=samples.map(([day,spend,results,leads,booking])=>make({
+     'Ad name':'13/10/26 - VAFBE_33','Ad set name':'TCT_T_D_W_BA_26/2/26','Account Group':'Secondary','Reporting starts':day,
+     'Amount spent (IDR)':spend,Results:results,Leads:leads,Booking:booking
+   }));
+   const g=run(items,[],{start:'2026-11-09',end:'2026-11-15'});
+   return g.state==='CRITICAL'&&g.actionEvidence.k5Review&&!has(g,'K5')&&g.operational.cpb===673987&&g.operational.results===23&&g.operational.leads===47;
+ })());
  check('K5 does not require age above twelve',has(ev({'Ad name':'26/9/26 - V_TEST',Leads:7,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
  check('K5 age thirteen allowed',has(ev({'Ad name':'25/9/26 - V_TEST',Leads:7,Booking:1,'Amount spent (IDR)':1000001}),'K5'));
  check('K5 zero Booking not infinite CPB',!has(ev({Leads:7,Booking:0,'Amount spent (IDR)':1000001}),'K5'));
@@ -90,7 +118,7 @@
  check('Conflicting status not guessed',run([make(),make({'Ad delivery':'inactive'})]).state==='MIXED');
  check('Table totals preserved',run([make({'Reporting starts':'2026-09-25',Results:1000}),make()]).results===1010);
  check('Operational totals separate',run([make({'Reporting starts':'2026-09-25',Results:1000}),make()]).operational.results===10);
- check('Evidence version recorded',ev().actionEvidence.version==='main-metrics-v7-k5-funnel-review');
+ check('Evidence version recorded',ev().actionEvidence.version==='main-metrics-v7-k5-healthy-funnel');
  check('Live candidates never kill',candidates().every(g=>['ITERATE','OPPORTUNITY'].includes(g.state)&&!g.killReasons.length));
  return checks;
 })()
