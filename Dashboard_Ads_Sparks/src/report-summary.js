@@ -57,6 +57,12 @@ const verifiedOutcomeAliases=[
   {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519560027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
   {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519530027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
   {brand:'English',account:'Main',center:'BTR',adset:'BTR_T_D_W_OG_21/10/26',adId:'120249061519590027',oldAdset:'BTR_T_D_W',start:'2026-10-21',end:'2026-10-21'},
+  // Confirmed C.IN Meta renames: the report's old creative code is scoped by the full Ad ID, ad set and date.
+  // Historical aliases end before the new-code report starts; overlapping codes remain unresolved.
+  {brand:'English',account:'Main',center:'C.IN',adset:'C.IN_T_E_W_VS_30/10/26',adId:'120249211787590027',oldCode:'IAFBENE_113',start:'2026-10-30',end:'2026-11-05'},
+  {brand:'English',account:'Main',center:'C.IN',adset:'C.IN_T_E_W_CMR_13/10/26',adId:'120249142173630027',oldCode:'VAFCU_100',start:'2026-10-26',end:'2026-10-26'},
+  {brand:'English',account:'Main',center:'C.IN',adset:'C.IN_T_E_W_AR_30/10/26',adId:'120249211856280027',oldCode:'IACBENE_36',start:'2026-10-30',end:'2026-11-05'},
+  {brand:'English',account:'Main',center:'C.IN',adset:'C.IN_T_D_W_CB_NW1_2/11/26',adId:'120249255187180027',oldCode:'VACBE_3',start:'2026-11-02',end:'2026-11-08'},
 ];
 function applyVerifiedOutcomeAliases(source,reports,aliases=verifiedOutcomeAliases){
   const output=[...reports],byKey=new Map(reports.map(r=>[r.tier+'|'+r.key,r])),seen=new Set(),claimedOldReports=new Set();
