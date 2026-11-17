@@ -76,7 +76,7 @@
     ['C.IN_T_D_W_CB_NW1_2/11/26','120249255187180027','VEXTR_30','VACBE_3','2026-11-04',86,9]
   ];
   for(const [adset,adId,code,oldCode,day,leads,booking] of cInRenames){
-    const reportSet=adset.replace(/_\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}$/, '');
+    const reportSet=adset.replace(/_\d{1,2}\/\d{1,2}\/\d{2,4}$/, '');
     const currentKey=`English|${day}|${reportSet}|${code}`,oldKey=`English|${day}|${reportSet}|${oldCode}`;
     const row={...make('6/11/26 - '+code,45000,5),day,center:'C.IN',account:'Main',adset,adCode:code,raw:{'Report Key':currentKey,'Account ID':'304705508911066','Ad ID':adId}};
     const historical=[{tier:'legacy',key:oldKey,leads,booking}];
