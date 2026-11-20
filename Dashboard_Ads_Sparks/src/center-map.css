@@ -22,9 +22,10 @@
 .map-filter-icon{width:16px;height:14px;display:inline-block;background:currentColor;clip-path:polygon(0 0,100% 0,62% 52%,62% 84%,39% 100%,39% 52%)}
 .center-world:has(#mapFilterDock:not([hidden])){overflow:visible}
 #mapFilterDock{margin:0 clamp(12px,2vw,28px) 14px;position:relative;z-index:4}
-#mapFilterDock .filter-panel{margin:0;border-color:#d2dfd0;border-radius:12px;background:#fcfdf9}
-#mapFilterDock .filters{padding-block:12px}
-#mapFilterDock .filter-bottom{background:#f6f8f3;border-radius:0 0 12px 12px}
+.filter-panel{border-color:#d2dfd0;border-radius:12px;background:#fcfdf9}
+#mapFilterDock .filter-panel{margin:0}
+.filter-panel .filters{padding-block:12px}
+.filter-panel .filter-bottom{background:#f6f8f3;border-radius:0 0 12px 12px}
 #mapAlertHub{margin:0 clamp(12px,2vw,28px) 16px}
 .map-alert-strip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;border:1px solid #e5c3b3;border-left:4px solid #b75437;border-radius:12px;background:#fff6ee;padding:10px 14px}
 .map-alert-label,.map-alert-clear{display:flex;align-items:center;gap:9px}
@@ -47,10 +48,10 @@
 
 
 @media(min-width:980px){
- #mapFilterDock .filter-panel{display:grid;grid-template-columns:auto 1fr}
- #mapFilterDock .filter-top{border:0;justify-content:flex-start}
- #mapFilterDock .work-view-row{justify-content:flex-end;padding:10px 16px}
- #mapFilterDock .filters,#mapFilterDock .filter-bottom{grid-column:1/-1}
+ .filter-panel{display:grid;grid-template-columns:auto 1fr}
+ .filter-panel .filter-top{border:0;justify-content:flex-start}
+ .filter-panel .work-view-row{justify-content:flex-end;padding:10px 16px}
+ .filter-panel .filters,.filter-panel .filter-bottom{grid-column:1/-1}
 }
 @media(max-width:650px){
  .map-heading{flex-direction:row;align-items:flex-start}
@@ -60,24 +61,24 @@
  .map-alert-toggle{grid-column:2;grid-row:1}
 }
 
-/* Compact map filters: eight controls in two complete desktop rows. */
-#mapFilterDock .filters{gap:10px 12px;padding:10px 16px 12px}
-#mapFilterDock .filters label{font-size:11px}
-#mapFilterDock .filters select,#mapFilterDock .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}
-#mapFilterDock .filter-top{padding:10px 16px}
-#mapFilterDock .work-view-row{padding-block:10px}
-#mapFilterDock .filter-bottom{padding:7px 16px}
+/* Shared compact filters across all dashboard views. */
+.filter-panel .filters{gap:10px 12px;padding:10px 16px 12px}
+.filter-panel .filters label{font-size:11px}
+.filter-panel .filters select,.filter-panel .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}
+.filter-panel .filter-top{padding:10px 16px}
+.filter-panel .work-view-row{padding-block:10px}
+.filter-panel .filter-bottom{padding:7px 16px}
 @media(min-width:1100px){
- #mapFilterDock .filters{grid-template-columns:1fr 1.55fr 1fr 1.15fr}
- #mapFilterDock .date-range-field{grid-column:span 1}
+ .filter-panel .filters{grid-template-columns:1fr 1.55fr 1fr 1.15fr}
+ .filter-panel .date-range-field{grid-column:span 1}
 }
 @media(min-width:601px) and (max-width:1099px){
- #mapFilterDock .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
- #mapFilterDock .date-range-field{grid-column:span 1}
+ .filter-panel .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .filter-panel .date-range-field{grid-column:span 1}
 }
 @media(max-width:600px){
- #mapFilterDock .filters{grid-template-columns:minmax(0,1fr);padding:10px 12px}
- #mapFilterDock .date-range-field{grid-column:span 1}
+ .filter-panel .filters{grid-template-columns:minmax(0,1fr);padding:10px 12px}
+ .filter-panel .date-range-field{grid-column:span 1}
 }
 
 
