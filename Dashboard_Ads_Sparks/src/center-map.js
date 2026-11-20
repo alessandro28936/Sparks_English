@@ -140,7 +140,17 @@ function refreshCenterMap(recompute=true){
  $('mapAlertHub').innerHTML=mapAlertContent(priorityData.sets);
  $('mapCanvas').innerHTML=renderCenterMap(recompute);
 }
-function mapSummary(m){return `<div class="map-metrics">${SCORECARD_METRICS.map(([k,label])=>{const r=MetricScorecards.read(m.s,k);return `<div><span>${label}</span><b>${k==='bookingRate'&&!r.partial?bookingRateMarkup(r.value,scorecardFormat(r.value,k)):scorecardFormat(r.value,k)}${r.partial?'*':''}</b></div>`;}).join('')}</div>${m.s.leadRows<m.s.rows||m.s.bookingRows<m.s.rows?'<p class="mini-note">* Incomplete outcome reports; values use available matched records.</p>':''}`;}
+function mapSummary(m){
+ const cards=SCORECARD_METRICS.map(([key,label])=>{
+  const reading=MetricScorecards.read(m.s,key);
+  const tone=m.brand!=='English'&&key.startsWith('cp')?'neutral':MetricScorecards.tone(m.s,key);
+  const status={good:'Within target',warning:'Warning',review:'Review',bad:'Outside target',neutral:'Unscored'}[tone];
+  const target=key==='bookingRate'?CostTargets.bookingRateGuide:scorecardTarget(key);
+  return `<div class="map-metric-${tone}" title="${esc(status+' ? '+target)}"><span>${label}</span><b>${scorecardFormat(reading.value,key)}${reading.partial?'*':''}</b></div>`;
+ });
+ return `<div class="map-metrics">${cards.join('')}</div>${m.s.leadRows<m.s.rows||m.s.bookingRows<m.s.rows?'<p class="mini-note">* Incomplete outcome reports; values use available matched records.</p>':''}`;
+}
+
 function scopedMapTable(){
  const saved={selected,base,creatives,adsetDetails,adsetMetric,adsetOrder,adsetDelivery,expanded:[...expandedAdsets]};
  try{selected=mapFocus.items;base=base.filter(r=>r.brand===mapFocus.brand&&mapFocus.codes.includes(r.center));creatives=creatives.filter(g=>g.brand===mapFocus.brand&&mapFocus.codes.includes(g.center));adsetMetric=mapTableState.metric;adsetOrder=mapTableState.order;adsetDelivery=mapTableState.delivery;expandedAdsets.clear();mapTableState.expanded.forEach(k=>expandedAdsets.add(k));const html=renderAdsetPerformance();mapAdDetails=adsetDetails.map(g=>({...g,id:g.id.replace('adset_ad_','map_ad_')}));return html.replaceAll('adset_ad_','map_ad_').replace(/(id|for)="(adsetDelivery|adsetMetric|adsetOrder)"/g,'$1="map_$2"');}
