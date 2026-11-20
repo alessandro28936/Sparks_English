@@ -42,10 +42,10 @@
 #mapAlertTray button:hover{background:#fcf6ee}
 .map-review-reasons{padding-left:1.3rem;color:#794631}
 :root{--booking-good:#39835c;--booking-warning:#b7891c;--booking-bad:#bd584b;--booking-neutral:#87958d}
-.booking-rate-tag{display:inline-block;border-radius:5px;padding:1px 5px;font-variant-numeric:tabular-nums}
-.booking-rate-tag.rate-good{color:#215b3e;background:#e0f1e4}
-.booking-rate-tag.rate-warning{color:#765509;background:#fff1bc}
-.booking-rate-tag.rate-bad{color:#933d34;background:#fbe4df}
+.booking-rate-tag{font-variant-numeric:tabular-nums}
+
+
+
 @media(min-width:980px){
  #mapFilterDock .filter-panel{display:grid;grid-template-columns:auto 1fr}
  #mapFilterDock .filter-top{border:0;justify-content:flex-start}
@@ -78,4 +78,20 @@
 @media(max-width:600px){
  #mapFilterDock .filters{grid-template-columns:minmax(0,1fr);padding:10px 12px}
  #mapFilterDock .date-range-field{grid-column:span 1}
+}
+
+
+/* Review summary keeps all seven metrics together on wide dialogs. */
+#detailContent .center-summary-metrics{
+ grid-template-columns:repeat(7,minmax(0,1fr));
+ gap:12px;margin:20px 0;
+}
+#detailContent .center-summary-metrics>span{
+ min-width:0;grid-column:auto;border:0;padding:0;
+}
+@media(max-width:1000px){
+ #detailContent .center-summary-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ #detailContent .center-summary-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
 }

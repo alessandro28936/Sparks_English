@@ -77,7 +77,7 @@ function adsetMetricCells(g,share,peers=[]){
       const outcome={cpr:'results',cpl:'leads',cpb:'booking'}[key],count=outcome?metricDisplayData(g,outcome):null;
       tone='unknown';note=reading.partial?'':count&&!count.partial&&count.value===0?'No '+({results:'Results',leads:'Leads',booking:'Booking'}[outcome]):'No data';
     }
-    else if(key==='bookingRate'){tone=CostTargets.bookingRateTier(value);note=tone==='good'?'Meets 20%':tone==='warning'?'Below 20%':'Below 15%';}
+    else if(key==='bookingRate'){tone=CostTargets.bookingRateTier(value);strength=Math.min(1,Math.abs(value-20)/20);note=tone==='good'?'Meets 20%':tone==='warning'?'Below 20%':'Below 15%';}
     else if(key==='leadRate'||CostTargets.limit(key,config)){
       const target=key==='leadRate'?80:CostTargets.limit(key,config),good=key==='leadRate'?value>=target:value<=target;
       tone=key==='cpb'?CostTargets.cpbTier(value):good?'good':'bad';strength=Math.min(1,Math.abs(value-target)/target);
