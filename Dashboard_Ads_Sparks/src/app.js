@@ -63,9 +63,39 @@ function updateOptions(){
   $('messageFilter').insertAdjacentHTML('beforeend','<option value="MISSING">Belum diisi key message</option>');
   if(oldMessage==='MISSING')$('messageFilter').value='MISSING';
 }
-async function sync(){
+// Persist source responses together so cached outcomes stay aligned with Raw Data.
+function dashboardCache(value){
+ return new Promise(resolve=>{
+  let db,settled=false;
+  const finish=result=>{if(settled)return;settled=true;clearTimeout(timer);db?.close();resolve(result);};
+  const timer=setTimeout(()=>finish(null),1500);
+  try{
+   const request=indexedDB.open('sparks-dashboard-cache',1);
+   request.onupgradeneeded=()=>request.result.createObjectStore('snapshots');
+   request.onerror=()=>finish(null);
+   request.onblocked=()=>finish(null);
+   request.onsuccess=()=>{
+    db=request.result;if(settled){db.close();return;}
+    const tx=db.transaction('snapshots',value?'readwrite':'readonly');
+    const store=tx.objectStore('snapshots'),entry=value?store.put(value,SHEET):store.get(SHEET);
+    let result=null;
+    entry.onsuccess=()=>{result=value||entry.result;};
+    tx.oncomplete=()=>finish(result);
+    tx.onerror=tx.onabort=()=>finish(null);
+   };
+  }catch{finish(null);}
+ });
+}
+async function sync(snapshot=null){
+  if(snapshot?.version!==1)snapshot=null;
   if(busy)return;busy=true;$('syncButton').disabled=true;$('syncDot').className='dot waiting';$('syncStatus').textContent='Menyinkronkan Raw Data & Knowledge…';
-  const results=await Promise.allSettled([jsonp('Raw Data'),jsonp('Knowledge','select A,B,C,E,F','A1:F100')]);
+  if(loaded&&lastSync)$('syncStatus').textContent='Updating · showing saved data '+lastSync.toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB';
+  const results=snapshot?snapshot.responses:await Promise.allSettled([
+    jsonp('Raw Data'),jsonp('Knowledge','select A,B,C,E,F','A1:F100'),
+    jsonp('Report Totals','select A,B,C,D,E,F','A1:F90000'),
+    jsonp('Report Totals','select G,H,I,J,K,L where G is not null','G1:L90000'),
+    jsonp('Report Totals','select M,N,O,Q,R,S where M is not null or Q is not null','M1:S90000')
+  ]);
   try{
     if(results[0].status==='rejected')throw results[0].reason;
     const data=results[0].value;
@@ -74,9 +104,9 @@ async function sync(){
     if(!data.length)throw new Error('Raw Data kosong; data terakhir dipertahankan.');
     raw=data;rows=excludeUnpublishedRows(A.resolveTypes(A.normalize(raw)));
     reportSummaryIndex=null;reportSummaryError='';
-    const firstDay=rows.map(r=>r.day).filter(Boolean).sort()[0];
     try{
-      const reports=await Promise.all([jsonp('Report Totals',`select A,B,C,D,E,F where A >= date '${firstDay}'`,'A1:F90000'),jsonp('Report Totals','select G,H,I,J,K,L where G is not null','G1:L90000'),jsonp('Report Totals','select M,N,O,Q,R,S where M is not null or Q is not null','M1:S90000')]);
+      if(results.slice(2).some(r=>r.status!=='fulfilled'))throw new Error('Report Totals unavailable');
+      const reports=results.slice(2).map(r=>r.value);
       const reportRecords=applyVerifiedOutcomeAliases(rows,ReportSummary.records(...reports));
       fillUniqueOutcomeReports(rows,ReportSummary.index(rows,reportRecords));
       rows=combineApprovedOutcomeAds(rows,reportRecords);
@@ -90,10 +120,12 @@ async function sync(){
     updateOptions();
     const dates=rows.map(r=>r.day).filter(Boolean).sort();
     if((!loaded||rollingPeriod)&&dates.length)applyDatePreset(DATE_PRESETS[datePreset]?datePreset:'last7',false);
-    lastSync=new Date();lastError='';loaded=true;
+    lastSync=new Date(snapshot?snapshot.savedAt:Date.now());lastError='';loaded=true;
     $('periodLabel').textContent=dates.length?`Tersedia ${prettyDate(dates[0])} – ${prettyDate(dates.at(-1))}`:'Tidak ada tanggal valid';
     $('syncStatus').textContent=`Raw Data synced ${lastSync.toLocaleTimeString('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit'})} WIB · otomatis tiap 10 menit`;
+    if(snapshot)$('syncStatus').textContent='Saved data '+lastSync.toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB · checking for updates';
     $('syncDot').className='dot';render();
+    if(!snapshot&&results.every(r=>r.status==='fulfilled'))void dashboardCache({version:1,savedAt:lastSync.toISOString(),responses:results});
   }catch(e){
     lastError=e.message;$('syncDot').className='dot error';$('syncStatus').textContent=`Sync gagal${lastSync?' · menampilkan data terakhir':''}: ${e.message}`;
     render();
@@ -324,4 +356,14 @@ $('myScope').onclick=()=>{scope='MY';$('centerFilter').value='ALL';updateOptions
 $('syncButton').onclick=sync;$('exportButton').onclick=exportCsv;$('settingsButton').onclick=settings;$('resetButton').onclick=reset;
 $('settingsForm').onsubmit=e=>{e.preventDefault();config={target:+$('targetInput').value,cplTarget:+$('cplTargetInput').value,cpbTarget:+$('cpbTargetInput').value,cpbTargetVersion:2,minSpend:+$('spendInput').value,minResults:+$('resultsInput').value};try{localStorage.setItem('sparks-analysis-settings-v2',JSON.stringify(config));}catch{notify('Pengaturan berlaku untuk sesi ini; penyimpanan browser tidak tersedia.');}$('settingsDialog').close();render();};
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-sync();setInterval(sync,600000);
+async function startDashboard(){
+ refreshCenterMap();
+ await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ const snapshot=await dashboardCache();
+ if(snapshot?.version===1&&Array.isArray(snapshot.responses)&&snapshot.responses.length===5&&snapshot.responses.every(r=>r.status==='fulfilled'&&Array.isArray(r.value))&&Date.now()-Date.parse(snapshot.savedAt)<7*86400000){
+  await sync(snapshot);
+  await new Promise(resolve=>setTimeout(resolve,0));
+ }
+ void sync();
+}
+void startDashboard();setInterval(()=>sync(),600000);
