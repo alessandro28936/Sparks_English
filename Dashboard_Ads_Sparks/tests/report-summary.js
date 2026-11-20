@@ -68,6 +68,41 @@
     check('Alias is restricted to approved date '+center+'/'+code,applyVerifiedOutcomeAliases([other],laterReport).length===1);
     check('Current-name report takes precedence '+center+'/'+code,applyVerifiedOutcomeAliases([original],[...historic,{tier:'legacy',key,leads:6,booking:1}]).length===2);
   }
+  // C.IN user-confirmed Meta rename: the Daily Report keeps the old code, and IDs exist only in Raw Data.
+  const cInRenames=[
+    ['C.IN_T_E_W_VS_30/10/26','120249211787590027','IAFBENE_121','IAFBENE_113','2026-10-31',1,0],
+    ['C.IN_T_E_W_CMR_13/10/26','120249142173630027','VAFCUOG_100','VAFCU_100','2026-10-26',0,0],
+    ['C.IN_T_E_W_AR_30/10/26','120249211856280027','IACBENE_39','IACBENE_36','2026-11-04',2,0],
+    ['C.IN_T_D_W_CB_NW1_2/11/26','120249255187180027','VEXTR_30','VACBE_3','2026-11-04',86,9]
+  ];
+  for(const [adset,adId,code,oldCode,day,leads,booking] of cInRenames){
+    const reportSet=adset.replace(/_\d{1,2}\/\d{1,2}\/\d{2,4}$/, '');
+    const currentKey=`English|${day}|${reportSet}|${code}`,oldKey=`English|${day}|${reportSet}|${oldCode}`;
+    const row={...make('6/11/26 - '+code,45000,5),day,center:'C.IN',account:'Main',adset,adCode:code,raw:{'Report Key':currentKey,'Account ID':'304705508911066','Ad ID':adId}};
+    const historical=[{tier:'legacy',key:oldKey,leads,booking}];
+    const aliased=applyVerifiedOutcomeAliases([row],historical);
+    check('C.IN rename mapped by verified ID '+adId,aliased.length===2&&aliased[1].tier==='id'&&aliased[1].leads===leads&&aliased[1].booking===booking);
+    fillUniqueOutcomeReports([row],ReportSummary.index([row],aliased));
+    check('C.IN rename outcomes remain accurate '+adId,row.leads===leads&&row.booking===booking);
+    check('C.IN rename marked as historical '+adId,Rules.confirmedRenamed(row));
+    check('C.IN wrong ID cannot inherit historical report '+adId,applyVerifiedOutcomeAliases([{...row,raw:{...row.raw,'Ad ID':'INVALID'}}],historical).length===1);
+    check('C.IN wrong ad set cannot inherit historical report '+adId,applyVerifiedOutcomeAliases([{...row,adset:adset+'-OTHER'}],historical).length===1);
+  }
+  const cInOverlap={...make('2/11/26 - VEXTR_30',45000,5),day:'2026-11-09',center:'C.IN',account:'Main',adset:'C.IN_T_D_W_CB_NW1_2/11/26',adCode:'VEXTR_30',raw:{'Report Key':'English|2026-11-09|C.IN_T_D_W_CB_NW1|VEXTR_30','Account ID':'304705508911066','Ad ID':'120249255187180027'}};
+  const overlapping=[{tier:'legacy',key:'English|2026-11-09|C.IN_T_D_W_CB_NW1|VACBE_3',leads:8,booking:0},{tier:'legacy',key:cInOverlap.raw['Report Key'],leads:0,booking:0}];
+  check('Overlapping C.IN old and new codes do not double credit a single Ad ID',applyVerifiedOutcomeAliases([cInOverlap],overlapping).length===overlapping.length);
+  // CL.JU and JU are different full Meta ad sets, even though both map to center CL.JU.
+  const clKey='English|2026-11-12|ALLS-ENG-CL.JU_T_D_W_TA|IAFCUNG_29',juKey='English|2026-11-12|ALLS-ENG-JU_T_D_W_TA|IAFCUNG_29';
+  const cl1={...make('11/11/26 - IAFCUNG_29',30000,4),day:'2026-11-12',center:'CL.JU',account:'Third',adset:'ALLS-ENG-CL.JU_T_D_W_TA_3/11/26',adCode:'IAFCUNG_29',raw:{'Report Key':clKey,'Ad ID':'111'}};
+  const cl2={...cl1,adset:'ALLS-ENG-CL.JU_T_D_W_TA_12/11/26',raw:{...cl1.raw,'Ad ID':'222'}};
+  const ju={...cl1,adset:'ALLS-ENG-JU_T_D_W_TA_1/11/26',raw:{'Report Key':juKey,'Ad ID':'333'}};
+  const clash=ReportSummary.index([cl1,cl2,ju],[{tier:'account',key:clKey+'|Third',leads:4,booking:1},{tier:'account',key:juKey+'|Third',leads:0,booking:0}]);
+  check('Two CL.JU ad sets with the same creative cannot both receive its leads',ReportSummary.aggregate([cl1,cl2],clash).leadRows===0);
+  check('Filtering one CL.JU ad set cannot bypass ambiguity',ReportSummary.aggregate([cl1],clash).leadRows===0);
+  check('Separate JU ad set retains its own zero outcome',ReportSummary.aggregate([ju],clash).leadRows===1&&ReportSummary.aggregate([ju],clash).leads===0);
+  const clUnique={...cl1,adCode:'IAFBENE_104',raw:{'Report Key':'English|2026-11-12|ALLS-ENG-CL.JU_T_D_W_TA|IAFBENE_104','Ad ID':'444'}};
+  const uniqueIdx=ReportSummary.index([clUnique],[{tier:'account',key:clUnique.raw['Report Key']+'|Third',leads:3,booking:0}]);
+  check('Unique CL.JU date and creative can match without Daily Report IDs',ReportSummary.aggregate([clUnique],uniqueIdx).leads===3);
   // A single legacy outcome report must not be applied to two competing historical aliases.
   const aliasFirst={...make('20/10/26 - IAFBEOE_95',5000,0),day:'2026-10-20',center:'TMP',adset:'TMP_T_M_W_1/5/26',adCode:'IAFBEOE_95',account:'Main',raw:{'Report Key':'English|2026-10-20|TMP_T_M_W|IAFBEOE_95','Account ID':'304705508911066','Ad ID':'120249046668610027'}};
   const competing={...aliasFirst,raw:{...aliasFirst.raw,'Ad ID':'120249046417170027'},adset:'CBN_T_M_W_1/5/26',center:'CBN'};

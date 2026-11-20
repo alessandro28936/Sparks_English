@@ -1,9 +1,10 @@
 let workView='centers';
-const MY_THIRD_ADSET='ALLS-ENG-JU_T_D_W_TA_3/11/26';
-const MY_THIRD_ADSETS=[MY_THIRD_ADSET,'ALLS-ENG-JU_T_D_W_TA_1/11/26'];
+// Third-account North Jakarta ad sets use both JU and CL.JU prefixes.
+// Match the center and stable ad-set prefix, not individual launch dates.
+const isOwnedThirdNorthJakarta=r=>r.brand==='English'&&r.center==='CL.JU'&&/^ALLS-ENG-(?:JU|CL\.JU)_/i.test(r.adset);
 const isPreheat=r=>r.center==='C.IN'||/^C\.IN(?:_|$)/i.test(r.adset);
 function ownedRow(r){
-  if(r.account==='Third')return r.brand==='English'&&MY_THIRD_ADSETS.includes(r.adset);
+  if(r.account==='Third')return isOwnedThirdNorthJakarta(r);
   return isPreheat(r)||A.MINE.includes(r.center);
 }
 function workspaceMatches(r){

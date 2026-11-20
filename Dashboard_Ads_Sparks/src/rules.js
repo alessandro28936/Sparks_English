@@ -3,7 +3,16 @@ const Rules=(()=>{
   const VERSION='main-metrics-v7-k5-healthy-funnel';
   const identity=A.adIdentity;
   // User confirmed this specific ad was renamed; its name date is not its publication date.
-  const confirmedRenamed=r=>r.brand==='English'&&r.account==='Main'&&r.center==='CBN'&&String(r.raw?.['Ad ID']||'')==='120249097142890027';
+  // A Meta Ad ID retains its delivery history after an edit to creative/name.
+  // Scope the confirmation to the original full ad set; no Daily Report ID columns required.
+  const renamedAdSetsById=new Map([
+    ['120249097142890027','CBN_T_M_W_1/5/26'],
+    ['120249211787590027','C.IN_T_E_W_VS_30/10/26'],
+    ['120249142173630027','C.IN_T_E_W_CMR_13/10/26'],
+    ['120249211856280027','C.IN_T_E_W_AR_30/10/26'],
+    ['120249255187180027','C.IN_T_D_W_CB_NW1_2/11/26']
+  ]);
+  const confirmedRenamed=r=>r.brand==='English'&&r.account==='Main'&&renamedAdSetsById.get(String(r.raw?.['Ad ID']||''))===r.adset;
   const setKey=r=>JSON.stringify([r.brand,r.account,r.campaign,r.adset]);
   const contextKey=r=>JSON.stringify([r.center,A.metricContext(r)]);
   const dayOffset=(day,n)=>{const d=new Date(day+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);};
