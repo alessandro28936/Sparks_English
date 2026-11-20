@@ -41,7 +41,7 @@ function renderPriorities(){
 
 function reviewPrioritySet(index){
   const a=priorityData.sets[index];if(!a)return;
-  $('detailContent').innerHTML=`<h2>${esc(a.name)}</h2><p>${esc(a.center)} · ${esc(a.account)} · ${esc(a.start)} — ${esc(a.end)}</p><p class="mini-note">Active ads only. Click an ad for its action evidence and meeting options.</p>${centerSummaryMetricStrip(a.s)}<div class="table-wrap"><table><thead><tr><th>Ad / center</th><th>Why review</th><th>Spend</th><th>Results / CPR</th><th>Leads / CPL</th><th>Booking / CPB</th></tr></thead><tbody>${priorityRows(a.members,'ads')}</tbody></table></div>`;
+  $('detailContent').innerHTML=`<h2>${esc(a.name)}</h2><p>${esc(a.center)} · ${esc(a.account)} · ${esc(a.start)} — ${esc(a.end)}</p><ul class="map-review-reasons">${a.issues.map(issue=>`<li>${esc(issue.text)}</li>`).join('')}</ul><p class="mini-note">Active ads only. Click an ad for its action evidence and meeting options.</p>${centerSummaryMetricStrip(a.s)}<div class="table-wrap"><table><thead><tr><th>Ad / center</th><th>Why review</th><th>Spend</th><th>Results / CPR</th><th>Leads / CPL</th><th>Booking / CPB</th></tr></thead><tbody>${priorityRows(a.members,'ads')}</tbody></table></div>`;
   $('detailDialog').showModal();
 }
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.priorityTab){priorityTab=b.dataset.priorityTab;priorityShowAll=false;render();}else if(b.dataset.priorityAll){priorityShowAll=!priorityShowAll;render();}else if(b.dataset.prioritySet!==undefined)reviewPrioritySet(Number(b.dataset.prioritySet));});

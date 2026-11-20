@@ -36,16 +36,19 @@ const MapPerformance=(()=>{
   if(states.every(s=>s==='inactive'))return {tone:'off',label:'Ads inactive',reason:'All ads have inactive as their latest recorded status in this period.'};
   if(!states.includes('active'))return {tone:'unknown',label:'Delivery unverified',reason:'Latest delivery status is unknown or conflicting.'};
   if(s.spend<config.minSpend)return {tone:'unknown',label:'Learning',reason:'Spend below '+money(config.minSpend)+'.'};
-  const values={};for(const k of ['cpr','cpl','cpb','leadRate']){const r=MetricScorecards.read(s,k);if(r.partial)return {tone:'unknown',label:'Check data',reason:'Outcome reports are incomplete.'};values[k]=r.value;}
+  const values={};for(const k of ['cpr','cpl','cpb','leadRate','bookingRate']){const r=MetricScorecards.read(s,k);if(r.partial)return {tone:'unknown',label:'Check data',reason:'Outcome reports are incomplete.'};values[k]=r.value;}
   if(s.mixed)return {tone:'unknown',label:'Mixed contexts',reason:'Choose a single brand and Results context.'};
   if(!thresholds||Object.values(thresholds).some(v=>!Number.isFinite(v)||v<=0))return {tone:'unknown',label:'Target not set',reason:'Set brand targets before judging performance.'};
   if(s.results===0)return {tone:'bad',label:'Needs attention',reason:'Spend recorded with 0 Results.'};
   if(s.results<config.minResults)return {tone:'unknown',label:'Learning',reason:'Fewer than '+config.minResults+' Results.'};
   if(s.leads===0&&s.leadRows===s.rows||s.booking===0&&s.bookingRows===s.rows&&s.spend>=thresholds.cpb)return {tone:'bad',label:'Needs attention',reason:'No Leads or Booking after sufficient spend.'};
   if(values.cpr>thresholds.cpr*1.2||values.cpl>thresholds.cpl*1.2||values.cpb>thresholds.cpb*4/3||values.leadRate!==null&&values.leadRate<60)return {tone:'bad',label:'Needs attention',reason:'Cost exceeds the review boundary or Results → Leads is below 60%.'};
+  const bookingTone=CostTargets.bookingRateTier(values.bookingRate);
+  if(bookingTone==='bad')return {tone:'bad',label:'Needs attention',reason:'Leads → Booking '+percent(values.bookingRate)+' is below 15%.'};
+  if(bookingTone==='warning')return {tone:'watch',label:'Watch closely',reason:'Leads → Booking '+percent(values.bookingRate)+' is below 20%.'};
   if(values.cpr>=thresholds.cpr*.9||values.cpl>=thresholds.cpl*.9||values.cpb>=thresholds.cpb*.9||values.leadRate!==null&&values.leadRate<80)return {tone:'watch',label:'Watch closely',reason:'Costs approach/exceed target or Results → Leads is below 80%.'};
   if(Object.values(values).some(v=>v===null))return {tone:'unknown',label:'Learning',reason:'Not enough outcomes to assess all main metrics.'};
-  return {tone:'good',label:'On track',reason:'Costs below 90% of target and Results → Leads at least 80%.'};
+  return {tone:'good',label:'On track',reason:'Costs below 90% of target, Results → Leads ≥80% and Leads → Booking ≥20%.'};
  }
  return {classify};
 })();
@@ -93,12 +96,51 @@ function renderCenterMap(recompute=true){
  if(recompute)mapModels=buildMapModels();const mapped=mapModels.filter(m=>m.region!=='unmapped'),unmapped=mapModels.filter(m=>m.region==='unmapped');
  const regions=Object.entries(MAP_REGIONS).filter(([id])=>mapped.some(m=>m.region===id));
  if(mapRegion!=='islands'&&!regions.some(([id])=>id===mapRegion))mapRegion='islands';
- const shown=mapRegion==='islands'?mapped:mapped.filter(m=>m.region===mapRegion),alerts=priorityData.sets.length;
+ const shown=mapRegion==='islands'?mapped:mapped.filter(m=>m.region===mapRegion);
  const content=!mapped.length?empty('No mapped centers in this selection','Preheat audiences and unconfirmed locations are listed below.'):mapRegion==='islands'?geographicIslandsScene(mapped,regions):mapRegion==='metro'?geographicCenterScene(shown):`<div class="map-local-land"></div><div class="map-local-caption">${esc(MAP_REGIONS[mapRegion].name)}</div><div class="map-local-grid">${shown.map(m=>mapBadge(m)).join('')}</div>`;
- return `<section class="center-world" aria-label="Center performance map"><div class="map-heading"><div><span class="eyebrow">THE SPARKS NETWORK</span><h2>Your centers, at a glance.</h2><p>${esc($('brandFilter').selectedOptions[0]?.textContent)} · ${scope==='MY'?'My assignments':'All assignments'} · ${esc(dateRangeText())}${$('brandFilter').value==='SLSA'?' · Temporary shared locations':''}</p></div><div class="map-heading-actions"><button class="button secondary" data-map-filters>Filters ↓</button><button class="button primary" data-map-alerts>${alerts} ad set alerts</button></div></div><div class="map-navigation"><div class="scope-switch"><button data-map-region="islands" class="${mapRegion==='islands'?'selected':''}">Islands</button>${regions.some(([id])=>id==='metro')?`<button data-map-region="metro" class="${mapRegion==='metro'?'selected':''}">Jabodetabek</button>`:''}${regions.some(([id])=>id==='makassar')?`<button data-map-region="makassar" class="${mapRegion==='makassar'?'selected':''}">Makassar</button>`:''}</div><div class="map-zoom"><button data-map-zoom="out" aria-label="Zoom out" ${mapZoom<=1?'disabled':''}>−</button><span>${Math.round(mapZoom*100)}%</span><button data-map-zoom="in" aria-label="Zoom in" ${mapZoom>=1.8?'disabled':''}>+</button><button data-map-zoom="reset">Reset</button></div></div><div class="map-viewport" tabindex="0" aria-label="Map viewport; use zoom buttons and scroll to explore"><div class="map-scene ${!mapped.length?'empty-map-scene':mapRegion==='islands'?'islands-scene':mapRegion==='metro'?'metro-scene':'local-scene'}" style="width:${mapZoom*100}%;--map-zoom:${mapZoom}">${content}</div></div><div id="mapHover" class="map-hover" role="status" hidden></div><div class="map-footer"><div class="map-legend"><span class="good">On track</span><span class="watch">Watch</span><span class="bad">Needs attention</span><span class="off">Inactive / building</span><span class="unknown">No score / outside filters</span></div><small>North up &middot; area-level pins &middot; <a href="https://www.geoboundaries.org/api/current/gbOpen/IDN/ADM2/" target="_blank" rel="noopener">Map sources</a></small></div><div class="map-alert-tray" id="mapAlertTray" hidden><h3>Ad set alerts · last 7 days</h3>${priorityData.sets.length?priorityData.sets.map((a,i)=>`<button data-priority-set="${i}"><b>${esc(a.center)}</b><span>${esc(a.name)}<small>${esc(a.issues[0]?.text)}</small></span><span>↗</span></button>`).join(''):'<p>No active ad set alerts in this selection.</p>'}</div>${unmapped.length?`<details class="map-unmapped"><summary>Unmapped locations / preheat · ${unmapped.length}</summary><div>${unmapped.map(m=>`<button class="tone-${m.tone}" data-map-center="${esc(m.id)}">${esc(m.code)} · ${esc(m.label)}${m.alerts.length?' · '+m.alerts.length+' alerts':''}</button>`).join('')}</div></details>`:''}<details class="map-method"><summary>Map status rules</summary><p>Colors use the selected period and latest recorded ad delivery, not live Meta status. English costs use Analysis Settings; green requires all costs below 90% of target, Results → Leads ≥80%, sufficient spend and Results. Yellow: costs approach target or conversion <80%. Red: CPR/CPL >120% of target, CPB >133% of target, conversion <60%, or confirmed zero outcomes after sufficient spend. Missing reports, unknown delivery, mixed Results and small samples are unscored. SLSA needs its own center-scoped monthly targets. Alert counts use the separate seven-day action window; a green center can still contain an ad needing review.</p><p>Locations follow supplied addresses. CL.JU shares one report across three branches; Depok uses a city-level report for two supplied locations. Other unverified codes remain in Unmapped locations, never assigned to a guessed address. Visible locations follow My/All assignments, center and work filters. Specific account, campaign, search and key-message filters show only matching locations. Third-account ownership stays restricted to the assigned ad set. Makassar is a city-level marker, not a confirmed branch address. Pins represent approximate areas; label connectors retain their geographic anchor. Gray means confirmed inactive or under construction, not missing data.</p><p>Administrative boundaries: BPS / WFP / OCHA via geoBoundaries, CC BY 3.0 IGO (2020 boundaries, simplified for display). Island outlines: Natural Earth, public domain. Pin anchors are approximate interpretations of the supplied addresses; geographic shapes are not a street-navigation service.</p></details></section>`;
+ return `<div class="map-navigation"><div class="scope-switch"><button data-map-region="islands" class="${mapRegion==='islands'?'selected':''}">Islands</button>${regions.some(([id])=>id==='metro')?`<button data-map-region="metro" class="${mapRegion==='metro'?'selected':''}">Jabodetabek</button>`:''}${regions.some(([id])=>id==='makassar')?`<button data-map-region="makassar" class="${mapRegion==='makassar'?'selected':''}">Makassar</button>`:''}</div><div class="map-zoom"><button data-map-zoom="out" aria-label="Zoom out" ${mapZoom<=1?'disabled':''}>−</button><span>${Math.round(mapZoom*100)}%</span><button data-map-zoom="in" aria-label="Zoom in" ${mapZoom>=1.8?'disabled':''}>+</button><button data-map-zoom="reset">Reset</button></div></div><div class="map-viewport" tabindex="0" aria-label="Map viewport; use zoom buttons and scroll to explore"><div class="map-scene ${!mapped.length?'empty-map-scene':mapRegion==='islands'?'islands-scene':mapRegion==='metro'?'metro-scene':'local-scene'}" style="width:${mapZoom*100}%;--map-zoom:${mapZoom}">${content}</div></div><div id="mapHover" class="map-hover" role="status" hidden></div><div class="map-footer"><div class="map-legend"><span class="good">On track</span><span class="watch">Watch</span><span class="bad">Needs attention</span><span class="off">Inactive / building</span><span class="unknown">No score / outside filters</span></div><small>North up &middot; area-level pins &middot; <a href="https://www.geoboundaries.org/api/current/gbOpen/IDN/ADM2/" target="_blank" rel="noopener">Map sources</a></small></div>${unmapped.length?`<details class="map-unmapped"><summary>Unmapped locations / preheat · ${unmapped.length}</summary><div>${unmapped.map(m=>`<button class="tone-${m.tone}" data-map-center="${esc(m.id)}">${esc(m.code)} · ${esc(m.label)}${m.alerts.length?' · '+m.alerts.length+' alerts':''}</button>`).join('')}</div></details>`:''}<details class="map-method"><summary>Map status rules</summary><p>Colors use the selected period and latest recorded ad delivery, not live Meta status. English costs use Analysis Settings; green requires all costs below 90% of target, Results → Leads ≥80%, sufficient spend and Results. Yellow: costs approach target or conversion <80%. Red: CPR/CPL >120% of target, CPB >133% of target, conversion <60%, or confirmed zero outcomes after sufficient spend. ${CostTargets.bookingRateGuide}. Missing reports, unknown delivery, mixed Results and small samples are unscored. SLSA needs its own center-scoped monthly targets. Alert counts use the separate seven-day action window; a green center can still contain an ad needing review.</p><p>Locations follow supplied addresses. CL.JU shares one report across three branches; Depok uses a city-level report for two supplied locations. Other unverified codes remain in Unmapped locations, never assigned to a guessed address. Visible locations follow My/All assignments, center and work filters. Specific account, campaign, search and key-message filters show only matching locations. Third-account ownership stays restricted to the assigned ad set. Makassar is a city-level marker, not a confirmed branch address. Pins represent approximate areas; label connectors retain their geographic anchor. Gray means confirmed inactive or under construction, not missing data.</p><p>Administrative boundaries: BPS / WFP / OCHA via geoBoundaries, CC BY 3.0 IGO (2020 boundaries, simplified for display). Island outlines: Natural Earth, public domain. Pin anchors are approximate interpretations of the supplied addresses; geographic shapes are not a street-navigation service.</p></details>`;
 }
-function refreshCenterMap(recompute=true){const slot=$('overviewMapSlot');if(slot)slot.innerHTML=renderCenterMap(recompute);}
-function mapSummary(m){return `<div class="map-metrics">${SCORECARD_METRICS.map(([k,label])=>{const r=MetricScorecards.read(m.s,k);return `<div><span>${label}</span><b>${scorecardFormat(r.value,k)}${r.partial?'*':''}</b></div>`;}).join('')}</div>${m.s.leadRows<m.s.rows||m.s.bookingRows<m.s.rows?'<p class="mini-note">* Incomplete outcome reports; values use available matched records.</p>':''}`;}
+function mapAlertContent(sets){
+ const first=sets[0];
+ if(!first)return '<div class="map-alert-clear"><span aria-hidden="true">✓</span> No active ad set alerts · Last 7 days</div>';
+ const reason=a=>a.issues.find(issue=>issue.severity===a.severity)?.text||a.issues[0].text;
+ return `<div class="map-alert-strip">
+   <div class="map-alert-label"><span aria-hidden="true">!</span><div><strong>Ad set alerts <b>${sets.length}</b></strong><small>Last 7 days</small></div></div>
+   <button class="map-alert-preview" data-priority-set="0" title="Review ad set"><strong>${esc(first.name)} ↗</strong><small>${esc(first.center)} · ${esc(first.account)} · ${esc(reason(first))}</small></button>
+   <button class="map-alert-toggle" data-map-alerts aria-controls="mapAlertTray" aria-expanded="${mapAlertsOpen}">${mapAlertsOpen?'Hide list':'View all'} <span aria-hidden="true">⌄</span></button>
+ </div><div class="map-alert-tray" id="mapAlertTray" ${mapAlertsOpen?'':'hidden'}>${sets.map((a,i)=>`<button data-priority-set="${i}"><b>${esc(a.center)}</b><span><strong>${esc(a.name)}</strong><small>${esc(a.account)} · ${esc(reason(a))}</small></span><span aria-hidden="true">↗</span></button>`).join('')}</div>`;
+}
+let mapAlertsOpen=false;
+function leaveCenterMap(){
+ const slot=$('overviewMapSlot'),panel=slot?.querySelector('.filter-panel');
+ if(panel)slot.after(panel);
+ if(slot)slot.replaceChildren();
+ mapAlertsOpen=false;
+}
+function refreshCenterMap(recompute=true){
+ const slot=$('overviewMapSlot');
+ if(!slot)return;
+ if(!$('mapFilterDock')){
+   const panel=document.querySelector('.filter-panel');
+   slot.innerHTML=`<section class="center-world" aria-label="Center performance map">
+     <div class="map-heading"><div><span class="eyebrow">THE SPARKS NETWORK</span><h2>Your centers, at a glance.</h2><p id="mapScopeLine"></p></div>
+     <button class="button map-filter-trigger" data-map-filters aria-controls="mapFilterDock" aria-expanded="false"><span class="map-filter-icon" aria-hidden="true"></span> Filters</button></div>
+     <div id="mapFilterDock" hidden></div><div id="mapAlertHub"></div><div id="mapCanvas"></div></section>`;
+   $('mapFilterDock').append(panel);
+ }
+ const brand=$('brandFilter');
+ const context=[$('centerFilter').selectedOptions[0]?.textContent];
+ if(workView==='preheat')context.push('Preheat');
+ for(const id of ['accountFilter','campaignFilter']){
+   const field=$(id);
+   if(field.value!=='ALL')context.push(field.selectedOptions[0]?.textContent);
+ }
+ $('mapScopeLine').textContent=[brand.selectedOptions[0]?.textContent,scope==='MY'?'My assignments':'All assignments',...context,dateRangeText(),brand.value==='SLSA'?'Temporary shared locations':''].filter(Boolean).join(' · ');
+ if(!priorityData.sets.length)mapAlertsOpen=false;
+ $('mapAlertHub').innerHTML=mapAlertContent(priorityData.sets);
+ $('mapCanvas').innerHTML=renderCenterMap(recompute);
+}
+function mapSummary(m){return `<div class="map-metrics">${SCORECARD_METRICS.map(([k,label])=>{const r=MetricScorecards.read(m.s,k);return `<div><span>${label}</span><b>${k==='bookingRate'&&!r.partial?bookingRateMarkup(r.value,scorecardFormat(r.value,k)):scorecardFormat(r.value,k)}${r.partial?'*':''}</b></div>`;}).join('')}</div>${m.s.leadRows<m.s.rows||m.s.bookingRows<m.s.rows?'<p class="mini-note">* Incomplete outcome reports; values use available matched records.</p>':''}`;}
 function scopedMapTable(){
  const saved={selected,base,creatives,adsetDetails,adsetMetric,adsetOrder,adsetDelivery,expanded:[...expandedAdsets]};
  try{selected=mapFocus.items;base=base.filter(r=>r.brand===mapFocus.brand&&mapFocus.codes.includes(r.center));creatives=creatives.filter(g=>g.brand===mapFocus.brand&&mapFocus.codes.includes(g.center));adsetMetric=mapTableState.metric;adsetOrder=mapTableState.order;adsetDelivery=mapTableState.delivery;expandedAdsets.clear();mapTableState.expanded.forEach(k=>expandedAdsets.add(k));const html=renderAdsetPerformance();mapAdDetails=adsetDetails.map(g=>({...g,id:g.id.replace('adset_ad_','map_ad_')}));return html.replaceAll('adset_ad_','map_ad_').replace(/(id|for)="(adsetDelivery|adsetMetric|adsetOrder)"/g,'$1="map_$2"');}
@@ -126,8 +168,18 @@ document.addEventListener('click',e=>{
  if(b.dataset.mapZoom){mapZoom=b.dataset.mapZoom==='reset'?1:Math.max(1,Math.min(1.8,mapZoom+(b.dataset.mapZoom==='in'?.2:-.2)));refreshCenterMap(false);return;}
  if(b.dataset.mapCenter){b.classList.add('map-selected');openMapCenter(b.dataset.mapCenter);return;}
  if(b.hasAttribute('data-map-close')){$('centerMapDialog').close();return;}
- if(b.hasAttribute('data-map-filters')){document.querySelector('.filter-panel').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
- if(b.hasAttribute('data-map-alerts')){$('mapAlertTray').hidden=!$('mapAlertTray').hidden;if(!$('mapAlertTray').hidden)$('mapAlertTray').scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
+ if(b.hasAttribute('data-map-filters')){
+   const dock=$('mapFilterDock');dock.hidden=!dock.hidden;
+   b.setAttribute('aria-expanded',String(!dock.hidden));
+   if(dock.hidden)setDateRangeOpen(false);
+   return;
+ }
+ if(b.hasAttribute('data-map-alerts')){
+   mapAlertsOpen=!mapAlertsOpen;
+   $('mapAlertHub').innerHTML=mapAlertContent(priorityData.sets);
+   $('mapAlertHub').querySelector('[data-map-alerts]').focus({preventScroll:true});
+   return;
+ }
  if(b.dataset.mapTab){mapTab=b.dataset.mapTab;refreshMapDetail();return;}
  if(b.dataset.mapPair){mapPair=b.dataset.mapPair;refreshMapDetail();return;}
  if(b.dataset.mapWeeks){mapWeekPage+=b.dataset.mapWeeks==='older'?1:-1;refreshMapDetail();return;}

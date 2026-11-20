@@ -13,3 +13,49 @@
 .empty-map-scene{min-width:0;padding:15px;min-height:200px}
 
 .metro-scene{min-width:900px;max-width:calc(940px * var(--map-zoom,1));margin-inline:auto}
+
+
+/* Overview controls share one filter form across dashboard views. */
+.map-heading .map-filter-trigger{display:inline-flex;gap:9px;align-items:center;border:1px solid #a9bcac;background:#fff;color:#254e3e}
+.map-filter-trigger[aria-expanded=true]{background:#275943;color:white}
+.map-heading>div{min-width:0;overflow-wrap:anywhere}
+.map-filter-icon{width:16px;height:14px;display:inline-block;background:currentColor;clip-path:polygon(0 0,100% 0,62% 52%,62% 84%,39% 100%,39% 52%)}
+.center-world:has(#mapFilterDock:not([hidden])){overflow:visible}
+#mapFilterDock{margin:0 clamp(12px,2vw,28px) 14px;position:relative;z-index:4}
+#mapFilterDock .filter-panel{margin:0;border-color:#d2dfd0;border-radius:12px;background:#fcfdf9}
+#mapFilterDock .filters{padding-block:12px}
+#mapFilterDock .filter-bottom{background:#f6f8f3;border-radius:0 0 12px 12px}
+#mapAlertHub{margin:0 clamp(12px,2vw,28px) 16px}
+.map-alert-strip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;border:1px solid #e5c3b3;border-left:4px solid #b75437;border-radius:12px;background:#fff6ee;padding:10px 14px}
+.map-alert-label,.map-alert-clear{display:flex;align-items:center;gap:9px}
+.map-alert-label>span,.map-alert-clear>span{display:grid;place-items:center;border-radius:50%;width:24px;height:24px;background:#a94932;color:white;font-weight:700}
+.map-alert-label strong,.map-alert-preview strong{font-size:13px;color:#532e20}
+.map-alert-label b{padding:2px 6px;border-radius:6px;background:#f4dfd0}
+.map-alert-label small,.map-alert-preview small{display:block;margin-top:3px;font-size:11px;color:#715342}
+.map-alert-preview{min-width:0;border:0;border-left:1px solid #e6c7b4;background:transparent;padding:3px 14px;text-align:left;overflow-wrap:anywhere}
+.map-alert-preview:hover strong,.map-alert-preview:focus-visible strong{text-decoration:underline}
+.map-alert-toggle{border:1px solid #c89b83;border-radius:8px;background:white;color:#6c3928;padding:8px 12px;font-weight:650}
+.map-alert-toggle[aria-expanded=true] span{display:inline-block;transform:rotate(180deg)}
+.map-alert-clear{color:#53695b;font-size:12px}
+.map-alert-clear>span{width:18px;height:18px;background:#e1ecdf;color:#396548}
+#mapAlertTray{background:#fff;border:1px solid #e5d4c7;border-radius:10px;margin-top:5px;padding:0 10px}
+#mapAlertTray button:hover{background:#fcf6ee}
+.map-review-reasons{padding-left:1.3rem;color:#794631}
+:root{--booking-good:#39835c;--booking-warning:#b7891c;--booking-bad:#bd584b;--booking-neutral:#87958d}
+.booking-rate-tag{display:inline-block;border-radius:5px;padding:1px 5px;font-variant-numeric:tabular-nums}
+.booking-rate-tag.rate-good{color:#215b3e;background:#e0f1e4}
+.booking-rate-tag.rate-warning{color:#765509;background:#fff1bc}
+.booking-rate-tag.rate-bad{color:#933d34;background:#fbe4df}
+@media(min-width:980px){
+ #mapFilterDock .filter-panel{display:grid;grid-template-columns:auto 1fr}
+ #mapFilterDock .filter-top{border:0;justify-content:flex-start}
+ #mapFilterDock .work-view-row{justify-content:flex-end;padding:10px 16px}
+ #mapFilterDock .filters,#mapFilterDock .filter-bottom{grid-column:1/-1}
+}
+@media(max-width:650px){
+ .map-heading{flex-direction:row;align-items:flex-start}
+ .map-heading .map-filter-trigger{padding:8px 10px;flex:none}
+ .map-alert-strip{grid-template-columns:1fr auto;gap:7px;padding:10px}
+ .map-alert-preview{grid-column:1/-1;grid-row:2;padding:8px 0 0;border-left:0;border-top:1px solid #e6c7b4}
+ .map-alert-toggle{grid-column:2;grid-row:1}
+}

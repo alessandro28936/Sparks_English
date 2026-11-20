@@ -87,7 +87,7 @@ function renderCenterPeriodTable(model,groups,periods,indexes,key){
   const format=v=>centerPeriodFormat(v,key),last=indexes.at(-1),known=groups.flatMap(g=>indexes.map(i=>CenterPeriods.read(g.cells[i],key,centerPeriodBasis))).filter(r=>!r.partial&&r.value!==null).map(r=>r.value),max=Math.max(1,...known);
   const cell=(g,i)=>{
     const c=g.cells[i],r=CenterPeriods.read(c,key,centerPeriodBasis),tone=r.partial?'neutral':MetricScorecards.tone(c.s,key);
-    const target=['cpr','cpl','cpb','leadRate'].includes(key),toneClass=target?'cp-'+tone:'';
+    const target=['cpr','cpl','cpb','leadRate','bookingRate'].includes(key),toneClass=target?'cp-'+tone:'';
     const tip=[r.note||r.reason,Number.isFinite(r.value)&&target?scorecardTarget(key):''].filter(Boolean).join(' · ');
     return `<td class="num cp-value ${toneClass}" data-cp-value="${key}" data-cp-center="${esc(g.key)}" data-cp-period="${i}" title="${esc(tip)}"><b>${format(r.value)}</b>${r.partial?'<sup class="coverage-mark">*</sup>':''}${!target&&key!=='spend'&&r.value!==null&&!r.partial?`<span class="cp-bar" aria-hidden="true"><i style="width:${Math.max(0,r.value/max*100)}%"></i></span>`:''}</td>`;
   };

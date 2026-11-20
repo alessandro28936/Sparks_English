@@ -1,12 +1,17 @@
 (()=>{
  const checks=[],ok=(name,v)=>{checks.push({name,ok:!!v});console.debug('MAP QA',name);if(!v)throw Error(name);};
- const make=(extra={})=>({brand:'English',center:'BHI',account:'Main',campaign:'Traffic',adset:'BHI_A',ad:'Ad',day:'2026-11-12',objective:'Traffic',resultType:'Messages',format:'Image',status:'active',spend:100000,results:20,leads:18,booking:2,impressions:100,clicks:1,views:0,plays3:0,plays100:0,frequency:1,raw:{},...extra});
+ const make=(extra={})=>({brand:'English',center:'BHI',account:'Main',campaign:'Traffic',adset:'BHI_A',ad:'Ad',day:'2026-11-12',objective:'Traffic',resultType:'Messages',format:'Image',status:'active',spend:100000,results:20,leads:18,booking:4,impressions:100,clicks:1,views:0,plays3:0,plays100:0,frequency:1,raw:{},...extra});
  const state=r=>MapPerformance.classify(A.aggregate(r),r);
  ok('Empty is unknown, never inactive',state([]).tone==='unknown');
  ok('Confirmed inactive is gray',state([make({status:'inactive'})]).tone==='off');
  ok('Historical active does not override later inactive',state([make({day:'2026-11-11'}),make({status:'inactive'})]).tone==='off');
  ok('Conflicting latest delivery stays unknown',state([make(),make({status:'inactive'})]).tone==='unknown');
  ok('Complete healthy metrics green',state([make()]).tone==='good');
+ for(const [rate,expected] of [[0,'bad'],[14.99,'bad'],[15,'warning'],[19.99,'warning'],[20,'good'],[null,'neutral']]){
+  ok('Booking conversion tier '+rate,CostTargets.bookingRateTier(rate)===expected);
+ }
+ ok('Map warns at 15%',state([make({leads:20,booking:3})]).tone==='watch');
+ ok('Map flags below 15%',state([make({leads:20,booking:2})]).tone==='bad');
  ok('Near CPR threshold yellow',state([make({spend:550000,leads:18,booking:4})]).tone==='watch');
  ok('High costs red',state([make({spend:1000000,leads:18,booking:4})]).tone==='bad');
  ok('Missing reports never green',state([make({leads:null})]).tone==='unknown');
@@ -19,7 +24,13 @@
  ok('BDS never mapped to BSD',!CENTER_LOCATIONS.find(x=>x.code==='BDS')&&CENTER_LOCATIONS.some(x=>x.code==='BSD'));
  navigate('overview');
  const before=JSON.stringify({sel:selected.map(r=>r.day+'|'+A.adIdentity(r)),center:$('centerFilter').value,dates:[$('startFilter').value,$('endFilter').value],delivery:adsetDelivery});
- ok('Map precedes filters',!!($('overviewMapSlot').compareDocumentPosition(document.querySelector('.filter-panel'))&Node.DOCUMENT_POSITION_FOLLOWING));
+ const filter=$('searchFilter');
+ document.querySelector('[data-map-filters]').click();
+ ok('Global filters open within map',$('mapFilterDock').contains(filter)&&!$('mapFilterDock').hidden);
+ filter.focus();render();
+ ok('Filter focus survives updates',document.activeElement===filter&&!$('mapFilterDock').hidden);
+ document.querySelector('[data-map-filters]').click();
+ ok('Filters collapse above the map',$('mapFilterDock').hidden);
  ok('Standalone Review first removed',!document.querySelector('.priority-review'));
  ok('Assigned islands include Sulawesi',!!document.querySelector('[data-island="sulawesi"]')&&!document.querySelector('[data-island="bali"]'));
  const m=mapModels.find(m=>m.code==='CBN'&&m.brand==='English');ok('Live center model present',!!m&&m.items.length>0);
@@ -43,7 +54,11 @@
  document.querySelector('[data-map-close]').click();
  ok('Overview selection unchanged',before===JSON.stringify({sel:selected.map(r=>r.day+'|'+A.adIdentity(r)),center:$('centerFilter').value,dates:[$('startFilter').value,$('endFilter').value],delivery:adsetDelivery}));
  document.querySelector('[data-map-alerts]').click();ok('Map contains action alerts',!$('mapAlertTray').hidden&&$('mapAlertTray').querySelectorAll('[data-priority-set]').length===priorityData.sets.length);
- navigate('scorecards');ok('Map only appears on Overview',$('overviewMapSlot').innerHTML==='');navigate('overview');
+ const first=priorityData.sets[0];
+ document.querySelector('.map-alert-preview').click();
+ ok('Priority preview opens the named ad set with its reason',$('detailDialog').open&&$('detailContent').querySelector('h2').textContent===first.name&&$('detailContent').textContent.includes(first.issues[0].text));
+ $('detailDialog').close();
+ navigate('scorecards');ok('Filters restored on other views',$('searchFilter')===filter&&filter.closest('.filter-panel').getClientRects().length===1);ok('Map only appears on Overview',$('overviewMapSlot').innerHTML==='');navigate('overview');
  $('brandFilter').value='SLSA';$('brandFilter').dispatchEvent(new Event('change',{bubbles:true}));ok('SLSA uses temporary shared sites',mapModels.filter(m=>m.sites.length).every(m=>m.brand==='SLSA')&&$('overviewMapSlot').textContent.includes('Temporary shared locations'));
  $('brandFilter').value='English';$('brandFilter').dispatchEvent(new Event('change',{bubbles:true}));mapRegion='islands';mapZoom=1;refreshCenterMap();
  return {passed:checks.length,checks,centers:mapModels.length,liveCBN:{spend:total.spend,leads:total.leads,booking:total.booking}};
