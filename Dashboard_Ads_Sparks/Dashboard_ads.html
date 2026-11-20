@@ -296,6 +296,26 @@
  .map-alert-toggle{grid-column:2;grid-row:1}
 }
 
+/* Compact map filters: eight controls in two complete desktop rows. */
+#mapFilterDock .filters{gap:10px 12px;padding:10px 16px 12px}
+#mapFilterDock .filters label{font-size:11px}
+#mapFilterDock .filters select,#mapFilterDock .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}
+#mapFilterDock .filter-top{padding:10px 16px}
+#mapFilterDock .work-view-row{padding-block:10px}
+#mapFilterDock .filter-bottom{padding:7px 16px}
+@media(min-width:1100px){
+ #mapFilterDock .filters{grid-template-columns:1fr 1.55fr 1fr 1.15fr}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
+@media(min-width:601px) and (max-width:1099px){
+ #mapFilterDock .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
+@media(max-width:600px){
+ #mapFilterDock .filters{grid-template-columns:minmax(0,1fr);padding:10px 12px}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
+
 .cp-panel{margin-bottom:32px;min-width:0}
 .cp-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:12px}
 .cp-heading h2{font-size:21px}
@@ -556,7 +576,7 @@ const CostTargets=(()=>{
   const qualifies=(value,key,settings,reference)=>meets(value,key,settings)||Number.isFinite(value)&&reference?.ready&&value<=reference.cost;
   return {bookingRateTier,bookingRateGuide,cpbTier,cpbLabel,defaults,limit,meets,allMet,benchmark,qualifies};
 })();
-function costTargetsMethodology(){return `<section class="card method"><h3>Cost targets & ranking</h3><p>CPR &le; ${money(CostTargets.limit('cpr',config))}; CPL &le; ${money(CostTargets.limit('cpl',config))}; CPB &le; ${money(CostTargets.limit('cpb',config))}. CPR and CPL are adjustable in Settings. CPB uses fixed tiers: safe ≤Rp300,000; warning >Rp300,000–Rp400,000; review >Rp400,000–Rp500,000; above Rp500,000 meets the CPB kill threshold. Colors show these tiers; action eligibility is evaluated separately. A qualified center average is a second eligibility path, but never changes the target/tier color.</p><p>Top 5: selected CPL/CPB meets its target OR is at or below a qualified center average, with minimum spend and outcome count. Worst 5: above both target and center average, or confirmed zero outcomes after minimum spend. If no center average is available, use the target and disclose the missing comparison. Top can be sorted by lowest cost or most Leads/Booking; Worst sorts by zero outcomes then highest cost. If all content meets target, Worst is empty. Missing data is not zero. Incomplete ratios are not ranked or colored as meeting target.</p><p>Content rankings use the selected period. Action statuses use the last seven days and retain delivery, age, data completeness and Results-to-Leads checks. Meeting iteration accepts enough outcomes within target or the qualified center average. Center average = peer Spend / peer outcomes, excluding the candidate and incomplete peer ads, within the same center, brand, Results context, period and account/filter scope. Search and key-message filters do not narrow the benchmark. Both CPL and CPB categories are evaluated independently. CPB above Rp500,000 is a K5 kill trigger only when CPR, CPL and Results-to-Leads are not all green in the same complete seven-day evaluation (with minimum Results); when all three are green it receives Prioritas review with CPB still red. Other kill rules remain independent. The center average does not override K5. Selected-period content rankings remain relative learning lists, not delivery decisions. Period-change colors still describe improvement/decline against the previous period.</p></section>`;}
+function costTargetsMethodology(){return `<section class="card method"><h3>Cost targets & ranking</h3><p>${CostTargets.bookingRateGuide}. Booking ÷ Leads uses matched reporting rows. A zero Leads denominator is unscored.</p><p>CPR &le; ${money(CostTargets.limit('cpr',config))}; CPL &le; ${money(CostTargets.limit('cpl',config))}; CPB &le; ${money(CostTargets.limit('cpb',config))}. CPR and CPL are adjustable in Settings. CPB uses fixed tiers: safe ≤Rp300,000; warning >Rp300,000–Rp400,000; review >Rp400,000–Rp500,000; above Rp500,000 is a red CPB threshold (not always a kill recommendation). Colors show these tiers; action eligibility is evaluated separately. A qualified center average is a second eligibility path, but never changes the target/tier color.</p><p>Top 5: selected CPL/CPB meets its target OR is at or below a qualified center average, with minimum spend and outcome count. Worst 5: above both target and center average, or confirmed zero outcomes after minimum spend. If no center average is available, use the target and disclose the missing comparison. Top can be sorted by lowest cost or most Leads/Booking; Worst sorts by zero outcomes then highest cost. If all content meets target, Worst is empty. Missing data is not zero. Incomplete ratios are not ranked or colored as meeting target.</p><p>Content rankings use the selected period. Action statuses use the last seven days and retain delivery, age, data completeness and Results-to-Leads checks. Meeting iteration accepts enough outcomes within target or the qualified center average. Center average = peer Spend / peer outcomes, excluding the candidate and incomplete peer ads, within the same center, brand, Results context, period and account/filter scope. Search and key-message filters do not narrow the benchmark. Both CPL and CPB categories are evaluated independently. CPB above Rp500,000 remains red. An active ad with complete seven-day Booking and minimum spend is reviewed rather than killed by K5 when the same seven-day CPR and CPL meet their configured targets and Results-to-Leads is at least 80% with complete Leads. Otherwise K5 still recommends kill; the center average does not override it. K1–K4 can independently recommend kill. Selected-period content rankings remain relative learning lists, not delivery decisions. Period-change colors still describe improvement/decline against the previous period.</p></section>`;}
 
 let workView='centers';
 // Third-account North Jakarta ad sets use both JU and CL.JU prefixes.
@@ -2502,7 +2522,11 @@ function metricDisplayData(s,key){
   return {value:partial?(count?s.observed?.[key]??null:null):s.rows===0?null:s[key]??null,partial,coverage:c};
 }
 function metricCoverageText(c,key){if(!c?.rows)return 'Belum ada data laporan yang dapat dicocokkan. Nilai kosong bukan nol.';return `${c.rows}/${c.totalRows} baris · ${c.days} hari (${c.start} – ${c.end}). ${['leads','booking'].includes(key)?'Jumlah yang sudah tercatat; belum total akhir periode.':'Rasio periode belum dapat dihitung karena laporan belum lengkap.'} Baris tanpa laporan / ambigu tidak dianggap nol.`;}
-function metricTargetMarkup(value,key,markup){if(key==='cpb'&&Number.isFinite(value))return `<span class="metric-target cpb-${CostTargets.cpbTier(value)}" title="${CostTargets.cpbLabel(value)} · safe ≤Rp300.000; warning ≤Rp400.000; review ≤Rp500.000; K5 threshold >Rp500.000 (review if CPR/CPL/Results to Leads all green)">${markup}</span>`;if(CostTargets.limit(key,config)&&Number.isFinite(value))return `<span class="metric-target ${CostTargets.meets(value,key,config)?'at-target':'below-target'}" title="${key.toUpperCase()} target: ${money(CostTargets.limit(key,config))}">${markup}</span>`;return key==='leadRate'&&Number.isFinite(value)?`<span class="metric-target ${value<80?'below-target':'at-target'}" title="Results &rarr; Leads target &ge;80%">${markup}</span>`:markup;}
+function bookingRateMarkup(value,markup){
+  const tone=CostTargets.bookingRateTier(value);
+  return tone==='neutral'?markup:`<span class="booking-rate-tag rate-${tone}" title="${CostTargets.bookingRateGuide}">${markup}</span>`;
+}
+function metricTargetMarkup(value,key,markup){if(key==='bookingRate')return bookingRateMarkup(value,markup);if(key==='cpb'&&Number.isFinite(value))return `<span class="metric-target cpb-${CostTargets.cpbTier(value)}" title="${CostTargets.cpbLabel(value)} · safe ≤Rp300.000; warning ≤Rp400.000; review ≤Rp500.000; red CPB >Rp500.000 · K5 review if CPR, CPL and Results → Leads are all green">${markup}</span>`;if(CostTargets.limit(key,config)&&Number.isFinite(value))return `<span class="metric-target ${CostTargets.meets(value,key,config)?'at-target':'below-target'}" title="${key.toUpperCase()} target: ${money(CostTargets.limit(key,config))}">${markup}</span>`;return key==='leadRate'&&Number.isFinite(value)?`<span class="metric-target ${value<80?'below-target':'at-target'}" title="Results &rarr; Leads target &ge;80%">${markup}</span>`:markup;}
 function displayMetric(s,key,format){const d=metricDisplayData(s,key);const markup=d.partial?`<span data-report-partial="true" title="${esc(reportIssueLabel(s,key)+'. '+metricCoverageText(d.coverage,key))}">${format(d.value)}</span><small class="report-state">${['leads','booking'].includes(key)&&d.value!==null?'Recorded / '+reportIssueLabel(s,key):reportIssueLabel(s,key)}</small>`:format(d.value);return metricTargetMarkup(d.value,key,markup);}
 function displaySnapshot(s){return {metrics:meetingMetrics(s),observed:s.observed,coverage:s.coverage};}
 function kpiPerformance(s,key){

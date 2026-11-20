@@ -59,3 +59,23 @@
  .map-alert-preview{grid-column:1/-1;grid-row:2;padding:8px 0 0;border-left:0;border-top:1px solid #e6c7b4}
  .map-alert-toggle{grid-column:2;grid-row:1}
 }
+
+/* Compact map filters: eight controls in two complete desktop rows. */
+#mapFilterDock .filters{gap:10px 12px;padding:10px 16px 12px}
+#mapFilterDock .filters label{font-size:11px}
+#mapFilterDock .filters select,#mapFilterDock .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}
+#mapFilterDock .filter-top{padding:10px 16px}
+#mapFilterDock .work-view-row{padding-block:10px}
+#mapFilterDock .filter-bottom{padding:7px 16px}
+@media(min-width:1100px){
+ #mapFilterDock .filters{grid-template-columns:1fr 1.55fr 1fr 1.15fr}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
+@media(min-width:601px) and (max-width:1099px){
+ #mapFilterDock .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
+@media(max-width:600px){
+ #mapFilterDock .filters{grid-template-columns:minmax(0,1fr);padding:10px 12px}
+ #mapFilterDock .date-range-field{grid-column:span 1}
+}
