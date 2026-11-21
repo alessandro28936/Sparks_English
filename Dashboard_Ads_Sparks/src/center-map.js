@@ -124,8 +124,8 @@ function refreshCenterMap(recompute=true){
    const panel=document.querySelector('.filter-panel');
    slot.innerHTML=`<section class="center-world" aria-label="Center performance map">
      <div class="map-heading"><div><span class="eyebrow">THE SPARKS NETWORK</span><h2>Your centers, at a glance.</h2><p id="mapScopeLine"></p></div>
-     <button class="button map-filter-trigger" data-map-filters aria-controls="mapFilterDock" aria-expanded="false"><span class="map-filter-icon" aria-hidden="true"></span> Filters</button></div>
-     <div id="mapFilterDock" hidden></div><div id="mapAlertHub"></div><div id="mapCanvas"></div></section>`;
+     <button class="button map-filter-trigger" data-map-filters aria-controls="mapFilterDock" aria-expanded="true"><span class="map-filter-icon" aria-hidden="true"></span> Filters</button></div>
+     <div id="mapFilterDock"></div><div id="mapAlertHub"></div><div id="mapCanvas"></div></section>`;
    $('mapFilterDock').append(panel);
  }
  const brand=$('brandFilter');

@@ -25,12 +25,14 @@
  navigate('overview');
  const before=JSON.stringify({sel:selected.map(r=>r.day+'|'+A.adIdentity(r)),center:$('centerFilter').value,dates:[$('startFilter').value,$('endFilter').value],delivery:adsetDelivery});
  const filter=$('searchFilter');
- document.querySelector('[data-map-filters]').click();
- ok('Global filters open within map',$('mapFilterDock').contains(filter)&&!$('mapFilterDock').hidden);
+ const filterButton=document.querySelector('[data-map-filters]');
+ ok('Global filters open by default',$('mapFilterDock').contains(filter)&&!$('mapFilterDock').hidden&&filterButton.getAttribute('aria-expanded')==='true');
  filter.focus();render();
  ok('Filter focus survives updates',document.activeElement===filter&&!$('mapFilterDock').hidden);
- document.querySelector('[data-map-filters]').click();
- ok('Filters collapse above the map',$('mapFilterDock').hidden);
+ filterButton.click();
+ ok('Filters collapse above the map',$('mapFilterDock').hidden&&filterButton.getAttribute('aria-expanded')==='false');
+ filterButton.click();
+ ok('Filters reopen above the map',!$('mapFilterDock').hidden&&filterButton.getAttribute('aria-expanded')==='true');
  ok('Standalone Review first removed',!document.querySelector('.priority-review'));
  ok('Assigned islands include Sulawesi',!!document.querySelector('[data-island="sulawesi"]')&&!document.querySelector('[data-island="bali"]'));
  const m=mapModels.find(m=>m.code==='CBN'&&m.brand==='English');ok('Live center model present',!!m&&m.items.length>0);
