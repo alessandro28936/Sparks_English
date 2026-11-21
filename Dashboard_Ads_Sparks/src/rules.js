@@ -34,10 +34,11 @@ const Rules=(()=>{
     const asOf=s.end&&s.end<idx.latest?s.end:idx.latest,all=(idx.ads.get(identity(first))||[]).filter(r=>r.day<=asOf).sort((a,b)=>a.day.localeCompare(b.day));
     const renamed=all.some(confirmedRenamed),pub=renamed?null:published(first.ad),firstDelivery=all.find(r=>r.spend>0||r.impressions>0||r.results>0)?.day||null;
     const publishConflict=!!(pub&&firstDelivery&&pub>firstDelivery),validPub=pub&&pub<=asOf&&!publishConflict?pub:null,activeDays=new Set(all.filter(r=>r.status==='active').map(r=>r.day)).size;
-    const timeline=A.group(all,r=>r.day).sort((a,b)=>a.key.localeCompare(b.key));
+    const statusesByDay=new Map();
+    for(const r of all){if(!statusesByDay.has(r.day))statusesByDay.set(r.day,new Set());statusesByDay.get(r.day).add(r.status||'unknown');}
     const lastSeen=all.at(-1)?.day||null,statuses=new Set(all.filter(r=>r.day===lastSeen).map(r=>String(r.status||'').trim().toLowerCase()));
     const lastStatus=statuses.size===1?[...statuses][0]:'unknown';
-    return {renamed,published:validPub,reportedPublish:pub,firstDelivery,publishConflict,invalidPublish:!!pub&&!validPub,ageDays:validPub?Math.floor((Date.parse(asOf)-Date.parse(validPub))/86400000)+1:null,activeDays,asOf,firstSeen:all[0]?.day||null,lastSeen,lastStatus,lowShareDays:0,fourRows:[],timeline:timeline.map(g=>({day:g.key,status:[...new Set(g.items.map(r=>r.status||'unknown'))].join(', ')}))};
+    return {renamed,published:validPub,reportedPublish:pub,firstDelivery,publishConflict,invalidPublish:!!pub&&!validPub,ageDays:validPub?Math.floor((Date.parse(asOf)-Date.parse(validPub))/86400000)+1:null,activeDays,asOf,firstSeen:all[0]?.day||null,lastSeen,lastStatus,lowShareDays:0,fourRows:[],timeline:[...statusesByDay].map(([day,values])=>({day,status:[...values].join(', ')}))};
   }
   function previousMonth(asOf){const d=new Date(asOf+'T00:00:00Z'),iso=x=>x.toISOString().slice(0,10);return {start:iso(new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()-1,1))),end:iso(new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),0)))};}
   function evaluate(s,unusedPeers,idx,config){
@@ -46,7 +47,8 @@ const Rules=(()=>{
     const desiredStart=dayOffset(h.asOf,-6),start=h.published&&h.published>desiredStart?h.published:desiredStart;
     const own=(idx.ads.get(identity(first))||[]).filter(r=>r.day>=start&&r.day<=h.asOf);
     const stats=A.aggregate(own),accountMatch=r=>!idx.account||idx.account==='ALL'||(r.account||'Unknown')===idx.account;
-    const centerRows=(idx.centers.get(contextKey(first))||[]).filter(r=>accountMatch(r)&&identity(r)!==identity(first));
+    const ownId=identity(first);
+    const centerRows=(idx.centers.get(contextKey(first))||[]).filter(r=>accountMatch(r)&&identity(r)!==ownId);
     const peers=centerRows.filter(r=>r.day>=start&&r.day<=h.asOf),center=A.aggregate(peers),month=previousMonth(h.asOf),monthStats=A.aggregate(centerRows.filter(r=>r.day>=month.start&&r.day<=month.end));
     const monthlyReady=monthStats.results>=config.minResults&&monthStats.spend>=config.minSpend&&monthStats.cpr>0&&!monthStats.mixed;
     const centerBookingReady=center.bookingRows===center.rows&&center.booking>0&&center.spend>=config.minSpend&&center.results>=config.minResults&&!center.mixed;

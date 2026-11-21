@@ -15,7 +15,15 @@ const ReportSummary=(()=>{
       buckets.push({...report,members,owners:owners.size,safe:owners.size===1});
     }
     buckets.sort((a,b)=>['id','account','legacy'].indexOf(a.tier)-['id','account','legacy'].indexOf(b.tier));
-    return {buckets};
+    // A recoverable bucket must contain its first member in the selected rows.
+    const byFirstMember=new Map();
+    buckets.forEach((bucket,order)=>{
+      if(!bucket.safe)return;
+      const first=bucket.members[0];
+      if(!byFirstMember.has(first))byFirstMember.set(first,[]);
+      bucket.order=order;byFirstMember.get(first).push(bucket);
+    });
+    return {buckets,byFirstMember};
   }
   function records(english,slsa,scoped){
     const out=[];
@@ -28,7 +36,12 @@ const ReportSummary=(()=>{
   }
   function aggregate(items,idx){
     const chosen=new Set(items),patches=new Map(),recovered=[],claimed={leads:new Set(),booking:new Set()};
-    for(const b of idx?.buckets||[]){
+    if(!idx||items.every(r=>Number.isFinite(r.leads)&&Number.isFinite(r.booking)))return {...A.aggregate(items),recovered:[]};
+    const candidates=[];
+    if(idx.byFirstMember)for(const row of chosen){
+      const matches=idx.byFirstMember.get(row);if(matches)candidates.push(...matches);
+    }
+    for(const b of idx.byFirstMember?candidates.sort((a,b)=>a.order-b.order):idx.buckets){
       if(!b.safe||!b.members.every(r=>chosen.has(r)))continue;
       for(const metric of ['leads','booking']){
         if(!Number.isFinite(b[metric])||b.members.some(r=>Number.isFinite(r[metric])||claimed[metric].has(r)))continue;
@@ -66,20 +79,29 @@ const verifiedOutcomeAliases=[
 ];
 function applyVerifiedOutcomeAliases(source,reports,aliases=verifiedOutcomeAliases){
   const output=[...reports],byKey=new Map(reports.map(r=>[r.tier+'|'+r.key,r])),seen=new Set(),claimedOldReports=new Set();
-  for(const alias of aliases)for(const r of source){
+  const sourceKeys=new Set(),byPrefix=new Map(),byAd=new Map();
+  for(const r of source){
+    const key=ReportSummary.rawKey(r),prefix=key.split('|').slice(0,-1).join('|'),id=String(r.raw?.['Ad ID']||'');
+    sourceKeys.add(key);
+    if(!byPrefix.has(prefix))byPrefix.set(prefix,[]);
+    byPrefix.get(prefix).push(r);
+    if(!byAd.has(id))byAd.set(id,[]);
+    byAd.get(id).push(r);
+  }
+  for(const alias of aliases)for(const r of byAd.get(alias.adId)||[]){
     if(r.brand!==alias.brand||r.account!==alias.account||r.center!==alias.center||r.adset.replace(/\s/g,'')!==alias.adset.replace(/\s/g,'')||String(r.raw?.['Ad ID']||'')!==alias.adId||r.day<alias.start||r.day>alias.end)continue;
     const currentKey=ReportSummary.rawKey(r),parts=currentKey.split('|');
     if(alias.oldAdset)parts[parts.length-2]=alias.oldAdset;
     if(alias.oldCode)parts[parts.length-1]=alias.oldCode;
     const oldKey=parts.join('|');
     // Never reuse a historical report already owned by a source row.
-    if(source.some(x=>ReportSummary.rawKey(x)===oldKey))continue;
+    if(sourceKeys.has(oldKey))continue;
     const oldReport=byKey.get('account|'+oldKey+'|'+r.account)||byKey.get('legacy|'+oldKey);
     const oldReportId=oldReport?.tier+'|'+oldReport?.key;
     const accountId=r.raw?.['Account ID'];if(!oldReport||!accountId||claimedOldReports.has(oldReportId))continue;
     // Check ownership in current source context: the reported ad-set trim may differ.
     const prefix=currentKey.split('|').slice(0,-1).join('|');
-    const owners=new Set(source.filter(x=>ReportSummary.rawKey(x).split('|').slice(0,-1).join('|')===prefix&&(oldReport.tier!=='account'||x.account===r.account)).map(ReportSummary.owner));
+    const owners=new Set(byPrefix.get(prefix).filter(x=>oldReport.tier!=='account'||x.account===r.account).map(ReportSummary.owner));
     if(owners.size!==1)continue;
     const key=[r.brand,r.day,accountId,alias.adId].join('|');if(byKey.has('id|'+key)||seen.has(key))continue;
     // Actual current-name reports always take precedence over historical aliases.
@@ -108,11 +130,11 @@ function excludeUnpublishedRows(source){
   return source.filter(r=>{const pub=Rules.published(r.ad);return r.confirmedRenamed||!pub||r.day>=pub||activity(r)||conflicts.has(A.adIdentity(r));});
 }
 // Shared reports define a content group only within a uniquely proven owner and Results context.
-function combineApprovedOutcomeAds(source,reports){
+function combineApprovedOutcomeAds(source,reports,idx=ReportSummary.index(source,reports)){
   const family=r=>JSON.stringify([ReportSummary.owner(r),r.adCode,A.metricContext(r)]);
-  const idx=ReportSummary.index(source,reports),eligible=new Set();
+  const eligible=new Set();
   for(const b of idx.buckets){
-    if(!b.safe||!b.members.length||new Set(b.members.map(family)).size!==1||new Set(b.members.map(A.adIdentity)).size<2)continue;
+    if(!b.safe||b.members.length<2||new Set(b.members.map(family)).size!==1||new Set(b.members.map(A.adIdentity)).size<2)continue;
     const first=b.members[0];
     if(!first.adCode||!first.center||first.center==='Unknown'||!first.account||first.account==='Unknown')continue;
     if(['leads','booking'].some(k=>Number.isFinite(b[k])&&b.members.every(r=>!Number.isFinite(r[k]))))eligible.add(family(first));
@@ -121,6 +143,7 @@ function combineApprovedOutcomeAds(source,reports){
   const approved=r=>r.brand==='English'&&r.account==='Secondary'&&r.center==='TBT'&&r.adset.replace(/\s/g,'')==='TBT_T_D_W_BA_13/3/26'&&['10/10/26 - OLD_14','4/11/26 - OLD_14'].includes(r.ad);
   const approvedRows=source.filter(approved);
   if(new Set(approvedRows.map(A.adIdentity)).size===2)approvedRows.forEach(r=>eligible.add(family(r)));
+  if(!eligible.size)return [...source].sort((a,b)=>a.day.localeCompare(b.day));
   const families=new Map(),groups=new Map(),out=[];
   for(const r of source){const f=family(r);if(!eligible.has(f)){out.push(r);continue;}
     if(!families.has(f))families.set(f,new Map());families.get(f).set(A.adIdentity(r),r);

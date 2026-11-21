@@ -1,6 +1,8 @@
 const A=Analytics, $=id=>document.getElementById(id);
 const SHEET='1rLd4NuAz9S2HqqiMUWqHXZkinYmjazgsm_mj473BfGw';
-const NF=new Intl.NumberFormat('id-ID'), money=n=>n==null||!Number.isFinite(n)?'—':'Rp'+NF.format(Math.round(n)), integer=n=>n==null?'—':NF.format(Math.round(n)), percent=n=>n==null||!Number.isFinite(n)?'—':n.toLocaleString('id-ID',{maximumFractionDigits:2})+'%', decimal=n=>n==null?'—':n.toLocaleString('id-ID',{maximumFractionDigits:2});
+const dateFormatter=new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Jakarta'});
+const metricFormatter=new Intl.NumberFormat('id-ID',{maximumFractionDigits:2});
+const NF=new Intl.NumberFormat('id-ID'), money=n=>n==null||!Number.isFinite(n)?'—':'Rp'+NF.format(Math.round(n)), integer=n=>n==null?'—':NF.format(Math.round(n)), percent=n=>n==null||!Number.isFinite(n)?'—':metricFormatter.format(n)+'%', decimal=n=>n==null?'—':metricFormatter.format(n);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const STATE={KILL:'Rekomendasi kill',EVALUATE:'Evaluasi creative',OPPORTUNITY:'Prioritaskan delivery',CRITICAL:'Prioritas review',WATCH:'Di atas target',ITERATE:'Layak iterate',MONITOR:'Monitor',INACTIVE:'Inactive',SAMPLE:'Data minim',EMPTY:'Belum ada data',MIXED:'Perlu validasi'};
 const pill=s=>`<span class="pill ${s}">${STATE[s]||esc(s)}</span>`;
@@ -34,19 +36,32 @@ function weekLabel(p){return `${p.weekNum===null?'Week Num kosong / tidak valid'
 function periodText(p){const dates=p.start===p.end?prettyDate(p.start):`${prettyDate(p.start)} – ${prettyDate(p.end)}`;return p.grain==='weekly'?`${weekLabel(p)} · ${dates}`:dates;}
 function findCreative(id){return [...creatives,...periodCreatives,...comparisonDetails,...adsetDetails,...mapAdDetails].find(g=>String(g.id)===String(id));}
 function notify(text){$('toast').textContent=text;$('toast').style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').style.display='none',3500);}
-function jsonp(tab, query, range){
+let syncedTables=null;
+const tableSignatures=new WeakMap();
+function jsonp(tab, query, range, previous){
   return new Promise((resolve,reject)=>{
     const cb='sparks_'+Date.now()+'_'+Math.random().toString(36).slice(2),script=document.createElement('script');let settled=false;
     const finish=(error,value)=>{if(settled)return;settled=true;clearTimeout(timer);script.remove();window[cb]=()=>{};setTimeout(()=>delete window[cb],60000);error?reject(error):resolve(value);};
     const timer=setTimeout(()=>finish(new Error('Waktu sinkronisasi habis. Silakan coba lagi.')),30000);
     window[cb]=res=>{
+      const sig=tableSignatures.get(previous);
+      if(sig&&res?.status==='error'&&res.errors?.length===1&&res.errors[0].reason==='not_modified')return finish(null,previous);
       if(res?.status==='error'||!res?.table)return finish(new Error('Google Sheet tidak dapat dibaca. Periksa akses dan nama tab.'));
+      if(res.warnings?.some(w=>w.reason==='data_truncated'))return finish(new Error('Google Sheets mengirim data yang tidak lengkap.'));
       const headers=res.table.cols.map((c,i)=>(c.label||`column_${i}`).trim());
-      const values=res.table.rows.map(r=>({...Object.fromEntries(headers.map((h,i)=>[h,r.c?.[i]?.v??null])),_format:Object.fromEntries(headers.map((h,i)=>[h,r.c?.[i]?.f??null]))}));
+      if(sig&&String(res.sig)===sig)return finish(null,previous);
+      const share=headers.indexOf('Spend Share');
+      const values=res.table.rows.map(({c})=>{
+        const row={};
+        for(let i=0;i<headers.length;i++)row[headers[i]]=c?.[i]?.v??null;
+        if(c?.[share]?.f!=null)row._format={'Spend Share':c[share].f};
+        return row;
+      });
+      if(res.sig!=null)tableSignatures.set(values,String(res.sig));
       finish(null,values);
     };
     script.onerror=()=>finish(new Error('Koneksi Google Sheet gagal. Periksa koneksi dan akses spreadsheet.'));
-    const params=new URLSearchParams({tqx:`responseHandler:${cb}`,sheet:tab,headers:'1',tq:query||'select *',_ts:Date.now()});if(range)params.set('range',range);
+    const params=new URLSearchParams({tqx:`responseHandler:${cb}${tableSignatures.has(previous)?';sig:'+tableSignatures.get(previous):''}`,sheet:tab,headers:'1',tq:query||'select *',_ts:Date.now()});if(range)params.set('range',range);
     script.src=`https://docs.google.com/spreadsheets/d/${SHEET}/gviz/tq?${params}`;document.head.appendChild(script);
   });
 }
@@ -86,33 +101,50 @@ function dashboardCache(value){
   }catch{finish(null);}
  });
 }
+function showSyncTime(){
+  $('syncStatus').textContent='Raw Data synced '+lastSync.toLocaleTimeString('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit'})+' WIB · otomatis tiap 10 menit';
+  $('syncDot').className='dot';
+}
 async function sync(snapshot=null){
   if(snapshot?.version!==1)snapshot=null;
   if(busy)return;busy=true;$('syncButton').disabled=true;$('syncDot').className='dot waiting';$('syncStatus').textContent='Menyinkronkan Raw Data & Knowledge…';
   if(loaded&&lastSync)$('syncStatus').textContent='Updating · showing saved data '+lastSync.toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB';
   const results=snapshot?snapshot.responses:await Promise.allSettled([
-    jsonp('Raw Data'),jsonp('Knowledge','select A,B,C,E,F','A1:F100'),
-    jsonp('Report Totals','select A,B,C,D,E,F','A1:F90000'),
-    jsonp('Report Totals','select G,H,I,J,K,L where G is not null','G1:L90000'),
-    jsonp('Report Totals','select M,N,O,Q,R,S where M is not null or Q is not null','M1:S90000')
+    jsonp('Raw Data',undefined,undefined,syncedTables?.[0]),jsonp('Knowledge','select A,B,C,E,F','A1:F100',syncedTables?.[1]),
+    jsonp('Report Totals','select D,E,F where F is not null options no_format','A1:F90000',syncedTables?.[2]),
+    jsonp('Report Totals','select J,K,L where G is not null and L is not null options no_format','G1:L90000',syncedTables?.[3]),
+    jsonp('Report Totals','select M,N,O,Q,R,S where M is not null or Q is not null options no_format','M1:S90000',syncedTables?.[4])
   ]);
   try{
     if(results[0].status==='rejected')throw results[0].reason;
     const data=results[0].value;
+    const full=results.every(r=>r.status==='fulfilled');
+    if(!full&&syncedTables)throw new Error('Sumber belum lengkap. Data sinkronisasi terakhir tetap ditampilkan.');
+    if(!snapshot&&loaded&&full&&syncedTables&&results.every((r,i)=>r.value===syncedTables[i])&&!reportSummaryError&&!knowledgeError){
+      if(lastError)document.querySelector('#notices .notice.error')?.remove();
+      lastSync=new Date();lastError='';showSyncTime();
+      return;
+    }
     const required=['Ad set name','Ad name','Amount spent (IDR)','Results','Impressions','Key Message Content'];
     if(data.length&&required.some(k=>!(k in data[0])))throw new Error('Kolom wajib berubah atau hilang. Periksa header Raw Data.');
     if(!data.length)throw new Error('Raw Data kosong; data terakhir dipertahankan.');
-    raw=data;rows=excludeUnpublishedRows(A.resolveTypes(A.normalize(raw)));
-    reportSummaryIndex=null;reportSummaryError='';
+    let nextRows=excludeUnpublishedRows(A.resolveTypes(A.normalize(data)));
+    let nextReports=null,reportError='';
     try{
       if(results.slice(2).some(r=>r.status!=='fulfilled'))throw new Error('Report Totals unavailable');
       const reports=results.slice(2).map(r=>r.value);
-      const reportRecords=applyVerifiedOutcomeAliases(rows,ReportSummary.records(...reports));
-      fillUniqueOutcomeReports(rows,ReportSummary.index(rows,reportRecords));
-      rows=combineApprovedOutcomeAds(rows,reportRecords);
-      reportSummaryIndex=ReportSummary.index(rows,reportRecords);
-      annotateReportIssues(rows,reportSummaryIndex);
-    }catch(e){reportSummaryError='Ad-set report totals could not be synced. Summary uses matched ad rows only.';annotateReportIssues(rows,null);}
+      const reportRecords=applyVerifiedOutcomeAliases(nextRows,ReportSummary.records(...reports));
+      const sourceIndex=ReportSummary.index(nextRows,reportRecords);
+      fillUniqueOutcomeReports(nextRows,sourceIndex);
+      const combined=combineApprovedOutcomeAds(nextRows,reportRecords,sourceIndex);
+      nextReports=combined.some(r=>r.combinedMembers)?ReportSummary.index(combined,reportRecords):sourceIndex;
+      nextRows=combined;
+    }catch(e){
+      if(syncedTables)throw e;
+      reportError='Ad-set report totals could not be synced. Summary uses matched ad rows only.';
+    }
+    annotateReportIssues(nextRows,nextReports);
+    raw=data;rows=nextRows;reportSummaryIndex=nextReports;reportSummaryError=reportError;
     if(results[1].status==='fulfilled'){
       knowledge=results[1].value;knowledgeError='';
       for(const r of knowledge){const vs=Object.values(r),code=String(vs[0]||'');if(/^[A-Z]{2,3}(?:\.[A-Z]+)?$/.test(code)&&code!=='BDS'&&vs[1])labels[code]=vs[1];}
@@ -122,37 +154,67 @@ async function sync(snapshot=null){
     if((!loaded||rollingPeriod)&&dates.length)applyDatePreset(DATE_PRESETS[datePreset]?datePreset:'last7',false);
     lastSync=new Date(snapshot?snapshot.savedAt:Date.now());lastError='';loaded=true;
     $('periodLabel').textContent=dates.length?`Tersedia ${prettyDate(dates[0])} – ${prettyDate(dates.at(-1))}`:'Tidak ada tanggal valid';
-    $('syncStatus').textContent=`Raw Data synced ${lastSync.toLocaleTimeString('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit'})} WIB · otomatis tiap 10 menit`;
-    if(snapshot)$('syncStatus').textContent='Saved data '+lastSync.toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB · checking for updates';
-    $('syncDot').className='dot';render();
-    if(!snapshot&&results.every(r=>r.status==='fulfilled'))void dashboardCache({version:1,savedAt:lastSync.toISOString(),responses:results});
+    showSyncTime();
+    if(snapshot)$('syncStatus').textContent='Saved data · '+lastSync.toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB';
+    syncedTables=full&&!reportSummaryError?results.map(r=>r.value):null;
+    if(snapshot&&syncedTables)syncedTables.forEach((table,i)=>{if(snapshot.signatures?.[i])tableSignatures.set(table,snapshot.signatures[i]);});
+    render();
+    if(!snapshot&&syncedTables)void dashboardCache({version:1,savedAt:lastSync.toISOString(),responses:results,signatures:syncedTables.map(t=>tableSignatures.get(t)||null)});
   }catch(e){
     lastError=e.message;$('syncDot').className='dot error';$('syncStatus').textContent=`Sync gagal${lastSync?' · menampilkan data terakhir':''}: ${e.message}`;
     render();
   }finally{busy=false;$('syncButton').disabled=false;}
 }
-function prettyDate(day){return day?new Date(day+'T00:00:00Z').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Jakarta'}):'—';}
+function prettyDate(day){return day?dateFormatter.format(new Date(day+'T00:00:00Z')):'—';}
 function temporalFilter(r){return (!($('startFilter').value)||r.day>=$('startFilter').value)&&(!($('endFilter').value)||r.day<=$('endFilter').value)&&!!r.day;}
+let analysisRows,analysisScope='',analysisFilter='',periodGrain='',scopedRows=[];
 function refreshData(){
-  ruleIndex=Rules.index(rows.filter(workspaceMatches),$('accountFilter').value);
+  const account=$('accountFilter').value,workspace=JSON.stringify([scope,workView,account]);
+  if(rows!==analysisRows||workspace!==analysisScope){
+    scopedRows=rows.filter(workspaceMatches);
+    ruleIndex=Rules.index(scopedRows,account);
+    analysisRows=rows;analysisScope=workspace;analysisFilter='';
+  }
   const center=$('centerFilter').value,obj=$('objectiveFilter').value,type=$('resultFilter').value,role=$('roleFilter').value,brand=$('brandFilter').value,q=$('searchFilter').value.toLowerCase().trim(),msg=$('messageFilter').value;
-  base=rows.filter(r=>temporalFilter(r)&&workspaceMatches(r)&&campaignMatches(r)&&(center==='ALL'||r.center===center)&&objectiveMatches(r,obj)&&(type==='ALL'||r.resultType===type)&&(role==='ALL'||r.role===role)&&(brand==='ALL'||r.brand===brand)&&accountMatches(r));
-  selected=base.filter(r=>(msg==='ALL'||(msg==='MISSING'?!r.message:r.message===msg))&&(!q||`${r.ad} ${(r.combinedNames||[]).join(' ')} ${r.adCode} ${r.adset} ${r.campaign}`.toLowerCase().includes(q)));
-  creatives=buildCreatives('summary');
-  periodCreatives=view==='creatives'&&explorerGrain!=='summary'?buildCreatives(explorerGrain):[];
+  const from=$('startFilter').value,to=$('endFilter').value,campaign=$('campaignFilter').value;
+  const key=JSON.stringify([from,to,campaign,center,obj,type,role,brand,q,msg,config]);
+  if(analysisFilter!==key){
+    base=scopedRows.filter(r=>r.day&&(!from||r.day>=from)&&(!to||r.day<=to)&&(campaign==='ALL'||campaign===r.campaign)&&(center==='ALL'||r.center===center)&&objectiveMatches(r,obj)&&(type==='ALL'||r.resultType===type)&&(role==='ALL'||r.role===role)&&(brand==='ALL'||r.brand===brand)&&(account==='ALL'||accountName(r)===account));
+    selected=base.filter(r=>(msg==='ALL'||(msg==='MISSING'?!r.message:r.message===msg))&&(!q||`${r.ad} ${(r.combinedNames||[]).join(' ')} ${r.adCode} ${r.adset} ${r.campaign}`.toLowerCase().includes(q)));
+    creatives=buildCreatives('summary');
+    analysisFilter=key;periodGrain='';
+  }
+  const grain=view==='creatives'?explorerGrain:'summary';
+  if(grain!==periodGrain){
+    periodCreatives=grain==='summary'?[]:buildCreatives(grain);
+    periodGrain=grain;
+  }
   if(explorerWeek!=='ALL'&&!periodCreatives.some(g=>g.weekKey===explorerWeek))explorerWeek='ALL';
 }
 function buildCreatives(grain){
   const dates=selected.map(r=>r.day).sort(),from=$('startFilter').value||dates[0],to=$('endFilter').value||dates.at(-1);
   const weeks=grain==='weekly'?A.sheetWeeks(rows):null;
+  const periodKey=r=>grain==='summary'?'':grain==='weekly'?A.sheetWeekKey(r):grain==='daily'?r.day:r.day.slice(0,7);
+  const context=r=>JSON.stringify([r.center,A.metricContext(r),periodKey(r)]);
+  const setPeriod=r=>JSON.stringify([Rules.setKey(r),periodKey(r)]);
+  const setSpend=new Map(),centerSpend=new Map(),pool=new Map();
+  for(const r of rows){
+    if(!r.day||r.day<from||r.day>to)continue;
+    const key=setPeriod(r);setSpend.set(key,(setSpend.get(key)||0)+r.spend);
+  }
+  for(const r of base){
+    if(r.day<from||r.day>to)continue;
+    const key=context(r);centerSpend.set(key,(centerSpend.get(key)||0)+r.spend);
+    if(!pool.has(key))pool.set(key,[]);pool.get(key).push(r);
+  }
   return A.group(selected,r=>JSON.stringify([r.center,r.brand,r.account,r.campaign,r.adset,r.ad,r.resultType,...A.identitySuffix(r),grain==='summary'?'':grain==='weekly'?A.sheetWeekKey(r):A.period(r.day,grain).start])).map((g,i)=>{
     const first=g.items[0],messages=[...new Set(g.items.map(r=>r.message).filter(Boolean))],pillars=[...new Set(g.items.map(r=>r.pillar).filter(Boolean))];
     const weekKey=grain==='weekly'?A.sheetWeekKey(first):null;
     const p=grain==='summary'?{start:from,end:to}:grain==='weekly'?weeks.get(weekKey):A.period(first.day,grain);
-    const start=p.start<from?from:p.start,end=p.end>to?to:p.end,inPeriod=r=>r.day>=start&&r.day<=end&&(grain!=='weekly'||A.sheetWeekKey(r)===weekKey);
-    const peers=base.filter(r=>inPeriod(r)&&r.center===first.center&&A.sameMetricContext(r,first)&&r.format===first.format&&A.adIdentity(r)!==A.adIdentity(first));
-    const denom=rows.filter(r=>inPeriod(r)&&temporalFilter(r)&&r.brand===first.brand&&r.account===first.account&&r.campaign===first.campaign&&r.adset===first.adset).reduce((s,r)=>s+r.spend,0);
-    const centerDenom=base.filter(r=>inPeriod(r)&&r.center===first.center&&A.sameMetricContext(r,first)).reduce((s,r)=>s+r.spend,0);
+    const start=p.start<from?from:p.start,end=p.end>to?to:p.end;
+    const ctx=context(first),id=A.adIdentity(first);
+    const peers=pool.get(ctx).filter(r=>r.format===first.format&&A.adIdentity(r)!==id);
+    const denom=setSpend.get(setPeriod(first)),centerDenom=centerSpend.get(ctx);
     const latest=[...g.items].sort((a,b)=>b.day.localeCompare(a.day))[0];
     const benchmark=A.aggregate(peers);
     return applyRules({...g,id:grain==='summary'?i:`period_${i}`,grain,start,end,weekKey,weekNum:grain==='weekly'?first.weekNum:null,weekYear:grain==='weekly'?p.weekYear:null,partial:start!==p.start||end!==p.end,center:first.center,brand:first.brand,account:first.account,importSource:first.importSource,campaign:first.campaign,adset:first.adset,ad:first.ad,adCode:first.adCode,resultType:first.resultType,objective:first.objective,role:first.role,format:first.format,message:messages.length===1?messages[0]:messages.length?'Beberapa key message':'',missing:g.items.some(r=>!r.message),pillar:pillars.length===1?pillars[0]:pillars.length?'Beberapa pillar':'',missingPillar:g.items.some(r=>!r.pillar),lastDelivery:latest.status,lastDay:latest.day,share:A.ratio(g.spend,denom,100),centerShare:A.ratio(g.spend,centerDenom,100),benchmark},peers);
@@ -358,11 +420,11 @@ $('settingsForm').onsubmit=e=>{e.preventDefault();config={target:+$('targetInput
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 async function startDashboard(){
  refreshCenterMap();
- await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
  const snapshot=await dashboardCache();
- if(snapshot?.version===1&&Array.isArray(snapshot.responses)&&snapshot.responses.length===5&&snapshot.responses.every(r=>r.status==='fulfilled'&&Array.isArray(r.value))&&Date.now()-Date.parse(snapshot.savedAt)<7*86400000){
+ if(!busy&&!loaded&&snapshot?.version===1&&Array.isArray(snapshot.responses)&&snapshot.responses.length===5&&snapshot.responses.every(r=>r.status==='fulfilled'&&Array.isArray(r.value))&&Date.now()-Date.parse(snapshot.savedAt)<7*86400000){
   await sync(snapshot);
-  await new Promise(resolve=>setTimeout(resolve,0));
+  // Paint the saved dashboard before revalidating all five source ranges.
+  await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
  }
  void sync();
 }

@@ -28,7 +28,12 @@ function adsetPerformanceData(){
   const metric=ADSET_METRICS.find(m=>m[0]===adsetMetric)||ADSET_METRICS[0],lower=metric[2];
   const deliveryIndex=adsetDeliveryIndex(),capacity=new Map();
   for(const r of base.flatMap(r=>r.combinedMembers||[r])){const key=adsetIdentity(r);if(!capacity.has(key))capacity.set(key,new Set());if(deliveryIndex.get(Rules.identity(r))?.status==='active')capacity.get(key).add(Rules.identity(r));}
-  const children=new Map();
+  const children=new Map(),spendBySet=new Map();
+  const from=$('startFilter').value,to=$('endFilter').value;
+  for(const r of rows){
+    if(!r.day||(from&&r.day<from)||(to&&r.day>to))continue;
+    const key=adsetIdentity(r);spendBySet.set(key,(spendBySet.get(key)||0)+r.spend);
+  }
   for(const ad of creatives){const key=adsetIdentity(ad);if(!children.has(key))children.set(key,[]);children.get(key).push(ad);}
   adsetDetails=[];
   const groups=A.group(selected,adsetIdentity).map(g=>{
@@ -36,9 +41,15 @@ function adsetPerformanceData(){
     const allAds=A.group(g.items,Rules.identity).map(a=>{
       const r=a.items[0],original=(children.get(g.key)||[]).find(c=>Rules.identity(c)===a.key);
       const resultType=a.types.size===1?[...a.types][0]:original.resultType;
-      const peers=base.filter(p=>p.center===r.center&&A.sameMetricContext(p,{...r,resultType})&&p.format===r.format&&Rules.identity(p)!==a.key);
-      const denominator=rows.filter(p=>temporalFilter(p)&&adsetIdentity(p)===g.key).reduce((n,p)=>n+p.spend,0);
-      const merged=applyRules({...original,...a,id:'adset_ad_'+adsetDetails.length,resultType,benchmark:A.aggregate(peers),share:A.ratio(a.spend,denominator,100),start:$('startFilter').value,end:$('endFilter').value},peers);
+      const id='adset_ad_'+adsetDetails.length;
+      let merged;
+      if(original.items.length===a.items.length&&original.resultType===resultType&&original.start===from&&original.end===to){
+        merged={...original,...a,id};
+      }else{
+        const context=A.metricContext({...r,resultType});
+        const peers=base.filter(p=>p.center===r.center&&p.format===r.format&&A.metricContext(p)===context&&Rules.identity(p)!==a.key);
+        merged=applyRules({...original,...a,id,resultType,benchmark:A.aggregate(peers),share:A.ratio(a.spend,spendBySet.get(g.key),100),start:from,end:to},peers);
+      }
       const delivery=deliveryIndex.get(a.key)||{status:'unknown',day:''};
       merged.deliveryState=delivery.status;merged.deliveryDate=delivery.day;merged.lastDelivery=delivery.status;
       adsetDetails.push(merged);return merged;

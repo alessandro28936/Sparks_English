@@ -15,8 +15,13 @@ const CostTargets=(()=>{
     const ids=new Set(own.map(A.adIdentity));
     const comparable=source.filter(r=>r.center===first.center&&A.sameMetricContext(r,first)&&!ids.has(A.adIdentity(r)));
     // Use complete peer ads in the caller's period/account scope. Do not cherry-pick their reported days.
-    const groups=A.group(comparable,A.adIdentity).filter(g=>g.items.every(r=>Number.isFinite(r[outcome])&&r[outcome]>=0&&Number.isFinite(r.spend)&&r.spend>=0));
-    const items=groups.flatMap(g=>g.items),spend=items.reduce((s,r)=>s+r.spend,0),count=items.reduce((s,r)=>s+r[outcome],0);
+    const byAd=new Map();
+    for(const r of comparable){
+      const id=A.adIdentity(r);if(!byAd.has(id))byAd.set(id,[]);
+      byAd.get(id).push(r);
+    }
+    const groups=[...byAd.values()].filter(group=>group.every(r=>Number.isFinite(r[outcome])&&r[outcome]>=0&&Number.isFinite(r.spend)&&r.spend>=0));
+    const items=groups.flat(),spend=items.reduce((s,r)=>s+r.spend,0),count=items.reduce((s,r)=>s+r[outcome],0);
     const ready=spend>=settings.minSpend&&count>=settings.minResults;
     return {ready,cost:ready?spend/count:null,spend,count,ads:groups.length,items};
   }
