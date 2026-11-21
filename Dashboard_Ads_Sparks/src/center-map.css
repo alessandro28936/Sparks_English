@@ -137,3 +137,5 @@
 .map-metrics>.map-metric-review{background:linear-gradient(120deg,#f4dfc6,#fff2e5);border-color:#e6c59d}
 .map-metrics>.map-metric-bad{background:linear-gradient(120deg,#efd0cd,#fbefed);border-color:#e1b6b1}
 .map-metrics>div>b{color:var(--ink,#183d36)}
+
+.local-area-terrain{display:block;width:100%;height:auto}.local-scene:has(.local-area-terrain){height:auto;min-height:0;aspect-ratio:1000/560;position:relative}.local-area-note{position:absolute;bottom:18px;left:30px;color:#577365;font-size:12px}.center-location-view article{margin-bottom:24px}.center-location-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}.center-location-heading p{margin:8px 0;color:var(--muted)}.center-location-view iframe{width:100%;height:430px;border:1px solid #d5e1d2;border-radius:18px;background:#e8eee6}.center-location-open{margin-bottom:20px}@media(max-width:600px){.center-location-heading{align-items:flex-start;flex-direction:column}.center-location-view iframe{height:350px}.local-scene:has(.local-area-terrain){min-width:750px}}
