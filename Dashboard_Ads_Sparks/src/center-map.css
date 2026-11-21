@@ -25,7 +25,6 @@
 .filter-panel{border-color:#d2dfd0;border-radius:12px;background:#fcfdf9}
 #mapFilterDock .filter-panel{margin:0}
 .filter-panel .filters{padding-block:12px}
-.filter-panel .filter-bottom{background:#f6f8f3;border-radius:0 0 12px 12px}
 #mapAlertHub{margin:0 clamp(12px,2vw,28px) 16px}
 .map-alert-strip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;border:1px solid #e5c3b3;border-left:4px solid #b75437;border-radius:12px;background:#fff6ee;padding:10px 14px}
 .map-alert-label,.map-alert-clear{display:flex;align-items:center;gap:9px}
@@ -51,7 +50,7 @@
  .filter-panel{display:grid;grid-template-columns:auto 1fr}
  .filter-panel .filter-top{border:0;justify-content:flex-start}
  .filter-panel .work-view-row{justify-content:flex-end;padding:10px 16px}
- .filter-panel .filters,.filter-panel .filter-bottom{grid-column:1/-1}
+ .filter-panel .filters,.filter-panel .filter-search-bar{grid-column:1/-1}
 }
 @media(max-width:650px){
  .map-heading{flex-direction:row;align-items:flex-start}
@@ -67,7 +66,39 @@
 .filter-panel .filters select,.filter-panel .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}
 .filter-panel .filter-top{padding:10px 16px}
 .filter-panel .work-view-row{padding-block:10px}
-.filter-panel .filter-bottom{padding:7px 16px}
+.filter-search-bar{
+ display:flex;align-items:center;gap:14px;padding:10px 16px;
+ background:#eef4ed;border-block:1px solid #dce7dc;
+}
+.creative-search{display:flex;flex:1;align-items:center;gap:12px;min-width:0}
+.creative-search>label{color:#275943;font-size:12px;font-weight:700;white-space:nowrap}
+.creative-search-field{
+ display:flex;align-items:center;gap:10px;flex:1;min-width:0;
+ background:#fff;border:1px solid #91ad9b;border-radius:9px;padding-inline:12px 8px;
+}
+.creative-search-field:hover{border-color:#39765a}
+.creative-search-field:focus-within{border-color:#39765a;box-shadow:0 0 0 3px #39765a33}
+.creative-search-field svg{flex:none;width:18px;height:18px;color:#39765a}
+.creative-search-field input{
+ flex:1;width:100%;min-width:0;min-height:42px;border:0;background:transparent;
+ padding:8px 0;font-size:14px;outline:none;
+}
+.creative-search-field input:focus-visible{outline:none}
+.creative-search-field input::placeholder{color:#596d62}
+.filter-search-bar .message-filter{width:clamp(138px,19%,210px);min-width:0}
+.filter-search-bar .message-filter select{height:38px;padding:6px 10px;font-size:11px}
+.filter-search-bar #resetButton,.filter-search-bar #rowCount{white-space:nowrap}
+.filter-search-bar #rowCount{font-size:10px;color:#596d62}
+@media(max-width:840px){
+ .filter-search-bar{flex-wrap:wrap;gap:8px 12px}
+ .creative-search{flex-basis:100%}
+ .filter-search-bar .message-filter{flex:1;width:auto}
+}
+@media(max-width:480px){
+ .filter-search-bar{padding-inline:12px}
+ .creative-search{flex-direction:column;align-items:stretch;gap:5px}
+ .filter-search-bar #rowCount{display:none}
+}
 @media(min-width:1100px){
  .filter-panel .filters{grid-template-columns:1fr 1.55fr 1fr 1.15fr}
  .filter-panel .date-range-field{grid-column:span 1}
