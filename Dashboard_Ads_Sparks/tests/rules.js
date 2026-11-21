@@ -22,6 +22,22 @@
  check('Existing Booking without CPB benchmark gets review',ev({Leads:5}).state==='CRITICAL');
  const zero=Array.from({length:4},(_,i)=>make({'Reporting starts':'2026-10-0'+(4+i),Results:0,Leads:0,Booking:0,'Amount spent (IDR)':25000}));
  check('Four real zero days trigger K2',has(run(zero),'K2'));
+ const dpkDaily=[
+   ['2026-11-13',82410,4,3,1],['2026-11-14',28783,2,1,1],['2026-11-15',21055,1,1,0],
+   ['2026-11-16',7773,0,0,0],['2026-11-17',6068,0,0,0],['2026-11-18',17431,0,0,0],['2026-11-19',13685,0,0,0]
+ ];
+ const dpkRows=dpkDaily.map(([day,spend,results,leads,booking])=>make({
+   'Ad name':'4/11/26 - OLD_14','Ad set name':'DPK_T_D_W_BA_ 14/2/26','Account Group':'Secondary',
+   'Reporting starts':day,'Amount spent (IDR)':spend,Results:results,Leads:leads,Booking:booking
+ }));
+ const dpk=run(dpkRows,[],{start:'2026-11-13',end:'2026-11-19'});
+ check('DPK OLD_14 reconciles and is reviewed after low four-day spend',dpk.state==='CRITICAL'&&!has(dpk,'K2')&&dpk.actionEvidence.fourDaySpend===44957&&dpk.operational.cpr===25315&&dpk.operational.cpl===35441&&dpk.operational.cpb===88602.5);
+ check('K2 four-day spend must reach the minimum on its own',!has(run([make({'Reporting starts':'2026-10-01'}),...zero.map(r=>({...r,spend:22499}))]),'K2'));
+ check('K2 triggers at the four-day spend boundary without good costs',has(run(zero.map(r=>({...r,spend:22500}))),'K2'));
+ const pastHealthy=make({'Reporting starts':'2026-10-01',Results:12,Leads:9,Booking:1,'Amount spent (IDR)':100000});
+ const healthyDespiteDryDays=run([pastHealthy,...zero]);
+ check('Complete green seven-day costs protect from K2 even when four-day spend qualifies',healthyDespiteDryDays.state==='CRITICAL'&&!has(healthyDespiteDryDays,'K2')&&healthyDespiteDryDays.actionEvidence.healthyCosts);
+ check('Missing Booking does not qualify as green seven-day costs',has(run([{...pastHealthy,booking:null},...zero]),'K2'));
  check('Missing calendar day prevents K2',!has(run(zero.slice(1)),'K2'));
  check('Results in last four prevent K2',!has(run([...zero.slice(0,3),make({Results:1,Leads:0,Booking:0,'Amount spent (IDR)':25000})]),'K2'));
  check('K2 also waits spend',run(zero.map(r=>({...r,spend:20000}))).state==='SAMPLE');
@@ -51,9 +67,9 @@
  check('K5 fails protection when lead rate red',has(ev({Results:30,Leads:23,Booking:1,'Amount spent (IDR)':673987}),'K5'));
  check('K5 incomplete Leads never gets green protection',has(ev({Results:23,Leads:null,Booking:1,'Amount spent (IDR)':673987}),'K5'));
  check('K5 protected review is not a blanket exception to other kills',(()=>{
-   const items=Array.from({length:4},(_,i)=>make({'Reporting starts':'2026-10-0'+(4+i),Results:0,Leads:0,Booking:0,'Amount spent (IDR)':20000}));
+   const items=Array.from({length:4},(_,i)=>make({'Reporting starts':'2026-10-0'+(4+i),Results:0,Leads:0,Booking:0,'Amount spent (IDR)':25000}));
    // Add valid Results on an earlier day outside K2's four-calendar-day window.
-   const past=make({'Reporting starts':'2026-10-01',Results:23,Leads:47,Booking:1,'Amount spent (IDR)':593987});
+   const past=make({'Reporting starts':'2026-10-01',Results:23,Leads:47,Booking:1,'Amount spent (IDR)':573987});
    const g=run([past,...items]);
    return has(g,'K2')&&g.state==='KILL'&&g.actionEvidence.k5Review;
  })());
@@ -74,15 +90,15 @@
  check('K5 zero Booking not infinite CPB',!has(ev({Leads:7,Booking:0,'Amount spent (IDR)':1000001}),'K5'));
  // CPB >500k is review, never K5 kill, only when CPR, CPL and Results-to-Leads are ALL green on the same 7 days.
  const healthyK5=ev({Results:20,Leads:17,Booking:1,'Amount spent (IDR)':510000});
- check('K5 green funnel downgrades to review',healthyK5.state==='CRITICAL'&&!has(healthyK5,'K5')&&healthyK5.actionEvidence.k5ReviewProtected);
+ check('K5 green funnel downgrades to review',healthyK5.state==='CRITICAL'&&!has(healthyK5,'K5')&&healthyK5.actionEvidence.k5Review);
  check('K5 review retains red CPB and green CPR/CPL/Results-to-Leads',healthyK5.operational.cpb>500000&&CostTargets.cpbTier(healthyK5.operational.cpb)==='bad'&&healthyK5.operational.cpr<=cfg.target&&healthyK5.operational.cpl<=CostTargets.limit('cpl',cfg)&&healthyK5.operational.leadRate>=80);
- check('K5 review gives explicit actionable explanation',healthyK5.diagnosis.reasons.some(r=>r.includes('K5:')&&r.includes('prioritas review')));
+ check('K5 review gives explicit actionable explanation',healthyK5.diagnosis.reasons.some(r=>r.includes('K5:')&&r.toLowerCase().includes('prioritas review')));
  const badCprK5=ev({Results:10,Leads:9,Booking:1,'Amount spent (IDR)':510000});
  check('K5 still kills when CPR and CPL are not green',badCprK5.state==='KILL'&&has(badCprK5,'K5'));
  const badRateK5=ev({Results:24,Leads:14,Booking:1,'Amount spent (IDR)':510000});
  check('K5 still kills when Results-to-Leads is red',has(badRateK5,'K5'));
  const missingLeadK5=ev({Results:20,Leads:null,Booking:1,'Amount spent (IDR)':510000});
- check('Missing Leads do not qualify for K5 green exception',has(missingLeadK5,'K5')&&!missingLeadK5.actionEvidence.k5ReviewProtected);
+ check('Missing Leads do not qualify for K5 green exception',has(missingLeadK5,'K5')&&!missingLeadK5.actionEvidence.k5Review);
  const lowSampleK5=ev({Results:4,Leads:4,Booking:1,'Amount spent (IDR)':510000});
  check('Fewer than minimum Results cannot qualify for K5 green exception',has(lowSampleK5,'K5'));
  // Real TCT 13/10/26 - VAFBE_33, Secondary, 9-15 November 2026; raw daily figures verified against Centers.
@@ -98,7 +114,7 @@
  }));
  const tct=run(tctRows,[],{start:'2026-11-09',end:'2026-11-15'});
  check('Live TCT seven-day totals reconcile to source',tct.operational.spend===673987&&tct.operational.results===23&&tct.operational.leads===47&&tct.operational.booking===1);
- check('Live TCT becomes K5 review, with existing other kill rules respected',tct.state==='CRITICAL'&&!has(tct,'K5')&&tct.actionEvidence.k5ReviewProtected&&tct.actionEvidence.killCodes.length===0);
+ check('Live TCT becomes K5 review, with existing other kill rules respected',tct.state==='CRITICAL'&&!has(tct,'K5')&&tct.actionEvidence.k5Review&&tct.actionEvidence.killCodes.length===0);
  check('TCT review keeps the 7-day source window',tct.actionEvidence.start==='2026-11-09'&&tct.actionEvidence.end==='2026-11-15');
 
  check('Inactive no kill',ev({Leads:0,Booking:0,'Ad delivery':'inactive'}).state==='INACTIVE');
@@ -118,7 +134,7 @@
  check('Conflicting status not guessed',run([make(),make({'Ad delivery':'inactive'})]).state==='MIXED');
  check('Table totals preserved',run([make({'Reporting starts':'2026-09-25',Results:1000}),make()]).results===1010);
  check('Operational totals separate',run([make({'Reporting starts':'2026-09-25',Results:1000}),make()]).operational.results===10);
- check('Evidence version recorded',ev().actionEvidence.version==='main-metrics-v7-k5-healthy-funnel');
+ check('Evidence version recorded',ev().actionEvidence.version==='main-metrics-v8-k2-spend-and-costs');
  check('Live candidates never kill',candidates().every(g=>['ITERATE','OPPORTUNITY'].includes(g.state)&&!g.killReasons.length));
  return checks;
 })()
