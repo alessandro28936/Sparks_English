@@ -1,5 +1,5 @@
 const checks=[];function check(name,ok){checks.push({name,ok:!!ok});if(!ok)throw Error(name);}
-const rpc=[];function runner(){const r={};return {withSuccessHandler(fn){r.ok=fn;return this},withFailureHandler(fn){r.fail=fn;return this},uploadCsv(...args){rpc.push({...r,kind:'upload',args})},getImportStatus(id){rpc.push({...r,kind:'status',id})}}}
+const rpc=[];function runner(){const r={};return {withSuccessHandler(fn){r.ok=fn;return this},withFailureHandler(fn){r.fail=fn;return this},uploadCachedMetaCsv(...args){rpc.push({...r,kind:'cached',args})},uploadCsv(...args){rpc.push({...r,kind:'upload',args})},getImportStatus(id){rpc.push({...r,kind:'status',id})}}}
 window.google={script:{get run(){return runner()}}};
 const last=kind=>rpc.filter(r=>r.kind===kind).at(-1),uploads=()=>rpc.filter(r=>r.kind==='upload').length;
 function start(id){stop();token='fingerprint';requestId=id;lock(false);apply();}
@@ -37,4 +37,9 @@ changed();check('Changing settings invalidates both token and request',!token&&!
 el('source').value='Daily Report';changed();check('Daily Report explains its own destination',el('title').textContent==='Import Daily Report'&&el('destination').textContent.includes('Copy of Daily Report')&&el('mode').options[1].textContent==='Replace all centers / date range');
 start('two-minute-target');started=Date.now()-125000;tick();check('Two-minute target warning never fabricates completion',stage==='import'&&busy&&el('hint').textContent.includes('Target 2 menit terlewati')&&!el('progress').hasAttribute('value'));last('upload').ok({done:true,state:'SUCCESS',requestId,message:'Finished after confirmation'});
 el('source').value='SE Main';changed();check('Switching back restores Meta destination',el('title').textContent==='Import Meta Ads'&&el('destination').textContent.includes('Raw Data'));
+metaCached=true;start('cache-miss-request');
+check('Cached confirmation sends no file',last('cached').args.length===6);
+const sent=uploads();last('cached').ok({needsFile:true,requestId});
+check('Cache miss resends once with same request',uploads()===sent+1&&last('upload').args.at(-1)===requestId);
+last('upload').ok({done:true,state:'SUCCESS',requestId,message:'Completed'});
 stop();document.body.insertAdjacentHTML('beforeend','<pre id="test-result"></pre>');document.getElementById('test-result').textContent=JSON.stringify(checks);

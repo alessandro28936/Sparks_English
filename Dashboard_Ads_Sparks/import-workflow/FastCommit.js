@@ -1,18 +1,19 @@
 /* Bundled into SparksImport.gs by build_import_ui.py. */
-function buildImportOutput(old,p,now){
+function buildImportOutput(old,p,now,deltaOnly=false){
  const headers=old[0],sourceCol=headers.indexOf('Import Source'),dayCol=headers.indexOf('Day');
  for(const h of ['Day','Import Source','Brand','Account Group','Entity Key','Report Key','Row Key','Ad ID'])if(headers.indexOf(h)<0)throw Error('Schema Raw Data belum siap: '+h);
  // Formula locations are fixed by the existing workbook schema. Stop before writing if columns moved.
  for(const [col,name] of [[2,'Ad set trim'],[4,'Ad Trim'],[5,'Day'],[30,'Leads'],[31,'Booking'],[39,'Import Source'],[47,'Account ID'],[50,'Ad ID']])if(headers[col]!==name)throw Error('Kolom Raw Data berubah: '+name+'. Batalkan impor dan periksa schema.');
- const newKeys=new Set(p.rows.map(identity)),newNames=new Set(p.rows.map(nameIdentity)),keep=[],removed=[];
+ const newKeys=p.mode==='upsert'?new Set(p.rows.map(identity)):null,newNames=p.mode==='upsert'?new Set(p.rows.map(nameIdentity)):null,keep=[],removed=[],slots=[];
+ let retained=0;
  for(let i=1;i<old.length;i++){
-  const v=old[i];if(!v[0])continue;
-  if(v[sourceCol]!==p.source){keep.push(v);continue;}
-  const r=Object.fromEntries(headers.map((h,j)=>[h,v[j]]));
+  const v=old[i];if(!v[0]){slots.push(i);continue;}
+  if(v[sourceCol]!==p.source){retained++;if(!deltaOnly)keep.push(v);continue;}
+  const r={'Import Source':p.source,'Campaign name':v[0],'Ad set name':v[1],'Ad name':v[3],Day:v[dayCol],'Ad ID':v[50]};
   let replace;
   try{replace=p.mode==='replace'?dateKey(r.Day)>=p.start&&dateKey(r.Day)<=p.end:newKeys.has(identity(r))||(!r['Ad ID']&&newNames.has(nameIdentity(r)));}
   catch(e){throw Error('Raw Data baris '+(i+1)+': '+e.message);}
-  (replace?removed:keep).push(v);
+  if(replace){slots.push(i);removed.push(v);}else{retained++;if(!deltaOnly)keep.push(v);}
  }
  const added=p.rows.map(r=>headers.map(h=>{
   if(['Day','Reporting starts','Reporting ends'].includes(h))return serialDate(r.Day);
@@ -20,6 +21,7 @@ function buildImportOutput(old,p,now){
   if(h==='Account Group')return p.source==='SE Main'?'Main':p.source==='SE Third'?'Third':'Secondary';
   if(h==='Imported At')return now;if(h==='Import Note')return 'Imported via Sparks Import';return r[h]??'';
  }));
+ if(deltaOnly)return {headers,slots,added:added.sort((a,b)=>a[dayCol]-b[dayCol]),removed:removed.length,retained};
  // Compare export fields only: derived outcomes/labels may change independently of the Meta export.
  const excluded=new Set([...Object.keys(FORMULAS).map(Number),headers.indexOf('Imported At'),headers.indexOf('Import Note')]);
  const signature=v=>JSON.stringify(headers.map((h,j)=>excluded.has(j)?null:['Day','Reporting starts','Reporting ends'].includes(h)?dateKey(v[j]):v[j]??''));

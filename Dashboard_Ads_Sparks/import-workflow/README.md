@@ -1,5 +1,9 @@
 # Sparks import workflow
 
+## Meta CSV uploads
+
+Install the bound script with Activate-Import.html. In Apps Script, add Google Sheets API under Services using the identifier `Sheets` to enable batched writes. The built-in Spreadsheet service also supports the same workflow. Save and reopen the upload dialog. Large Meta CSVs use lossless gzip when supported. The confirmation reuses the per-user preview upload for up to ten minutes and resends the same file if the cache expires. Both paths validate the file fingerprint before writing. The Import Log records planning, backup and write/apply time for changed imports. Use the dialog elapsed time for click-to-confirmed duration.
+
 ## Daily Report CSV update — 12 November 2026
 
 ### Performance update — affected dates only

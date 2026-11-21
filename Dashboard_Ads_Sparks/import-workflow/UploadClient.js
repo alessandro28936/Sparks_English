@@ -1,5 +1,15 @@
 let text='',token='',requestId='',busy=false,timer=null,pollTimer=null,checking=false,started=0,stage='idle',submissionPending=false;
 const el=id=>document.getElementById(id);
+let metaCached=false;
+async function metaCsvPayload(file,plain){
+ if(file.size<250000||typeof CompressionStream==='undefined')return plain;
+ try{
+  const bytes=new Uint8Array(await new Response(file.stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());
+  const chunks=[];
+  for(let i=0;i<bytes.length;i+=16384)chunks.push(String.fromCharCode(...bytes.subarray(i,i+16384)));
+  const packed='gzip64:'+btoa(chunks.join(''));return packed.length<plain.length?packed:plain;
+ }catch(ignore){return plain;}
+}
 function lock(value){busy=value;document.querySelectorAll('input,select').forEach(e=>e.disabled=value);el('preview').disabled=value;el('apply').disabled=value||!token;el('status').setAttribute('aria-busy',String(value));}
 function show(kind,title,details,hint=''){el('status').className='status '+kind;el('heading').textContent=title;el('details').textContent=details;el('hint').textContent=hint;el('check').hidden=!requestId||['idle','read','preview','success'].includes(stage);}
 function tick(){const seconds=Math.floor((Date.now()-started)/1000);el('elapsed').textContent='Elapsed: '+Math.floor(seconds/60)+'m '+seconds%60+'s';if(stage==='import'&&seconds>=360)el('hint').textContent='Menunggu konfirmasi Import ID ini. Jangan impor ulang. Status diperiksa otomatis; jika tetap belum selesai, periksa Apps Script → Executions.';else if(stage==='import'&&el('source').value==='Daily Report'&&seconds>=120)el('hint').textContent='Target 2 menit terlewati. Proses belum dikonfirmasi selesai; tahap terakhir ditampilkan di atas. Jangan impor ulang selama proses berjalan.';}
@@ -10,6 +20,7 @@ function changed(){if(busy)return;stop();sourceHelp();requestId='';token='';stag
 document.querySelectorAll('input,select').forEach(e=>e.addEventListener('change',changed));
 sourceHelp();
 function completed(r){
+ tick();
  token='';submissionPending=false;stop();stage='success';el('progress').hidden=false;el('progress').value=100;
  show('success','✓ Import completed · 100%',r.message||'Data tersimpan.',`Import ID: ${requestId}. SUCCESS terkonfirmasi untuk impor ini. Anda boleh menutup jendela atau mengimpor account berikutnya.`);
 }
@@ -42,17 +53,20 @@ function failed(error,importing){
 }
 function request(confirm){
  const importing=!!confirm,id=requestId;if(importing)submissionPending=true;
- google.script.run.withSuccessHandler(r=>{
+ const rpc=google.script.run.withSuccessHandler(r=>{
   if(id!==requestId||stage==='success')return;
-  if(importing){submissionPending=false;if(r?.state==='BUSY'){stage='busy';lock(true);receiveStatus(r);return;}if(r?.done===true&&r.requestId===id){completed(r);return;}failed(new Error('Server belum mengonfirmasi hasil impor ini.'),true);}
+  if(importing){if(r?.needsFile&&metaCached&&r.requestId===id){metaCached=false;request(confirm);return;}submissionPending=false;if(r?.state==='BUSY'){stage='busy';lock(true);receiveStatus(r);return;}if(r?.done===true&&r.requestId===id){completed(r);return;}failed(new Error('Server belum mengonfirmasi hasil impor ini.'),true);}
   else{token=r.token||'';requestId=r.requestId||'';stop();stage='preview';el('apply').disabled=!token||!requestId;el('progress').hidden=true;show('','Preview ready — not imported yet',r.summary||'Tidak ada ringkasan.','Klik Import untuk menyimpan.');}
- }).withFailureHandler(e=>{if(id===requestId&&stage!=='success')failed(e,importing);}).uploadCsv(el('source').value,text,el('mode').value,el('start').value,el('end').value,confirm,id);
+  if(!importing)metaCached=r.cached===true;
+ }).withFailureHandler(e=>{if(id===requestId&&stage!=='success')failed(e,importing);});
+ const source=el('source').value,opts=[el('mode').value,el('start').value,el('end').value,confirm,id];
+ if(importing&&metaCached)rpc.uploadCachedMetaCsv(source,...opts);else rpc.uploadCsv(source,text,...opts);
 }
 function preview(){
  if(busy)return;const file=el('file').files[0];if(!file){show('error','Choose a CSV file','Pilih file sebelum klik Preview.');return;}if(file.size>10000000){failed(new Error('File terlalu besar; bagi menjadi rentang tanggal lebih pendek.'),false);return;}
  token='';requestId='';begin('read','Reading file','Membaca '+file.name);const reader=new FileReader();
  reader.onprogress=e=>{if(e.lengthComputable){el('progress').value=e.loaded/e.total*100;el('heading').textContent='Reading file · '+Math.round(e.loaded/e.total*100)+'%';}};
  reader.onerror=()=>failed(new Error('File tidak dapat dibaca. Pilih file kembali.'),false);reader.onabort=()=>failed(new Error('Pembacaan file dibatalkan.'),false);
- reader.onload=()=>{text=reader.result;stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);
+ reader.onload=async()=>{text=reader.result;metaCached=false;if(el('source').value!=='Daily Report'&&file.size>=250000)text=await metaCsvPayload(file,text);stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);
 }
 function apply(){if(busy||!token||!requestId)return;begin('import','Import in progress','Memvalidasi dan menyimpan perubahan.');request(token);scheduleCheck();}

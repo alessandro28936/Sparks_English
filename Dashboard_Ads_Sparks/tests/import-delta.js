@@ -37,7 +37,7 @@ check('Commit does not write original metric formulas',formulaWrites===0);
 check('Final native ID columns remain text',main.data.filter(r=>r[39]==='SE Main').every(r=>typeof r[50]==='string'));
 check('Reconciled commit spend',main.data.filter(r=>r[39]==='SE Main').reduce((n,r)=>n+r[15],0)===1035041511);
 reset(delta.grid);commit(p);check('Confirmed no-op creates no journal',sheets.size===4&&flushes===1);
-reset([headers]);commit({...p,rows:p.rows.slice(0,2)});check('New rows get derived formulas',formulaWrites>0&&sheets.get('Raw Data').data[1][30].startsWith('='));
+reset([headers]);commit({...p,rows:p.rows.slice(0,2)});check('New rows get derived formulas',sheets.get('Raw Data').data[1][30]===shiftedFormula(FORMULAS[30],2)&&sheets.get('Raw Data').data[2][31]===shiftedFormula(FORMULAS[31],3));
 reset(before);const rp={...p,rows:p.rows.slice(0,2)};failWrite=true;let failed='';try{commit(rp)}catch(e){failed=e.message;}
 check('Caught write failure restores changed rows',failed.includes('dipulihkan')&&sheets.get('Import Log').data[1][7]==='FAILED — restored');
 locked=false;let blocked=false;try{commit(p)}catch(e){blocked=e.message.includes('masih berjalan')}check('Parallel import is blocked',blocked);
@@ -48,4 +48,12 @@ locked=false;const busyReply=uploadCsv('SE Main','test csv','upsert','','',previ
 check('Busy CSV submission returns a structured not-started response',busyReply.state==='BUSY'&&!busyReply.done&&busyReply.requestId===previewReply.requestId&&sheets.get('Import Log').data.length===1);
 locked=true;const completedReply=uploadCsv('SE Main','test csv','upsert','','',previewReply.token,previewReply.requestId);
 check('CSV completion retains the same operation ID',completedReply.done&&completedReply.requestId===previewReply.requestId&&getImportStatus(previewReply.requestId).done);
+const cacheData=new Map(),CacheService={getUserCache:()=>({
+ putAll:values=>Object.entries(values).forEach(([k,v])=>cacheData.set(k,v)),
+ get:k=>cacheData.get(k),getAll:keys=>Object.fromEntries(keys.filter(k=>cacheData.has(k)).map(k=>[k,cacheData.get(k)]))
+})};
+const packed='gzip64:'+('x'.repeat(170000)),cacheId='meta-cache-test';
+metaCsvCache_(cacheId,packed);check('Cached upload pieces reassemble exactly',metaCsvCache_(cacheId)===packed);
+cacheData.delete('meta.csv.'+cacheId+'.1');
+check('Evicted piece requests original upload before writing',uploadCachedMetaCsv('SE Main','upsert','','','preview-token',cacheId).needsFile===true);
 return {checks,timing};

@@ -31,10 +31,38 @@ function getImportStatus(requestId){
  return importJobResult_(job,ready);
  }finally{if(ready)lock.releaseLock();}
 }
+function metaCsvCache_(id,packed){
+ const cache=CacheService.getUserCache(),prefix='meta.csv.'+importJobId_(id)+'.';
+ if(packed){
+  const chunks={};let n=0;
+  for(let i=0;i<packed.length;i+=80000)chunks[prefix+(n++)]=packed.slice(i,i+80000);
+  cache.putAll({...chunks,[prefix+'size']:String(n)},600);return;
+ }
+ const n=Number(cache.get(prefix+'size'));
+ if(!Number.isInteger(n)||n<1||n>125)return '';
+ const keys=Array.from({length:n},(_,i)=>prefix+i),chunks=cache.getAll(keys);
+ return keys.every(k=>typeof chunks[k]==='string')?keys.map(k=>chunks[k]).join(''):'';
+}
+function uploadCachedMetaCsv(source,mode,start,end,confirmed,requestId){
+ if(!confirmed||!SOURCES[source])throw Error('Preview ulang.');
+ let packed;try{packed=metaCsvCache_(requestId);}catch(ignore){}
+ if(!packed)return {needsFile:true,requestId};
+ return uploadCsv(source,packed,mode,start,end,confirmed,requestId);
+}
 function uploadCsv(source,text,mode,start,end,confirmed,requestId){
+ const packed=typeof text==='string'&&text.startsWith('gzip64:')?text:null;
+ if(packed){
+  if(packed.length>10000000||!SOURCES[source])throw Error('File kompresi tidak valid.');
+  const blob=Utilities.newBlob(Utilities.base64Decode(packed.slice(7)),'application/gzip','meta.csv.gz');
+  text=Utilities.ungzip(blob).getDataAsString('UTF-8');
+ }
  if(typeof text!=='string'||text.length>10000000)throw Error('File terlalu besar atau tidak valid; bagi menjadi rentang tanggal lebih pendek.');
  const data=Utilities.parseCsv(text.replace(/^\uFEFF/,'')),daily=source==='Daily Report',plan=daily?prepareDaily(data,mode,start,end):prepare(source,data,mode,start,end);
- if(!confirmed)return {summary:daily?dailyPreview(plan):summary(plan),token:plan.fingerprint,requestId:Utilities.getUuid()};
+ if(!confirmed){
+  const id=Utilities.getUuid();let cached=false;
+  if(packed)try{metaCsvCache_(id,packed);cached=true;}catch(ignore){}
+  return {summary:daily?dailyPreview(plan):summary(plan),token:plan.fingerprint,requestId:id,cached};
+ }
  if(confirmed!==plan.fingerprint)throw Error('File/opsi berubah. Preview ulang.');
  plan.requestId=requestId?importJobId_(requestId):Utilities.getUuid();
  try{return {done:true,state:'SUCCESS',requestId:plan.requestId,message:daily?commitDaily(plan):commit(plan)};}
