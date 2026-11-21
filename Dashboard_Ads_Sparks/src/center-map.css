@@ -61,6 +61,8 @@
 }
 
 /* Shared compact filters across all dashboard views. */
+.filter-panel .scope-switch[aria-label="PIC"]{display:flex;flex-wrap:wrap;max-width:100%}
+.filter-panel .filter-top{flex-wrap:wrap}
 .filter-panel .filters{gap:10px 12px;padding:10px 16px 12px}
 .filter-panel .filters label{font-size:11px}
 .filter-panel .filters select,.filter-panel .date-range-toggle{min-height:40px;padding:9px 11px;font-size:12px}

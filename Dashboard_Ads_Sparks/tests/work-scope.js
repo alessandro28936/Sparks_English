@@ -29,6 +29,19 @@
     check('Center workspace scope still excludes preheat-only view',!workspaceMatches(live));
     workView='centers';scope='ALL';
     check('All assignments still includes unrelated Third centers',workspaceMatches(make('ALLS-ENG-BGR_T_D_W_TA_2/11/26')));
+    check('All Center excludes unassigned center codes',!workspaceMatches(make('UNASSIGNED_T_D_W','Main')));
+    for(const [pic,assignment] of Object.entries(PIC_ASSIGNMENTS)){
+      scope=pic;workView='centers';
+      for(const center of assignment.centers)check(pic+' center '+center,workspaceMatches(make(center+'_T_D_W','Main')));
+      workView='preheat';
+      for(const [owner,other] of Object.entries(PIC_ASSIGNMENTS))for(const campaign of other.canvas){
+        const r={center:'C.IN',adset:'C.IN_T_D_W',campaign:campaign+'_27/3/26'};
+        check(pic+' dated Canvas '+campaign,workspaceMatches(r)===(pic===owner));
+        check('Only exact campaign names match',!workspaceMatches({...r,campaign:campaign+'_OTHER'}));
+      }
+    }
+    scope='ALL';
+    check('Combined Canvas includes new C.IN campaigns',workspaceMatches({center:'C.IN',adset:'C.IN_T_D_W',campaign:'New campaign'}));
   } finally {scope=saved.scope;workView=saved.workView;}
   return checks;
 })()
