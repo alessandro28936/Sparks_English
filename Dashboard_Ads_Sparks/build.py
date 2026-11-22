@@ -1,4 +1,5 @@
 """Build the portable, single-file dashboard. No dependencies required."""
+import base64
 from pathlib import Path
 
 root = Path(__file__).resolve().parent
@@ -27,6 +28,9 @@ for marker, source in [('/* STYLES */', 'styles.css'), ('/* ANALYTICS */', 'anal
         content = content.replace('/* REPORT_SUMMARY */', (root / 'src/report-summary.js').read_text(encoding='utf-8'))
         content = content.replace('/* CONTENT_RANKING */', (root / 'src/content-ranking.js').read_text(encoding='utf-8'))
         content = content.replace('/* ACCOUNTS */', (root / 'src/accounts.js').read_text(encoding='utf-8'))
+        for city in ('bandung', 'yogya', 'surabaya', 'bali'):
+            tile = (root / 'src/city-maps' / (city + '.webp')).read_bytes()
+            content = content.replace('__CITY_MAP_' + city + '__', 'data:image/webp;base64,' + base64.b64encode(tile).decode('ascii'))
     shell = shell.replace(marker, content)
 (root / 'Dashboard_ads.html').write_text(shell, encoding='utf-8')
 print('Built Dashboard_ads.html (single file)')

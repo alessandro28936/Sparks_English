@@ -99,7 +99,7 @@ function renderCenterMap(recompute=true){
  if(mapRegion!=='islands'&&!regions.some(([id])=>id===mapRegion))mapRegion='islands';
  const shown=mapRegion==='islands'?mapped:mapped.filter(m=>m.region===mapRegion);
  const content=!mapped.length?empty('No mapped centers in this selection','Canvas audiences and unconfirmed locations are listed below.'):mapRegion==='islands'?geographicIslandsScene(mapped,regions):mapRegion==='metro'?geographicCenterScene(shown):LOCAL_AREAS[mapRegion]?localAreaScene(shown,mapRegion):`<div class="map-local-land"></div><div class="map-local-caption">${esc(MAP_REGIONS[mapRegion].name)}</div><div class="map-local-grid">${shown.map(m=>mapBadge(m)).join('')}</div>`;
- return `<div class="map-navigation"><div class="scope-switch"><button data-map-region="islands" class="${mapRegion==='islands'?'selected':''}">Islands</button>${regions.some(([id])=>id==='metro')?`<button data-map-region="metro" class="${mapRegion==='metro'?'selected':''}">Jabodetabek</button>`:''}${regions.some(([id])=>id==='makassar')?`<button data-map-region="makassar" class="${mapRegion==='makassar'?'selected':''}">Makassar</button>`:''}</div><div class="map-zoom"><button data-map-zoom="out" aria-label="Zoom out" ${mapZoom<=1?'disabled':''}>−</button><span>${Math.round(mapZoom*100)}%</span><button data-map-zoom="in" aria-label="Zoom in" ${mapZoom>=1.8?'disabled':''}>+</button><button data-map-zoom="reset">Reset</button></div></div><div class="map-viewport" tabindex="0" aria-label="Map viewport; use zoom buttons and scroll to explore"><div class="map-scene ${!mapped.length?'empty-map-scene':mapRegion==='islands'?'islands-scene':mapRegion==='metro'?'metro-scene':'local-scene'}" style="width:${mapZoom*100}%;--map-zoom:${mapZoom}">${content}</div></div><div id="mapHover" class="map-hover" role="status" hidden></div><div class="map-footer"><div class="map-legend"><span class="good">On track</span><span class="watch">Watch</span><span class="bad">Needs attention</span><span class="off">Inactive / building</span><span class="unknown">No score / outside filters</span></div><small>North up &middot; area-level pins &middot; <a href="https://www.geoboundaries.org/api/current/gbOpen/IDN/ADM2/" target="_blank" rel="noopener">Map sources</a></small></div>${unmapped.length?`<details class="map-unmapped"><summary>Unmapped locations / preheat · ${unmapped.length}</summary><div>${unmapped.map(m=>`<button class="tone-${m.tone}" data-map-center="${esc(m.id)}">${esc(m.code)} · ${esc(m.label)}${m.alerts.length?' · '+m.alerts.length+' alerts':''}</button>`).join('')}</div></details>`:''}<details class="map-method"><summary>Map status rules</summary><p>Colors use the selected period and latest recorded ad delivery, not live Meta status. English costs use Analysis Settings; green requires all costs below 90% of target, Results → Leads ≥80%, sufficient spend and Results. Yellow: costs approach target or conversion <80%. Red: CPR/CPL >120% of target, CPB >133% of target, conversion <60%, or confirmed zero outcomes after sufficient spend. ${CostTargets.bookingRateGuide}. Missing reports, unknown delivery, mixed Results and small samples are unscored. SLSA needs its own center-scoped monthly targets. Alert counts use the separate seven-day action window; a green center can still contain an ad needing review.</p><p>Locations follow supplied addresses. CL.JU shares one report across three branches; Depok uses a city-level report for two supplied locations. Other unverified codes remain in Unmapped locations, never assigned to a guessed address. Visible locations follow the selected PIC, center and work filters. Specific account, campaign, search and key-message filters show only matching locations. Third-account ownership stays restricted to the assigned ad set. Makassar is a city-level marker, not a confirmed branch address. Pins represent approximate areas; label connectors retain their geographic anchor. Gray means confirmed inactive or under construction, not missing data.</p><p>Administrative boundaries: BPS / WFP / OCHA via geoBoundaries, CC BY 3.0 IGO (2020 boundaries, simplified for display). Island outlines: Natural Earth, public domain. Pin anchors are approximate interpretations of the supplied addresses; geographic shapes are not a street-navigation service.</p></details>`;
+ return `<div class="map-navigation"><div class="scope-switch"><button data-map-region="islands" class="${mapRegion==='islands'?'selected':''}">Islands</button>${regions.some(([id])=>id==='metro')?`<button data-map-region="metro" class="${mapRegion==='metro'?'selected':''}">Jabodetabek</button>`:''}${regions.some(([id])=>id==='makassar')?`<button data-map-region="makassar" class="${mapRegion==='makassar'?'selected':''}">Makassar</button>`:''}</div><div class="map-zoom"><button data-map-zoom="out" aria-label="Zoom out" ${mapZoom<=1?'disabled':''}>−</button><span>${Math.round(mapZoom*100)}%</span><button data-map-zoom="in" aria-label="Zoom in" ${mapZoom>=1.8?'disabled':''}>+</button><button data-map-zoom="reset">Reset</button></div></div><div class="map-viewport" tabindex="0" aria-label="Map viewport; use zoom buttons and scroll to explore"><div class="map-scene ${!mapped.length?'empty-map-scene':mapRegion==='islands'?'islands-scene':mapRegion==='metro'?'metro-scene':'local-scene'}" style="width:${mapZoom*100}%;--map-zoom:${mapZoom}">${content}</div></div><div id="mapHover" class="map-hover" role="status" hidden></div><div class="map-footer"><div class="map-legend"><span class="good">On track</span><span class="watch">Watch</span><span class="bad">Needs attention</span><span class="off">Inactive / building</span><span class="unknown">No score / outside filters</span></div><small>${LOCAL_AREAS[mapRegion]?'North up &middot; branch locations':'North up &middot; area-level pins'} &middot; <a href="https://www.geoboundaries.org/api/current/gbOpen/IDN/ADM2/" target="_blank" rel="noopener">Map sources</a></small></div>${unmapped.length?`<details class="map-unmapped"><summary>Unmapped locations / preheat · ${unmapped.length}</summary><div>${unmapped.map(m=>`<button class="tone-${m.tone}" data-map-center="${esc(m.id)}">${esc(m.code)} · ${esc(m.label)}${m.alerts.length?' · '+m.alerts.length+' alerts':''}</button>`).join('')}</div></details>`:''}<details class="map-method"><summary>Map status rules</summary><p>Colors use the selected period and latest recorded ad delivery, not live Meta status. English costs use Analysis Settings; green requires all costs below 90% of target, Results → Leads ≥80%, sufficient spend and Results. Yellow: costs approach target or conversion <80%. Red: CPR/CPL >120% of target, CPB >133% of target, conversion <60%, or confirmed zero outcomes after sufficient spend. ${CostTargets.bookingRateGuide}. Missing reports, unknown delivery, mixed Results and small samples are unscored. SLSA needs its own center-scoped monthly targets. Alert counts use the separate seven-day action window; a green center can still contain an ad needing review.</p><p>Locations follow supplied addresses. CL.JU shares one report across three branches; Depok uses a city-level report for two supplied locations. Other unverified codes remain in Unmapped locations, never assigned to a guessed address. Visible locations follow the selected PIC, center and work filters. Specific account, campaign, search and key-message filters show only matching locations. Third-account ownership stays restricted to the assigned ad set. Makassar is a city-level marker, not a confirmed branch address. Pins represent approximate areas; label connectors retain their geographic anchor. Gray means confirmed inactive or under construction, not missing data.</p><p>Administrative boundaries: BPS / WFP / OCHA via geoBoundaries, CC BY 3.0 IGO (2020 boundaries, simplified for display). Island outlines: Natural Earth, public domain. Pin anchors are approximate interpretations of the supplied addresses; geographic shapes are not a street-navigation service.</p></details>`;
 }
 function mapAlertContent(sets){
  const first=sets[0];
@@ -159,17 +159,98 @@ function scopedMapTable(){
 }
 
 const LOCAL_AREAS={
- bandung:{road:'Jl. LLRE Martadinata',cross:'Jl. Jakarta',landmarks:['Gedung Sate','Kiara Artha Park'],pins:{BDG:[55,52]}},
- yogya:{road:'Jl. Colombo',cross:'Jl. Kaliurang',landmarks:['Universitas Gadjah Mada','Pakuwon Mall'],pins:{YOG:[55,52]}},
- surabaya:{road:'Jl. Kertajaya',cross:'Jl. Sulawesi / Klampis Jaya',landmarks:['Gubeng','Pakuwon City'],pins:{SGB:[37,48],SKL:[73,68]}},
- bali:{road:'Jl. Sunset Road',cross:'Jl. Patih Jelantik',landmarks:['Legian Beach','Kuta'],pins:{BLI:[55,52]}}
+ "bandung": {
+  "image": "__CITY_MAP_bandung__",
+  "pins": {
+   "BDG": [
+    54.792,
+    66.286,
+    107.6299536,
+    -6.9152223
+   ]
+  },
+  "scale": 11.04,
+  "name": "Bandung",
+  "province": "West Java"
+ },
+ "yogya": {
+  "image": "__CITY_MAP_yogya__",
+  "pins": {
+   "YOG": [
+    55.833,
+    50.714,
+    110.3842641,
+    -7.7771347
+   ]
+  },
+  "scale": 11.62,
+  "name": "Yogyakarta",
+  "province": "Special Region of Yogyakarta"
+ },
+ "surabaya": {
+  "image": "__CITY_MAP_surabaya__",
+  "pins": {
+   "SGB": [
+    27.708,
+    30.0,
+    112.7470829,
+    -7.2764062
+   ],
+   "SKL": [
+    76.458,
+    74.429,
+    112.7753608,
+    -7.2888129
+   ]
+  },
+  "scale": 7.81,
+  "name": "Surabaya",
+  "province": "East Java"
+ },
+ "bali": {
+  "image": "__CITY_MAP_bali__",
+  "pins": {
+   "BLI": [
+    67.292,
+    56.143,
+    115.1841,
+    -8.7091989
+   ]
+  },
+  "scale": 11.08,
+  "name": "Kuta",
+  "province": "Bali"
+ }
 };
 function localAreaScene(models,region){
- const a=LOCAL_AREAS[region];
- return `<svg class="local-area-terrain" viewBox="0 0 1000 560" aria-label="${esc(MAP_REGIONS[region].name)} area illustration"><rect x="12" y="28" width="976" height="510" rx="45" fill="#8ca995"/><rect x="12" y="10" width="976" height="510" rx="45" fill="#e6edda"/>${region==='bali'?'<path d="M12 10H200Q160 220 230 520H12Z" fill="#bcdddd"/>':''}<path d="M220 70L740 470M100 380L900 170" stroke="#c7d4c4" stroke-width="26"/><path d="M220 70L740 470M100 380L900 170" stroke="#fffdf4" stroke-width="18"/>${Array.from({length:12},(_,i)=>`<g opacity=".4">${mapBuilding(280+i%4*155,120+Math.floor(i/4)*150,.65)}</g>`).join('')}<text x="370" y="120" fill="#496959">${esc(a.road)}</text><text x="650" y="420" fill="#496959">${esc(a.cross)}</text><text x="180" y="65" fill="#496959">${esc(a.landmarks[0])}</text><text x="750" y="90" fill="#496959">${esc(a.landmarks[1])}</text><text x="940" y="55" fill="#496959">N ↑</text></svg>${models.filter(m=>a.pins[m.code]).map(m=>{const [x,y]=a.pins[m.code];return mapBadge(m,`left:${x}%;top:${y}%;transform:translate(-50%,-100%)`);}).join('')}<small class="local-area-note">Illustrated area · Open Location for the street map</small>`;
+ const area=LOCAL_AREAS[region];
+ const pinGroups=Object.entries(area.pins).map(([code,[x,y]])=>{
+  const branches=models.filter(model=>model.code===code);
+  if(!branches.length)return '';
+  const cards=branches.map(m=>`<button class="atlas-card tone-${m.tone}" data-map-center="${esc(m.id)}" aria-haspopup="dialog" aria-label="${esc(m.name+' · '+m.brand+' · '+m.label)}">
+   <span class="atlas-card-title"><i></i>${esc(m.name)} <small>${esc(code)}</small></span>
+   <span>${esc(m.sites[0][1].split(',')[0])}</span>
+   ${$('brandFilter').value==='ALL'?`<small>${esc(m.brand)}</small>`:''}
+   ${m.alerts.length?`<small class="atlas-alert">${m.alerts.length} ad set alerts</small>`:''}
+  </button>`).join('');
+  return `<div class="atlas-anchor" style="left:${x}%;top:${y}%"><span class="atlas-site" aria-hidden="true"><svg viewBox="0 0 66 75">${mapBuilding(33,48,.94)}</svg></span><div class="atlas-cards">${cards}</div></div>`;
+ }).join('');
+ return `<img class="atlas-terrain" src="${area.image}" alt="" draggable="false">
+ <div class="atlas-heading"><small>${esc(area.province)}</small><strong>${esc(area.name)}</strong></div>
+ <div class="atlas-north" aria-label="North up">N<span>▲</span></div>${pinGroups}
+ <div class="atlas-scale" style="width:${area.scale}%">500 m</div>
+ <div class="atlas-credit"><a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></div>`;
+}
+
+function focusCityViewport(){
+ const viewport=document.querySelector('.map-viewport');
+ const pins=viewport?.querySelectorAll('.atlas-anchor');
+ if(!pins?.length || viewport.scrollWidth<=viewport.clientWidth)return;
+ const positions=Array.from(pins,p=>p.offsetLeft);
+ viewport.scrollLeft=(Math.min(...positions)+Math.max(...positions)-viewport.clientWidth)/2;
 }
 function centerStreetMap(m){
- return `<section class="center-location-view">${m.brand==='SLSA'?'<p>Temporary shared Sparks English address</p>':''}${m.sites.map(([name,address])=>{const q=encodeURIComponent('Sparks English '+name+' '+address);return `<article><div class="center-location-heading"><div><h3>${esc(name)}</h3><p>${esc(address)}</p></div><a class="button secondary" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Open Google Maps ↗</a></div><iframe title="${esc(name)} street location" loading="lazy" src="https://maps.google.com/maps?q=${q}&output=embed" allowfullscreen></iframe></article>`;}).join('')}</section>`;
+ return `<section class="center-location-view">${m.brand==='SLSA'?'<p>Temporary shared Sparks English address</p>':''}${m.sites.map(([name,address])=>{const pin=LOCAL_AREAS[m.region]?.pins[m.code];const q=encodeURIComponent(pin?pin[3]+','+pin[2]:'Sparks English '+name+' '+address);return `<article><div class="center-location-heading"><div><h3>${esc(name)}</h3><p>${esc(address)}</p></div><a class="button secondary" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Open Google Maps ↗</a></div><iframe title="${esc(name)} street location" loading="lazy" src="https://maps.google.com/maps?q=${q}&output=embed" allowfullscreen></iframe></article>`;}).join('')}</section>`;
 }
 
 function renderMapDetailBody(){
@@ -191,8 +272,8 @@ function openMapCenter(id){
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
- if(b.dataset.mapRegion){if(b.dataset.mapRegion==='makassar'){const ms=mapModels.filter(m=>m.code==='MKS');if(ms.length===1){openMapCenter(ms[0].id);return;}}mapRegion=b.dataset.mapRegion;mapZoom=1;refreshCenterMap(false);return;}
- if(b.dataset.mapZoom){mapZoom=b.dataset.mapZoom==='reset'?1:Math.max(1,Math.min(1.8,mapZoom+(b.dataset.mapZoom==='in'?.2:-.2)));refreshCenterMap(false);return;}
+ if(b.dataset.mapRegion){if(b.dataset.mapRegion==='makassar'){const ms=mapModels.filter(m=>m.code==='MKS');if(ms.length===1){openMapCenter(ms[0].id);return;}}mapRegion=b.dataset.mapRegion;mapZoom=1;refreshCenterMap(false);focusCityViewport();return;}
+ if(b.dataset.mapZoom){mapZoom=b.dataset.mapZoom==='reset'?1:Math.max(1,Math.min(1.8,mapZoom+(b.dataset.mapZoom==='in'?.2:-.2)));refreshCenterMap(false);focusCityViewport();return;}
  if(b.dataset.mapCenter){b.classList.add('map-selected');openMapCenter(b.dataset.mapCenter);return;}
  if(b.hasAttribute('data-map-close')){$('centerMapDialog').close();return;}
  if(b.hasAttribute('data-map-filters')){
