@@ -4,6 +4,12 @@
 
 Install the bound script with Activate-Import.html. In Apps Script, add Google Sheets API under Services using the identifier `Sheets` to enable batched writes. The built-in Spreadsheet service also supports the same workflow. Save and reopen the upload dialog. Large Meta CSVs use lossless gzip when supported. The confirmation reuses the per-user preview upload for up to ten minutes and resends the same file if the cache expires. Both paths validate the file fingerprint before writing. The Import Log records planning, backup and write/apply time for changed imports. Use the dialog elapsed time for click-to-confirmed duration.
 
+## SLSA imports
+
+- **Sparks Import → Upload CSV → SLSA** loads the daily Meta export into the shared **Raw Data**. Campaign, Ad Set and Ad IDs stay as text. The source accepts only SLSA-tagged ads.
+- **Sparks Import → Upload SLSA Daily Report CSV** loads the seven columns from **SLSA Daily Report**. Upload a complete set of `SLSA - Meta` records for the submitted-date window. Start and End may be inferred from the first and last submitted dates in the file.
+- **Daily Report SLSA** is the formula-driven summary consumed by **Report Totals**. Leads follow chat date. Booking requires Booking status and a booking date. Ad attribution uses exact ad set and creative tags in Campaign. Records with unrecognized tags stay in the source. Multiple physical ads sharing an exact report key cannot each inherit the same outcomes.
+
 ## Daily Report CSV update — 12 November 2026
 
 ### Performance update — affected dates only

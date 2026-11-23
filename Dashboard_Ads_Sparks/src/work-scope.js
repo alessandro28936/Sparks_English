@@ -31,7 +31,7 @@ function ownedRow(r){return ownerForRow(r)==='MY';}
 function workspaceMatches(r){
   const canvas=isPreheat(r);
   if((workView==='preheat'&&!canvas)||(workView==='centers'&&canvas))return false;
-  if(canvas&&scope==='ALL')return true;
+  if(scope==='ALL'&&(canvas||r.brand==='SLSA'))return true;
   const owner=ownerForRow(r);
   return scope==='ALL'?!!owner:owner===scope;
 }

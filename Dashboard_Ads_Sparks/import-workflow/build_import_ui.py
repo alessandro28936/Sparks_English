@@ -11,7 +11,8 @@ s=re.sub(r'^function uploadCsv\(.*?\n','',s,flags=re.M)
 a=s.index('/* Bundled into SparksImport.gs') if '/* Bundled into SparksImport.gs' in s else s.index('function commit(p){')
 b=s.index('function refreshMetrics()',a)
 helpers=(root/'FastCommit.js').read_text(encoding='utf-8').split('function commit(p){')[0]
-s=s[:a]+helpers+(root/'ImportStatus.js').read_text(encoding='utf-8')+'\n'+(root/'DeltaCommit.js').read_text(encoding='utf-8')+'\n'+(root/'DailyImport.js').read_text(encoding='utf-8')+'\n'+s[b:]
+modules=('ImportStatus.js','DeltaCommit.js','DailyImport.js','SlsaDailyImport.js')
+s=s[:a]+helpers+'\n'.join((root / name).read_text(encoding='utf-8') for name in modules)+'\n'+s[b:]
 a=s.index('const UPLOAD_HTML=');b=s.index('\nconst FORMULAS',a)
 s=s[:a]+'const UPLOAD_HTML='+json.dumps((root/'Upload.html').read_text(encoding='utf-8'),ensure_ascii=False)+';\n'+s[b:]
 script.write_text(s,encoding='utf-8')

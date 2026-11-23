@@ -44,7 +44,7 @@ const Analytics = (() => {
   }
   function normalize(data) {
     const normalized=data.filter(r=>r['Ad set name']&&r['Ad name']&&r['Ad name']!=='Ad name').map(r=>{
-      const adset=String(r['Ad set name']).trim(), tokens=adset.toUpperCase().split('_').filter(t=>t!=='SLSA'), code=tokens[0].startsWith('ALLS-ENG-')?({'JU':'CL.JU'}[tokens[0].slice(9)]||tokens[0].slice(9)):tokens[0];
+      const adset=String(r['Ad set name']).trim(), tokens=adset.toUpperCase().replace(/^\[SLSA\]\s*/,'').split('_').filter(t=>t!=='SLSA'), code=tokens[0].startsWith('ALLS-ENG-')?({'JU':'CL.JU'}[tokens[0].slice(9)]||tokens[0].slice(9)):tokens[0];
       const day=date(r['Reporting starts'])||date(r.Day), ad=String(r['Ad name']).trim(), adCode=String(r['Ad Trim']||trimAd(ad)).trim();
       const rawMessage=cleanMessage(r['Key Message Content']);
       const objective={T:'Traffic',L:'Leads',S:'Sales'}[tokens[1]]||'Tidak diketahui';

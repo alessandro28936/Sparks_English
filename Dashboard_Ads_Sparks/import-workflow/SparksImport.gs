@@ -1,11 +1,28 @@
 /** Sparks import workflow. Bound script for the existing Centers spreadsheet. */
 const SPARKS_ID = '1rLd4NuAz9S2HqqiMUWqHXZkinYmjazgsm_mj473BfGw';
 const SOURCES = {'SE Main':'Import SE Main','SE Secondary':'Import SE Secondary','SE Third':'Import SE Third','SLSA':'Import SLSA'};
-function onOpen(){SpreadsheetApp.getUi().createMenu('Sparks Import').addItem('Upload CSV','showImport').addItem('Upload Daily Report CSV','showDailyImport').addSeparator().addItem('Import SE Main tab','importMain').addItem('Import SE Secondary tab','importSecondary').addItem('Import SE Third tab','importThird').addItem('Import SLSA tab','importSlsa').addSeparator().addItem('Refresh derived metrics','refreshMetrics').addToUi();}
+function onOpen(){
+ SpreadsheetApp.getUi().createMenu('Sparks Import')
+  .addItem('Upload CSV','showImport')
+  .addItem('Upload Daily Report CSV','showDailyImport')
+  .addItem('Upload SLSA Daily Report CSV','showSlsaDailyImport')
+  .addSeparator()
+  .addItem('Import SE Main tab','importMain')
+  .addItem('Import SE Secondary tab','importSecondary')
+  .addItem('Import SE Third tab','importThird')
+  .addItem('Import SLSA tab','importSlsa')
+  .addSeparator()
+  .addItem('Refresh derived metrics','refreshMetrics')
+  .addToUi();
+}
 function setup(){const ss=book();ss.toast('Menu Sparks Import siap. Refresh spreadsheet jika menu belum terlihat.');onOpen();}
 function book(){const s=SpreadsheetApp.getActiveSpreadsheet();if(!s||s.getId()!==SPARKS_ID)throw Error('Pasang script pada spreadsheet Centers yang benar.');return s;}
 function showImport(){SpreadsheetApp.getUi().showModalDialog(HtmlService.createHtmlOutput(UPLOAD_HTML).setWidth(580).setHeight(740),'Import Meta Ads');}
 function showDailyImport(){SpreadsheetApp.getUi().showModalDialog(HtmlService.createHtmlOutput(UPLOAD_HTML.replace('<option>Daily Report</option>','<option selected>Daily Report</option>')).setWidth(580).setHeight(740),'Import Daily Report');}
+function showSlsaDailyImport(){
+ const html=UPLOAD_HTML.replace('<option>SLSA Daily Report</option>','<option selected>SLSA Daily Report</option>');
+ SpreadsheetApp.getUi().showModalDialog(HtmlService.createHtmlOutput(html).setWidth(580).setHeight(740),'Import SLSA Daily Report');
+}
 function importMain(){importTab('SE Main');}function importSecondary(){importTab('SE Secondary');}function importThird(){importTab('SE Third');}function importSlsa(){importTab('SLSA');}
 function importTab(source){const ss=book(),tab=ss.getSheetByName(SOURCES[source]);const data=tab.getDataRange().getValues();const plan=prepare(source,data,'upsert','','');const ui=SpreadsheetApp.getUi();if(ui.alert('Import '+source,summary(plan)+'\nMode: update ad/tanggal yang ada di export. Baris lain dipertahankan.\nLanjutkan?',ui.ButtonSet.YES_NO)!==ui.Button.YES)return;ss.toast(commit(plan));}
 const importCalendarDays=new Map();
@@ -160,15 +177,21 @@ function uploadCsv(source,text,mode,start,end,confirmed,requestId){
   text=Utilities.ungzip(blob).getDataAsString('UTF-8');
  }
  if(typeof text!=='string'||text.length>10000000)throw Error('File terlalu besar atau tidak valid; bagi menjadi rentang tanggal lebih pendek.');
- const data=Utilities.parseCsv(text.replace(/^\uFEFF/,'')),daily=source==='Daily Report',plan=daily?prepareDaily(data,mode,start,end):prepare(source,data,mode,start,end);
+ const data=Utilities.parseCsv(text.replace(/^\uFEFF/,''));
+ const daily=source==='Daily Report',slsaDaily=source===SLSA_DAILY_TAB;
+ const plan=slsaDaily?prepareSlsaDaily(data,mode,start,end):daily?prepareDaily(data,mode,start,end):prepare(source,data,mode,start,end);
  if(!confirmed){
   const id=Utilities.getUuid();let cached=false;
   if(packed)try{metaCsvCache_(id,packed);cached=true;}catch(ignore){}
-  return {summary:daily?dailyPreview(plan):summary(plan),token:plan.fingerprint,requestId:id,cached};
+  const details=slsaDaily?previewSlsaDaily(plan):daily?dailyPreview(plan):summary(plan);
+  return {summary:details,token:plan.fingerprint,requestId:id,cached};
  }
  if(confirmed!==plan.fingerprint)throw Error('File/opsi berubah. Preview ulang.');
  plan.requestId=requestId?importJobId_(requestId):Utilities.getUuid();
- try{return {done:true,state:'SUCCESS',requestId:plan.requestId,message:daily?commitDaily(plan):commit(plan)};}
+ try{
+  const message=slsaDaily?commitSlsaDaily(plan):daily?commitDaily(plan):commit(plan);
+  return {done:true,state:'SUCCESS',requestId:plan.requestId,message};
+ }
  catch(error){if(error.code==='IMPORT_BUSY')return importBusy_(plan.requestId);throw error;}
 }
 
@@ -506,7 +529,154 @@ function commitDaily(p){
  }finally{try{if(job&&importProperties_().getProperty(IMPORT_ACTIVE)===job.requestId)importProperties_().deleteProperty(IMPORT_ACTIVE);}finally{lock.releaseLock();}}
 }
 
+const SLSA_DAILY_TAB='SLSA Daily Report';
+const SLSA_META_CHANNEL='SLSA - Meta';
+const SLSA_DAILY_HEADERS=['Sub-Channel','Tanggal Leads Submitted','Leads Status','Branch','Date Booking','Campaign','Tanggal Chat/Leads Masuk'];
+
+function slsaHeader(value){
+ return String(value??'').replace(/\s+/g,' ').replace(/\s*\/\s*/g,'/').trim().toLowerCase();
+}
+
+function slsaReportDate(value,header,row,optional=false){
+ if(value==null||String(value).trim()===''){
+  if(optional)return '';
+  throw Error(header+' kosong pada baris '+row+'.');
+ }
+ if(typeof value==='number'&&Number.isFinite(value)&&value>0)return value;
+ const text=value instanceof Date
+  ? Utilities.formatDate(value,'Asia/Jakarta','yyyy-MM-dd HH:mm:ss')
+  : String(value).trim();
+ const iso=text.match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?$/);
+ if(iso){
+  const [,day,h='0',m='0',s='0']=iso;
+  if(+h<24&&+m<60&&+s<60)return serialDate(day)+(+h*3600+ +m*60+ +s)/86400;
+ }
+ const english=text.match(/^([A-Za-z]{3,9}) (\d{1,2}),? (\d{4})$/);
+ if(english){
+  const months=['january','february','march','april','may','june','july','august','september','october','november','december'];
+  const month=months.findIndex(name=>[name,name.slice(0,3)].includes(english[1].toLowerCase()));
+  if(month>=0)return serialDate(english[3]+'-'+String(month+1).padStart(2,'0')+'-'+english[2].padStart(2,'0'));
+ }
+ throw Error('Tanggal tidak valid pada '+header+', baris '+row+'. Gunakan yyyy-mm-dd atau yyyy-mm-dd hh:mm:ss (WIB).');
+}
+
+function prepareSlsaDaily(data,mode,start,end){
+ if(mode!=='replace')throw Error('Gunakan Replace submitted dates untuk file SLSA Daily Report.');
+ const keys=SLSA_DAILY_HEADERS.map(slsaHeader),header=(data[0]||[]).map(slsaHeader);
+ const columns=keys.map(key=>header.indexOf(key));
+ if(columns.some(i=>i<0)||new Set(header.filter(Boolean)).size!==header.filter(Boolean).length){
+  throw Error('Header SLSA Daily Report perlu memuat '+SLSA_DAILY_HEADERS.join(', ')+'.');
+ }
+ const rows=[];
+ for(let i=1;i<data.length;i++){
+  const input=data[i];
+  if(input.every(value=>String(value??'').trim()===''))continue;
+  if(columns.every((column,j)=>slsaHeader(input[column])===keys[j]))continue;
+  const row=columns.map(column=>String(input[column]??'').trim());
+  if(row[0].toLowerCase()!==SLSA_META_CHANNEL.toLowerCase()){
+   throw Error('Sub-Channel pada baris '+(i+1)+' harus '+SLSA_META_CHANNEL+'.');
+  }
+  row[0]=SLSA_META_CHANNEL;
+  row[1]=slsaReportDate(row[1],SLSA_DAILY_HEADERS[1],i+1);
+  row[4]=slsaReportDate(row[4],SLSA_DAILY_HEADERS[4],i+1,true);
+  row[6]=slsaReportDate(row[6],SLSA_DAILY_HEADERS[6],i+1);
+  rows.push(row);
+ }
+ if(!rows.length)throw Error('Tidak ada baris SLSA Daily Report untuk diimpor.');
+ const dates=[...new Set(rows.map(r=>dateKey(Math.floor(r[1]))))].sort();
+ start=start?dateKey(start):dates[0];
+ end=end?dateKey(end):dates.at(-1);
+ if(start!==dates[0]||end!==dates.at(-1))throw Error('Rentang harus sama dengan tanggal submitted pertama dan terakhir pada file.');
+ const fingerprint=Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,JSON.stringify([SLSA_DAILY_TAB,start,end,rows])));
+ return {source:SLSA_DAILY_TAB,rows,mode,start,end,fingerprint};
+}
+
+function slsaDailyPlan(sheet,plan){
+ const existing=sheet.getRange(1,1,Math.max(1,sheet.getLastRow()),7).getValues();
+ if(!SLSA_DAILY_HEADERS.every((key,i)=>slsaHeader(key)===slsaHeader(existing[0][i])))throw Error('Header SLSA Daily Report berubah.');
+ const first=serialDate(plan.start),last=serialDate(plan.end);
+ const retained=[];
+ let replaced=0;
+ for(let i=1;i<existing.length;i++){
+  const row=existing[i];
+  if(row.every(value=>value===''||value==null))continue;
+  if(slsaHeader(row[0])===slsaHeader(SLSA_META_CHANNEL)){
+   const day=Math.floor(slsaReportDate(row[1],SLSA_DAILY_HEADERS[1],i+1));
+   if(day>=first&&day<=last){replaced++;continue;}
+  }
+  retained.push(row);
+ }
+ return {retained,replaced};
+}
+
+function previewSlsaDaily(plan){
+ const lock=LockService.getDocumentLock();
+ if(!lock.tryLock(1))throw Error('Importer sedang digunakan. Coba Preview kembali setelah selesai.');
+ try{
+  const sheet=book().getSheetByName(SLSA_DAILY_TAB);
+  if(!sheet)throw Error('Tab '+SLSA_DAILY_TAB+' tidak ditemukan.');
+  const {replaced}=slsaDailyPlan(sheet,plan);
+  const bookings=plan.rows.filter(r=>/^\s*booking\s*$/i.test(r[2])&&r[4]!=='').length;
+  return plan.rows.length+' baris SLSA - Meta | Submitted '+plan.start+' s.d. '+plan.end+
+   '\n'+bookings+' Booking dengan tanggal pada file.'+
+   '\n'+replaced+' baris lama SLSA - Meta dalam rentang submitted akan diganti. Gunakan export lengkap untuk seluruh tanggal pada rentang tersebut.';
+ }finally{lock.releaseLock();}
+}
+
+function commitSlsaDaily(plan){
+ const lock=LockService.getDocumentLock(),started=Date.now();
+ if(!lock.tryLock(1000)){const error=Error('Importer sedang dipakai proses lain.');error.code='IMPORT_BUSY';throw error;}
+ let job=null,phase='beforeWrite';
+ try{
+  const id=importJobId_(plan.requestId),prior=readImportJob_(id);
+  if(prior){
+   if(prior.fingerprint!==plan.fingerprint||prior.source!==plan.source)throw Error('Import ID tidak cocok. Preview ulang.');
+   if(prior.state==='SUCCESS')return prior.message;
+   throw Error('Import ID sudah diproses. Periksa status.');
+  }
+  job={requestId:id,fingerprint:plan.fingerprint,source:plan.source,start:plan.start,end:plan.end,state:'RUNNING',stage:'Validating SLSA Daily Report'};
+  saveImportJob_(job);importProperties_().setProperty(IMPORT_ACTIVE,id);pruneImportJobs_();
+  const ss=book(),sheet=ss.getSheetByName(SLSA_DAILY_TAB),log=ss.getSheetByName('Import Log');
+  if(!sheet)throw Error('Tab '+SLSA_DAILY_TAB+' tidak ditemukan.');
+  const report=ss.getSheetByName('Daily Report SLSA');
+  if(!report?.getRange('A2').getFormula().includes("'SLSA Daily Report'!"))throw Error('Ringkasan Daily Report SLSA belum terhubung ke tab sumber.');
+  const {retained,replaced}=slsaDailyPlan(sheet,plan),oldCount=sheet.getLastRow()-1;
+  const next=safeValues([...retained,...plan.rows]);
+  // Each source row contributes at most one lead day and one booking day.
+  ensureSize(report,next.length*2+1,6);
+  // Write new rows and clear trailing cells together; keep the original sheet and header.
+  while(next.length<oldCount)next.push(Array(7).fill(''));
+  ensureSize(sheet,next.length+1,7);
+  const logRow=log.getLastRow()+1;
+  ensureSize(log,logRow,15);job.logRow=logRow;
+  const stamp=Utilities.formatDate(new Date(),'Asia/Jakarta','yyyy-MM-dd HH:mm:ss');
+  log.getRange(logRow,1,1,15).setValues([[stamp,plan.source,'CSV',plan.start,plan.end,plan.rows.length,replaced,'RUNNING',plan.mode,'','slsa-submitted-v1',0,'Writing SLSA Daily Report',id,plan.fingerprint]]);
+  job.stage='Writing SLSA Daily Report';saveImportJob_(job);
+  sheet.getRange(2,2,next.length,1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+  sheet.getRange(2,5,next.length,1).setNumberFormat('yyyy-mm-dd');
+  sheet.getRange(2,7,next.length,1).setNumberFormat('yyyy-mm-dd');
+  phase='writing';
+  sheet.getRange(2,1,next.length,7).setValues(next);
+  SpreadsheetApp.flush();phase='committed';
+  const seconds=Math.round((Date.now()-started)/1000);
+  const message='Import completed: '+plan.rows.length+' baris SLSA Daily Report. '+replaced+' baris lama diganti.';
+  log.getRange(logRow,12,1,2).setValues([[seconds,message]]);
+  log.getRange(logRow,8).setValue('SUCCESS');
+  job.state='SUCCESS';job.message=message;saveImportJob_(job);return message;
+ }catch(error){
+  if(job){
+   job.state=phase==='beforeWrite'?'FAILED':'UNCONFIRMED';
+   job.message=String(error.message).slice(0,600);
+   saveImportJob_(job);
+  }
+  throw error;
+ }finally{
+  try{if(job&&importProperties_().getProperty(IMPORT_ACTIVE)===job.requestId)importProperties_().deleteProperty(IMPORT_ACTIVE);}
+  finally{lock.releaseLock();}
+ }
+}
+
 function refreshMetrics(){const lock=LockService.getDocumentLock();lock.waitLock(30000);try{const sheet=book().getSheetByName('Raw Data'),data=sheet.getDataRange().getValues();sheet.getRange(1,1,data.length,data[0].length).setValues(populateFormulas(safeValues(data)));SpreadsheetApp.flush();book().toast('Metrics diperbarui.');}finally{lock.releaseLock();}}
-const UPLOAD_HTML="<!doctype html><html lang=\"id\"><meta charset=\"utf-8\"><style>\nbody{font:14px/1.5 Arial,sans-serif;color:#193c32;padding:8px 16px;background:#f7f9f6}h2{margin:4px 0 8px}p{margin:8px 0;color:#54665e}label{display:block;margin:12px 0 4px}select,input{box-sizing:border-box;width:100%;padding:9px;border:1px solid #cbd6ce;border-radius:6px;background:white;color:#193c32}.dates{display:flex;gap:12px}.dates label{flex:1}.buttons{display:flex;gap:10px;margin-top:18px}button{padding:10px 18px;border:1px solid #b8cbbf;border-radius:7px;background:white;cursor:pointer;font-weight:bold}#apply{background:#245b47;color:white}button:disabled{opacity:.45;cursor:default}.status{margin-top:18px;padding:14px;border:1px solid #d4ddd5;border-radius:8px;background:white}.status.success{background:#e5f4e9;border-color:#6ca980}.status.warning{background:#fff9e9;border-color:#d6b768}.status.error{background:#fff0ed;border-color:#c67d70}#heading{font-weight:bold;font-size:16px}#details{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 Arial;margin:8px 0 0}progress{display:block;width:100%;height:12px;margin-top:10px;accent-color:#29774f}progress[hidden],[hidden]{display:none!important}#elapsed{font-size:12px;color:#586c60;margin-top:8px}#hint{font-size:12px}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #81ae91;outline-offset:2px}\n</style><body><h2 id=\"title\">Import Meta Ads</h2><p id=\"intro\">Upload CSV export Meta dengan breakdown Day.</p><p>Tunggu pesan <b>Import completed</b> sebelum menutup jendela.</p>\n<p id=\"destination\">Destination: Raw Data → Dashboard.</p>\n<label for=\"source\">Source</label><select id=\"source\"><option>SE Main</option><option>SE Secondary</option><option>SE Third</option><option>SLSA</option><option>Daily Report</option></select>\n<label for=\"file\">CSV file</label><input id=\"file\" type=\"file\" accept=\".csv\">\n<label for=\"mode\">Mode</label><select id=\"mode\"><option value=\"upsert\">Update ads in file</option><option value=\"replace\">Replace complete source / date range</option></select>\n<div class=\"dates\"><label>Start date<input type=\"date\" id=\"start\"></label><label>End date<input type=\"date\" id=\"end\"></label></div>\n<div class=\"buttons\"><button id=\"preview\" onclick=\"preview()\">Preview</button><button id=\"apply\" disabled onclick=\"apply()\">Import</button><button id=\"check\" hidden onclick=\"checkStatus()\">Check status</button></div>\n<section id=\"status\" class=\"status\" aria-busy=\"false\"><div id=\"heading\" role=\"status\" aria-live=\"polite\">Ready to preview</div><progress id=\"progress\" max=\"100\" hidden aria-label=\"Import progress\"></progress><div id=\"elapsed\" hidden></div><pre id=\"details\">Pilih sumber dan file, lalu klik Preview.</pre><p id=\"hint\"></p></section>\n<script>\nlet text='',token='',requestId='',busy=false,timer=null,pollTimer=null,checking=false,started=0,stage='idle',submissionPending=false;\nconst el=id=>document.getElementById(id);\nlet metaCached=false;\nasync function metaCsvPayload(file,plain){\n if(file.size<250000||typeof CompressionStream==='undefined')return plain;\n try{\n  const bytes=new Uint8Array(await new Response(file.stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());\n  const chunks=[];\n  for(let i=0;i<bytes.length;i+=16384)chunks.push(String.fromCharCode(...bytes.subarray(i,i+16384)));\n  const packed='gzip64:'+btoa(chunks.join(''));return packed.length<plain.length?packed:plain;\n }catch(ignore){return plain;}\n}\nfunction lock(value){busy=value;document.querySelectorAll('input,select').forEach(e=>e.disabled=value);el('preview').disabled=value;el('apply').disabled=value||!token;el('status').setAttribute('aria-busy',String(value));}\nfunction show(kind,title,details,hint=''){el('status').className='status '+kind;el('heading').textContent=title;el('details').textContent=details;el('hint').textContent=hint;el('check').hidden=!requestId||['idle','read','preview','success'].includes(stage);}\nfunction tick(){const seconds=Math.floor((Date.now()-started)/1000);el('elapsed').textContent='Elapsed: '+Math.floor(seconds/60)+'m '+seconds%60+'s';if(stage==='import'&&seconds>=360)el('hint').textContent='Menunggu konfirmasi Import ID ini. Jangan impor ulang. Status diperiksa otomatis; jika tetap belum selesai, periksa Apps Script → Executions.';else if(stage==='import'&&el('source').value==='Daily Report'&&seconds>=120)el('hint').textContent='Target 2 menit terlewati. Proses belum dikonfirmasi selesai; tahap terakhir ditampilkan di atas. Jangan impor ulang selama proses berjalan.';}\nfunction begin(next,title,description){stage=next;started=Date.now();clearInterval(timer);lock(true);show('',title,description);el('progress').hidden=false;el('progress').removeAttribute('value');el('elapsed').hidden=false;tick();timer=setInterval(tick,1000);}\nfunction stop(){clearInterval(timer);clearTimeout(pollTimer);timer=null;pollTimer=null;lock(false);}\nfunction sourceHelp(){const daily=el('source').value==='Daily Report';el('title').textContent=daily?'Import Daily Report':'Import Meta Ads';el('intro').textContent=daily?'Upload export harian dengan calendar_date. Data mulai 1 Juli 2026.':'Upload CSV export Meta dengan breakdown Day.';el('destination').textContent=daily?'Destination: Copy of Daily Report → Leads / Booking dashboard.':'Destination: Raw Data → Dashboard. Tab Import hanya untuk paste manual.';el('mode').options[0].textContent=daily?'Update ad / dates in file':'Update ads in file';el('mode').options[1].textContent=daily?'Replace all centers / date range':'Replace complete source / date range';}\nfunction changed(){if(busy)return;stop();sourceHelp();requestId='';token='';stage='idle';el('apply').disabled=true;el('progress').hidden=true;el('elapsed').hidden=true;show('','Ready to preview','Pilihan berubah. Klik Preview untuk memeriksa file.');}\ndocument.querySelectorAll('input,select').forEach(e=>e.addEventListener('change',changed));\nsourceHelp();\nfunction completed(r){\n tick();\n token='';submissionPending=false;stop();stage='success';el('progress').hidden=false;el('progress').value=100;\n show('success','✓ Import completed · 100%',r.message||'Data tersimpan.',`Import ID: ${requestId}. SUCCESS terkonfirmasi untuk impor ini. Anda boleh menutup jendela atau mengimpor account berikutnya.`);\n}\nfunction scheduleCheck(delay=5000){clearTimeout(pollTimer);if(['import','busy','checking'].includes(stage))pollTimer=setTimeout(()=>checkStatus(),delay);}\nfunction receiveStatus(r){\n if(!r||r.requestId!==requestId||stage==='success')return;\n if(r.state==='SUCCESS'&&r.done===true){completed(r);return;}\n if(r.state==='FAILED'){token='';submissionPending=false;stop();stage='error';el('progress').hidden=true;show('error','Import failed',r.message||'Periksa Import Log.',`Import ID: ${requestId}`);return;}\n if(stage==='busy'&&!submissionPending&&r.ready&&r.state==='NOT_STARTED'){\n  stop();stage='preview';el('progress').hidden=true;show('','Ready to import','Importer sudah tersedia. File ini belum diimpor.','Klik Import untuk melanjutkan; Preview sebelumnya tetap valid.');return;\n }\n if(r.state==='RUNNING'){\n  stage='import';lock(true);show('','Import in progress',r.stage||'Server sedang memproses impor.',`Import ID: ${requestId}`);scheduleCheck();return;\n }\n if(r.state==='UNCONFIRMED'||(!submissionPending&&stage==='checking'&&r.state==='NOT_STARTED')){\n  token='';stop();stage='unconfirmed';el('progress').hidden=true;show('warning','Status needs checking',r.message||'Belum ada konfirmasi untuk Import ID ini.','Gunakan Check status atau periksa Import Log / Executions sebelum mengulang.');return;\n }\n if(r.state==='BUSY')show('warning',submissionPending?'Waiting for importer':'Importer busy',r.activeSource?`Proses ${r.activeSource} sedang memakai importer.`:'Importer sedang dipakai proses lain.',submissionPending?'Permintaan sedang diperiksa.': 'File ini belum diimpor. Menunggu importer tersedia; tidak ada penulisan ulang otomatis.');\n scheduleCheck();\n}\nfunction checkStatus(){\n if(!requestId||checking||stage==='success')return;const id=requestId;checking=true;el('check').disabled=true;\n google.script.run.withSuccessHandler(r=>{checking=false;el('check').disabled=false;if(id===requestId)receiveStatus(r);})\n .withFailureHandler(e=>{checking=false;el('check').disabled=false;if(id!==requestId||stage==='success')return;el('hint').textContent='Pengecekan status belum terhubung. Gunakan Check status atau periksa Import Log / Executions. Import ID: '+id;scheduleCheck(10000);}).getImportStatus(id);\n}\nfunction failed(error,importing){\n const message=error&&error.message?error.message:String(error);\n if(importing&&requestId){submissionPending=false;stage='checking';lock(true);show('warning','Checking import status',message,'Memastikan hasil berdasarkan Import ID, bukan catatan sukses account lain.');checkStatus();scheduleCheck();return;}\n token='';stop();stage='error';el('progress').hidden=true;show('error','Preview failed',message,'Perbaiki file atau pilihan, lalu klik Preview lagi.');\n}\nfunction request(confirm){\n const importing=!!confirm,id=requestId;if(importing)submissionPending=true;\n const rpc=google.script.run.withSuccessHandler(r=>{\n  if(id!==requestId||stage==='success')return;\n  if(importing){if(r?.needsFile&&metaCached&&r.requestId===id){metaCached=false;request(confirm);return;}submissionPending=false;if(r?.state==='BUSY'){stage='busy';lock(true);receiveStatus(r);return;}if(r?.done===true&&r.requestId===id){completed(r);return;}failed(new Error('Server belum mengonfirmasi hasil impor ini.'),true);}\n  else{token=r.token||'';requestId=r.requestId||'';stop();stage='preview';el('apply').disabled=!token||!requestId;el('progress').hidden=true;show('','Preview ready — not imported yet',r.summary||'Tidak ada ringkasan.','Klik Import untuk menyimpan.');}\n  if(!importing)metaCached=r.cached===true;\n }).withFailureHandler(e=>{if(id===requestId&&stage!=='success')failed(e,importing);});\n const source=el('source').value,opts=[el('mode').value,el('start').value,el('end').value,confirm,id];\n if(importing&&metaCached)rpc.uploadCachedMetaCsv(source,...opts);else rpc.uploadCsv(source,text,...opts);\n}\nfunction preview(){\n if(busy)return;const file=el('file').files[0];if(!file){show('error','Choose a CSV file','Pilih file sebelum klik Preview.');return;}if(file.size>10000000){failed(new Error('File terlalu besar; bagi menjadi rentang tanggal lebih pendek.'),false);return;}\n token='';requestId='';begin('read','Reading file','Membaca '+file.name);const reader=new FileReader();\n reader.onprogress=e=>{if(e.lengthComputable){el('progress').value=e.loaded/e.total*100;el('heading').textContent='Reading file · '+Math.round(e.loaded/e.total*100)+'%';}};\n reader.onerror=()=>failed(new Error('File tidak dapat dibaca. Pilih file kembali.'),false);reader.onabort=()=>failed(new Error('Pembacaan file dibatalkan.'),false);\n reader.onload=async()=>{text=reader.result;metaCached=false;if(el('source').value!=='Daily Report'&&file.size>=250000)text=await metaCsvPayload(file,text);stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);\n}\nfunction apply(){if(busy||!token||!requestId)return;begin('import','Import in progress','Memvalidasi dan menyimpan perubahan.');request(token);scheduleCheck();}\n\n</script></body></html>\n";
+const UPLOAD_HTML="<!doctype html><html lang=\"id\"><meta charset=\"utf-8\"><style>\nbody{font:14px/1.5 Arial,sans-serif;color:#193c32;padding:8px 16px;background:#f7f9f6}h2{margin:4px 0 8px}p{margin:8px 0;color:#54665e}label{display:block;margin:12px 0 4px}select,input{box-sizing:border-box;width:100%;padding:9px;border:1px solid #cbd6ce;border-radius:6px;background:white;color:#193c32}.dates{display:flex;gap:12px}.dates label{flex:1}.buttons{display:flex;gap:10px;margin-top:18px}button{padding:10px 18px;border:1px solid #b8cbbf;border-radius:7px;background:white;cursor:pointer;font-weight:bold}#apply{background:#245b47;color:white}button:disabled{opacity:.45;cursor:default}.status{margin-top:18px;padding:14px;border:1px solid #d4ddd5;border-radius:8px;background:white}.status.success{background:#e5f4e9;border-color:#6ca980}.status.warning{background:#fff9e9;border-color:#d6b768}.status.error{background:#fff0ed;border-color:#c67d70}#heading{font-weight:bold;font-size:16px}#details{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 Arial;margin:8px 0 0}progress{display:block;width:100%;height:12px;margin-top:10px;accent-color:#29774f}progress[hidden],[hidden]{display:none!important}#elapsed{font-size:12px;color:#586c60;margin-top:8px}#hint{font-size:12px}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #81ae91;outline-offset:2px}\n</style><body><h2 id=\"title\">Import Meta Ads</h2><p id=\"intro\">Upload CSV export Meta dengan breakdown Day.</p><p>Tunggu pesan <b>Import completed</b> sebelum menutup jendela.</p>\n<p id=\"destination\">Destination: Raw Data → Dashboard.</p>\n<label for=\"source\">Source</label><select id=\"source\"><option>SE Main</option><option>SE Secondary</option><option>SE Third</option><option>SLSA</option><option>Daily Report</option><option>SLSA Daily Report</option></select>\n<label for=\"file\">CSV file</label><input id=\"file\" type=\"file\" accept=\".csv\">\n<label for=\"mode\">Mode</label><select id=\"mode\"><option value=\"upsert\">Update ads in file</option><option value=\"replace\">Replace complete source / date range</option></select>\n<div class=\"dates\"><label>Start date<input type=\"date\" id=\"start\"></label><label>End date<input type=\"date\" id=\"end\"></label></div>\n<div class=\"buttons\"><button id=\"preview\" onclick=\"preview()\">Preview</button><button id=\"apply\" disabled onclick=\"apply()\">Import</button><button id=\"check\" hidden onclick=\"checkStatus()\">Check status</button></div>\n<section id=\"status\" class=\"status\" aria-busy=\"false\"><div id=\"heading\" role=\"status\" aria-live=\"polite\">Ready to preview</div><progress id=\"progress\" max=\"100\" hidden aria-label=\"Import progress\"></progress><div id=\"elapsed\" hidden></div><pre id=\"details\">Pilih sumber dan file, lalu klik Preview.</pre><p id=\"hint\"></p></section>\n<script>\nlet text='',token='',requestId='',busy=false,timer=null,pollTimer=null,checking=false,started=0,stage='idle',submissionPending=false;\nconst el=id=>document.getElementById(id);\nlet metaCached=false;\nasync function metaCsvPayload(file,plain){\n if(file.size<250000||typeof CompressionStream==='undefined')return plain;\n try{\n  const bytes=new Uint8Array(await new Response(file.stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());\n  const chunks=[];\n  for(let i=0;i<bytes.length;i+=16384)chunks.push(String.fromCharCode(...bytes.subarray(i,i+16384)));\n  const packed='gzip64:'+btoa(chunks.join(''));return packed.length<plain.length?packed:plain;\n }catch(ignore){return plain;}\n}\nfunction lock(value){busy=value;document.querySelectorAll('input,select').forEach(e=>e.disabled=value);el('preview').disabled=value;el('apply').disabled=value||!token;el('status').setAttribute('aria-busy',String(value));}\nfunction show(kind,title,details,hint=''){el('status').className='status '+kind;el('heading').textContent=title;el('details').textContent=details;el('hint').textContent=hint;el('check').hidden=!requestId||['idle','read','preview','success'].includes(stage);}\nfunction tick(){const seconds=Math.floor((Date.now()-started)/1000);el('elapsed').textContent='Elapsed: '+Math.floor(seconds/60)+'m '+seconds%60+'s';if(stage==='import'&&seconds>=360)el('hint').textContent='Menunggu konfirmasi Import ID ini. Jangan impor ulang. Status diperiksa otomatis; jika tetap belum selesai, periksa Apps Script → Executions.';else if(stage==='import'&&el('source').value==='Daily Report'&&seconds>=120)el('hint').textContent='Target 2 menit terlewati. Proses belum dikonfirmasi selesai; tahap terakhir ditampilkan di atas. Jangan impor ulang selama proses berjalan.';}\nfunction begin(next,title,description){stage=next;started=Date.now();clearInterval(timer);lock(true);show('',title,description);el('progress').hidden=false;el('progress').removeAttribute('value');el('elapsed').hidden=false;tick();timer=setInterval(tick,1000);}\nfunction stop(){clearInterval(timer);clearTimeout(pollTimer);timer=null;pollTimer=null;lock(false);}\nfunction sourceHelp(){\n const source=el('source').value,daily=source==='Daily Report',slsa=source==='SLSA Daily Report';\n el('title').textContent=slsa?'Import SLSA Daily Report':daily?'Import Daily Report':'Import Meta Ads';\n el('intro').textContent=slsa?'Upload CSV lengkap SLSA - Meta untuk tanggal Leads Submitted yang dipilih. Tanggal dapat diambil dari file jika isian kosong.':daily?'Upload export harian dengan calendar_date. Data mulai 1 Juli 2026.':'Upload CSV export Meta dengan breakdown Day.';\n el('destination').textContent=slsa?'Destination: SLSA Daily Report → Leads / Booking dashboard.':daily?'Destination: Copy of Daily Report → Leads / Booking dashboard.':'Destination: Raw Data → Dashboard. Tab Import hanya untuk paste manual.';\n const mode=el('mode');\n if(!slsa&&mode.options[0].disabled)mode.value='upsert';\n mode.options[0].disabled=slsa;\n if(slsa)mode.value='replace';\n mode.options[0].textContent=daily?'Update ad / dates in file':'Update ads in file';\n mode.options[1].textContent=slsa?'Replace submitted dates':daily?'Replace all centers / date range':'Replace complete source / date range';\n}\nfunction changed(){if(busy)return;stop();sourceHelp();requestId='';token='';stage='idle';el('apply').disabled=true;el('progress').hidden=true;el('elapsed').hidden=true;show('','Ready to preview','Pilihan berubah. Klik Preview untuk memeriksa file.');}\ndocument.querySelectorAll('input,select').forEach(e=>e.addEventListener('change',changed));\nsourceHelp();\nfunction completed(r){\n tick();\n token='';submissionPending=false;stop();stage='success';el('progress').hidden=false;el('progress').value=100;\n show('success','✓ Import completed · 100%',r.message||'Data tersimpan.',`Import ID: ${requestId}. SUCCESS terkonfirmasi untuk impor ini. Anda boleh menutup jendela atau mengimpor account berikutnya.`);\n}\nfunction scheduleCheck(delay=5000){clearTimeout(pollTimer);if(['import','busy','checking'].includes(stage))pollTimer=setTimeout(()=>checkStatus(),delay);}\nfunction receiveStatus(r){\n if(!r||r.requestId!==requestId||stage==='success')return;\n if(r.state==='SUCCESS'&&r.done===true){completed(r);return;}\n if(r.state==='FAILED'){token='';submissionPending=false;stop();stage='error';el('progress').hidden=true;show('error','Import failed',r.message||'Periksa Import Log.',`Import ID: ${requestId}`);return;}\n if(stage==='busy'&&!submissionPending&&r.ready&&r.state==='NOT_STARTED'){\n  stop();stage='preview';el('progress').hidden=true;show('','Ready to import','Importer sudah tersedia. File ini belum diimpor.','Klik Import untuk melanjutkan; Preview sebelumnya tetap valid.');return;\n }\n if(r.state==='RUNNING'){\n  stage='import';lock(true);show('','Import in progress',r.stage||'Server sedang memproses impor.',`Import ID: ${requestId}`);scheduleCheck();return;\n }\n if(r.state==='UNCONFIRMED'||(!submissionPending&&stage==='checking'&&r.state==='NOT_STARTED')){\n  token='';stop();stage='unconfirmed';el('progress').hidden=true;show('warning','Status needs checking',r.message||'Belum ada konfirmasi untuk Import ID ini.','Gunakan Check status atau periksa Import Log / Executions sebelum mengulang.');return;\n }\n if(r.state==='BUSY')show('warning',submissionPending?'Waiting for importer':'Importer busy',r.activeSource?`Proses ${r.activeSource} sedang memakai importer.`:'Importer sedang dipakai proses lain.',submissionPending?'Permintaan sedang diperiksa.': 'File ini belum diimpor. Menunggu importer tersedia; tidak ada penulisan ulang otomatis.');\n scheduleCheck();\n}\nfunction checkStatus(){\n if(!requestId||checking||stage==='success')return;const id=requestId;checking=true;el('check').disabled=true;\n google.script.run.withSuccessHandler(r=>{checking=false;el('check').disabled=false;if(id===requestId)receiveStatus(r);})\n .withFailureHandler(e=>{checking=false;el('check').disabled=false;if(id!==requestId||stage==='success')return;el('hint').textContent='Pengecekan status belum terhubung. Gunakan Check status atau periksa Import Log / Executions. Import ID: '+id;scheduleCheck(10000);}).getImportStatus(id);\n}\nfunction failed(error,importing){\n const message=error&&error.message?error.message:String(error);\n if(importing&&requestId){submissionPending=false;stage='checking';lock(true);show('warning','Checking import status',message,'Memastikan hasil berdasarkan Import ID, bukan catatan sukses account lain.');checkStatus();scheduleCheck();return;}\n token='';stop();stage='error';el('progress').hidden=true;show('error','Preview failed',message,'Perbaiki file atau pilihan, lalu klik Preview lagi.');\n}\nfunction request(confirm){\n const importing=!!confirm,id=requestId;if(importing)submissionPending=true;\n const rpc=google.script.run.withSuccessHandler(r=>{\n  if(id!==requestId||stage==='success')return;\n  if(importing){if(r?.needsFile&&metaCached&&r.requestId===id){metaCached=false;request(confirm);return;}submissionPending=false;if(r?.state==='BUSY'){stage='busy';lock(true);receiveStatus(r);return;}if(r?.done===true&&r.requestId===id){completed(r);return;}failed(new Error('Server belum mengonfirmasi hasil impor ini.'),true);}\n  else{token=r.token||'';requestId=r.requestId||'';stop();stage='preview';el('apply').disabled=!token||!requestId;el('progress').hidden=true;show('','Preview ready — not imported yet',r.summary||'Tidak ada ringkasan.','Klik Import untuk menyimpan.');}\n  if(!importing)metaCached=r.cached===true;\n }).withFailureHandler(e=>{if(id===requestId&&stage!=='success')failed(e,importing);});\n const source=el('source').value,opts=[el('mode').value,el('start').value,el('end').value,confirm,id];\n if(importing&&metaCached)rpc.uploadCachedMetaCsv(source,...opts);else rpc.uploadCsv(source,text,...opts);\n}\nfunction preview(){\n if(busy)return;const file=el('file').files[0];if(!file){show('error','Choose a CSV file','Pilih file sebelum klik Preview.');return;}if(file.size>10000000){failed(new Error('File terlalu besar; bagi menjadi rentang tanggal lebih pendek.'),false);return;}\n token='';requestId='';begin('read','Reading file','Membaca '+file.name);const reader=new FileReader();\n reader.onprogress=e=>{if(e.lengthComputable){el('progress').value=e.loaded/e.total*100;el('heading').textContent='Reading file · '+Math.round(e.loaded/e.total*100)+'%';}};\n reader.onerror=()=>failed(new Error('File tidak dapat dibaca. Pilih file kembali.'),false);reader.onabort=()=>failed(new Error('Pembacaan file dibatalkan.'),false);\n reader.onload=async()=>{text=reader.result;metaCached=false;if(!el('source').value.endsWith('Daily Report')&&file.size>=250000)text=await metaCsvPayload(file,text);stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);\n}\nfunction apply(){if(busy||!token||!requestId)return;begin('import','Import in progress','Memvalidasi dan menyimpan perubahan.');request(token);scheduleCheck();}\n\n</script></body></html>\n";
 
 const FORMULAS = {"2": "=TRIM(REGEXREPLACE(B2,\"\\s*_\\s*\\d{1,2}/\\d{1,2}/\\d{2,4}$\",\"\"))", "4": "=IFERROR(TRIM(REGEXEXTRACT(D2,\"\\-\\s*(.+)\")),D2)", "27": "=IFERROR(U2/V2,\"\")", "28": "=IFERROR(X2/W2,\"\")", "29": "=IFERROR(Y2/V2,\"\")", "30": "=IF(AND(AV2<>\"\",AY2<>\"\"),IFNA(IF(COUNTIFS($AV$2:$AV,AV2,$AY$2:$AY,AY2,$F$2:$F,F2)>1,\"\",INDEX('Report Totals'!R:R,MATCH(AO2&\"|\"&TEXT(F2,\"yyyy-mm-dd\")&\"|\"&AV2&\"|\"&AY2,'Report Totals'!Q:Q,0))),IFNA(IF(COUNTIFS($AR$2:$AR,AR2,$AP$2:$AP,AP2)>1,\"\",INDEX('Report Totals'!N:N,MATCH(AR2&\"|\"&AP2,'Report Totals'!M:M,0))),IF(COUNTIF($AR$2:$AR,AR2)>1,\"\",IF($AO2=\"English\",IFNA(INDEX('Report Totals'!D:D,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!F:F,0)),\"\"),IFNA(INDEX('Report Totals'!J:J,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!L:L,0)),\"\"))))),IFNA(IF(COUNTIFS($AR$2:$AR,AR2,$AP$2:$AP,AP2)>1,\"\",INDEX('Report Totals'!N:N,MATCH(AR2&\"|\"&AP2,'Report Totals'!M:M,0))),IF(COUNTIF($AR$2:$AR,AR2)>1,\"\",IF($AO2=\"English\",IFNA(INDEX('Report Totals'!D:D,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!F:F,0)),\"\"),IFNA(INDEX('Report Totals'!J:J,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!L:L,0)),\"\")))))", "31": "=IF(AND(AV2<>\"\",AY2<>\"\"),IFNA(IF(COUNTIFS($AV$2:$AV,AV2,$AY$2:$AY,AY2,$F$2:$F,F2)>1,\"\",INDEX('Report Totals'!S:S,MATCH(AO2&\"|\"&TEXT(F2,\"yyyy-mm-dd\")&\"|\"&AV2&\"|\"&AY2,'Report Totals'!Q:Q,0))),IFNA(IF(COUNTIFS($AR$2:$AR,AR2,$AP$2:$AP,AP2)>1,\"\",INDEX('Report Totals'!O:O,MATCH(AR2&\"|\"&AP2,'Report Totals'!M:M,0))),IF(COUNTIF($AR$2:$AR,AR2)>1,\"\",IF($AO2=\"English\",IFNA(INDEX('Report Totals'!E:E,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!F:F,0)),\"\"),IFNA(INDEX('Report Totals'!K:K,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!L:L,0)),\"\"))))),IFNA(IF(COUNTIFS($AR$2:$AR,AR2,$AP$2:$AP,AP2)>1,\"\",INDEX('Report Totals'!O:O,MATCH(AR2&\"|\"&AP2,'Report Totals'!M:M,0))),IF(COUNTIF($AR$2:$AR,AR2)>1,\"\",IF($AO2=\"English\",IFNA(INDEX('Report Totals'!E:E,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!F:F,0)),\"\"),IFNA(INDEX('Report Totals'!K:K,MATCH(TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2,'Report Totals'!L:L,0)),\"\")))))", "32": "=IFERROR(IF(AE2=\"\",\"\",P2/AE2),\"\")", "33": "=IFERROR(IF(AF2=\"\",\"\",P2/AF2),\"\")", "34": "=IFERROR(IF(AE2=\"\",\"\",AE2/R2),\"\")", "35": "=IFERROR(P2/SUMIFS($P$2:$P,$AN$2:$AN,AN2,$A$2:$A,A2,$B$2:$B,B2,$F$2:$F,F2),\"\")", "36": "=IF(F2>0,ISOWEEKNUM(F2),\"\")", "37": "=IFNA(INDEX('Creative Mapping'!F:F,MATCH(AS2,'Creative Mapping'!H:H,0)),IFNA(INDEX('Creative Mapping'!F:F,MATCH(AQ2,'Creative Mapping'!H:H,0)),\"\"))", "38": "=IFNA(INDEX('Creative Mapping'!G:G,MATCH(AS2,'Creative Mapping'!H:H,0)),IFNA(INDEX('Creative Mapping'!G:G,MATCH(AQ2,'Creative Mapping'!H:H,0)),\"\"))", "42": "=AN2&\"|\"&A2&\"|\"&B2&\"|\"&D2", "43": "=AO2&\"|\"&TEXT(F2,\"yyyy-mm-dd\")&\"|\"&C2&\"|\"&E2", "44": "=AQ2&\"|\"&TEXT(F2,\"yyyy-mm-dd\")"};

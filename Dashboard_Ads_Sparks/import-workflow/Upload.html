@@ -2,7 +2,7 @@
 body{font:14px/1.5 Arial,sans-serif;color:#193c32;padding:8px 16px;background:#f7f9f6}h2{margin:4px 0 8px}p{margin:8px 0;color:#54665e}label{display:block;margin:12px 0 4px}select,input{box-sizing:border-box;width:100%;padding:9px;border:1px solid #cbd6ce;border-radius:6px;background:white;color:#193c32}.dates{display:flex;gap:12px}.dates label{flex:1}.buttons{display:flex;gap:10px;margin-top:18px}button{padding:10px 18px;border:1px solid #b8cbbf;border-radius:7px;background:white;cursor:pointer;font-weight:bold}#apply{background:#245b47;color:white}button:disabled{opacity:.45;cursor:default}.status{margin-top:18px;padding:14px;border:1px solid #d4ddd5;border-radius:8px;background:white}.status.success{background:#e5f4e9;border-color:#6ca980}.status.warning{background:#fff9e9;border-color:#d6b768}.status.error{background:#fff0ed;border-color:#c67d70}#heading{font-weight:bold;font-size:16px}#details{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 Arial;margin:8px 0 0}progress{display:block;width:100%;height:12px;margin-top:10px;accent-color:#29774f}progress[hidden],[hidden]{display:none!important}#elapsed{font-size:12px;color:#586c60;margin-top:8px}#hint{font-size:12px}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #81ae91;outline-offset:2px}
 </style><body><h2 id="title">Import Meta Ads</h2><p id="intro">Upload CSV export Meta dengan breakdown Day.</p><p>Tunggu pesan <b>Import completed</b> sebelum menutup jendela.</p>
 <p id="destination">Destination: Raw Data → Dashboard.</p>
-<label for="source">Source</label><select id="source"><option>SE Main</option><option>SE Secondary</option><option>SE Third</option><option>SLSA</option><option>Daily Report</option></select>
+<label for="source">Source</label><select id="source"><option>SE Main</option><option>SE Secondary</option><option>SE Third</option><option>SLSA</option><option>Daily Report</option><option>SLSA Daily Report</option></select>
 <label for="file">CSV file</label><input id="file" type="file" accept=".csv">
 <label for="mode">Mode</label><select id="mode"><option value="upsert">Update ads in file</option><option value="replace">Replace complete source / date range</option></select>
 <div class="dates"><label>Start date<input type="date" id="start"></label><label>End date<input type="date" id="end"></label></div>
@@ -26,7 +26,18 @@ function show(kind,title,details,hint=''){el('status').className='status '+kind;
 function tick(){const seconds=Math.floor((Date.now()-started)/1000);el('elapsed').textContent='Elapsed: '+Math.floor(seconds/60)+'m '+seconds%60+'s';if(stage==='import'&&seconds>=360)el('hint').textContent='Menunggu konfirmasi Import ID ini. Jangan impor ulang. Status diperiksa otomatis; jika tetap belum selesai, periksa Apps Script → Executions.';else if(stage==='import'&&el('source').value==='Daily Report'&&seconds>=120)el('hint').textContent='Target 2 menit terlewati. Proses belum dikonfirmasi selesai; tahap terakhir ditampilkan di atas. Jangan impor ulang selama proses berjalan.';}
 function begin(next,title,description){stage=next;started=Date.now();clearInterval(timer);lock(true);show('',title,description);el('progress').hidden=false;el('progress').removeAttribute('value');el('elapsed').hidden=false;tick();timer=setInterval(tick,1000);}
 function stop(){clearInterval(timer);clearTimeout(pollTimer);timer=null;pollTimer=null;lock(false);}
-function sourceHelp(){const daily=el('source').value==='Daily Report';el('title').textContent=daily?'Import Daily Report':'Import Meta Ads';el('intro').textContent=daily?'Upload export harian dengan calendar_date. Data mulai 1 Juli 2026.':'Upload CSV export Meta dengan breakdown Day.';el('destination').textContent=daily?'Destination: Copy of Daily Report → Leads / Booking dashboard.':'Destination: Raw Data → Dashboard. Tab Import hanya untuk paste manual.';el('mode').options[0].textContent=daily?'Update ad / dates in file':'Update ads in file';el('mode').options[1].textContent=daily?'Replace all centers / date range':'Replace complete source / date range';}
+function sourceHelp(){
+ const source=el('source').value,daily=source==='Daily Report',slsa=source==='SLSA Daily Report';
+ el('title').textContent=slsa?'Import SLSA Daily Report':daily?'Import Daily Report':'Import Meta Ads';
+ el('intro').textContent=slsa?'Upload CSV lengkap SLSA - Meta untuk tanggal Leads Submitted yang dipilih. Tanggal dapat diambil dari file jika isian kosong.':daily?'Upload export harian dengan calendar_date. Data mulai 1 Juli 2026.':'Upload CSV export Meta dengan breakdown Day.';
+ el('destination').textContent=slsa?'Destination: SLSA Daily Report → Leads / Booking dashboard.':daily?'Destination: Copy of Daily Report → Leads / Booking dashboard.':'Destination: Raw Data → Dashboard. Tab Import hanya untuk paste manual.';
+ const mode=el('mode');
+ if(!slsa&&mode.options[0].disabled)mode.value='upsert';
+ mode.options[0].disabled=slsa;
+ if(slsa)mode.value='replace';
+ mode.options[0].textContent=daily?'Update ad / dates in file':'Update ads in file';
+ mode.options[1].textContent=slsa?'Replace submitted dates':daily?'Replace all centers / date range':'Replace complete source / date range';
+}
 function changed(){if(busy)return;stop();sourceHelp();requestId='';token='';stage='idle';el('apply').disabled=true;el('progress').hidden=true;el('elapsed').hidden=true;show('','Ready to preview','Pilihan berubah. Klik Preview untuk memeriksa file.');}
 document.querySelectorAll('input,select').forEach(e=>e.addEventListener('change',changed));
 sourceHelp();
@@ -78,7 +89,7 @@ function preview(){
  token='';requestId='';begin('read','Reading file','Membaca '+file.name);const reader=new FileReader();
  reader.onprogress=e=>{if(e.lengthComputable){el('progress').value=e.loaded/e.total*100;el('heading').textContent='Reading file · '+Math.round(e.loaded/e.total*100)+'%';}};
  reader.onerror=()=>failed(new Error('File tidak dapat dibaca. Pilih file kembali.'),false);reader.onabort=()=>failed(new Error('Pembacaan file dibatalkan.'),false);
- reader.onload=async()=>{text=reader.result;metaCached=false;if(el('source').value!=='Daily Report'&&file.size>=250000)text=await metaCsvPayload(file,text);stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);
+ reader.onload=async()=>{text=reader.result;metaCached=false;if(!el('source').value.endsWith('Daily Report')&&file.size>=250000)text=await metaCsvPayload(file,text);stage='preview';el('progress').removeAttribute('value');show('','Validating file','Memeriksa format, tanggal, dan identitas ad.');request('');};reader.readAsText(file);
 }
 function apply(){if(busy||!token||!requestId)return;begin('import','Import in progress','Memvalidasi dan menyimpan perubahan.');request(token);scheduleCheck();}
 

@@ -57,14 +57,20 @@ function uploadCsv(source,text,mode,start,end,confirmed,requestId){
   text=Utilities.ungzip(blob).getDataAsString('UTF-8');
  }
  if(typeof text!=='string'||text.length>10000000)throw Error('File terlalu besar atau tidak valid; bagi menjadi rentang tanggal lebih pendek.');
- const data=Utilities.parseCsv(text.replace(/^\uFEFF/,'')),daily=source==='Daily Report',plan=daily?prepareDaily(data,mode,start,end):prepare(source,data,mode,start,end);
+ const data=Utilities.parseCsv(text.replace(/^\uFEFF/,''));
+ const daily=source==='Daily Report',slsaDaily=source===SLSA_DAILY_TAB;
+ const plan=slsaDaily?prepareSlsaDaily(data,mode,start,end):daily?prepareDaily(data,mode,start,end):prepare(source,data,mode,start,end);
  if(!confirmed){
   const id=Utilities.getUuid();let cached=false;
   if(packed)try{metaCsvCache_(id,packed);cached=true;}catch(ignore){}
-  return {summary:daily?dailyPreview(plan):summary(plan),token:plan.fingerprint,requestId:id,cached};
+  const details=slsaDaily?previewSlsaDaily(plan):daily?dailyPreview(plan):summary(plan);
+  return {summary:details,token:plan.fingerprint,requestId:id,cached};
  }
  if(confirmed!==plan.fingerprint)throw Error('File/opsi berubah. Preview ulang.');
  plan.requestId=requestId?importJobId_(requestId):Utilities.getUuid();
- try{return {done:true,state:'SUCCESS',requestId:plan.requestId,message:daily?commitDaily(plan):commit(plan)};}
+ try{
+  const message=slsaDaily?commitSlsaDaily(plan):daily?commitDaily(plan):commit(plan);
+  return {done:true,state:'SUCCESS',requestId:plan.requestId,message};
+ }
  catch(error){if(error.code==='IMPORT_BUSY')return importBusy_(plan.requestId);throw error;}
 }
