@@ -48,7 +48,17 @@ function meetingAddButton(source,action,label='＋ Tambah ke meeting'){
   return `<button class="button secondary meeting-add" data-meeting-source="${index}">${esc(label)}</button>`;
 }
 function meetingAdSource(g){g=actionMetrics(g);return {kind:'ad',entityKey:JSON.stringify(['ad',g.center,g.brand,g.account||'',g.campaign,g.adset,g.ad,g.resultType,...A.identitySuffix(g)]),center:g.center,title:g.ad,snapshot:meetingSnapshot(g),task:iterationAction(g),reason:g.diagnosis?.reasons?.join(' ')||''};}
-function meetingAddAd(id,action){const g=findCreative(id);if(g){const source=meetingAdSource(g),win=action==='iterate'?candidates().find(c=>String(c.id)===String(id)):null;if(win)source.reason=win.opportunities.map(o=>o.label+': '+o.reason).join('; ')+'. '+source.reason;meetingCompose(source,action|| (g.state==='KILL'?'kill':'monitor'));}}
+function meetingAddAd(id,action,outcome){
+  const g=findCreative(id);
+  if(!g)return;
+  const pick=action||(g.state==='KILL'?'kill':['ITERATE','OPPORTUNITY'].includes(g.state)?'iterate':'monitor');
+  const source=meetingAdSource(g);
+  if(pick==='iterate'&&g.opportunities?.length){
+    source.reason=g.opportunities.find(o=>o.key===outcome)?.reason||g.opportunities.map(o=>o.reason).join('. ');
+  }
+  if(pick==='monitor')source.task=g.diagnosis?.actions?.[0]||'Review this ad in the next meeting.';
+  meetingCompose(source,pick);
+}
 function meetingCompose(source,action){
   const existing=MeetingStore.read().items.find(i=>i.entityKey===source.entityKey&&i.stage!=='done');
   if(existing){notify('Item ini sudah ada di bucket.');meetingEdit(existing.id);return;}
@@ -88,23 +98,138 @@ function meetingSave(form){
     i.evaluations.push({id:meetingId(),at:now,targetKey:i.targetKey,ad:target.ad,start:i.evalStart,end:i.evalEnd,days:s.days.size,metrics:meetingMetrics(s),observed:s.observed,coverage:s.coverage,note:i.evaluationNote});
   }
   i.updatedAt=now;i.history.push({at:now,event:prior?'Keputusan diperbarui':'Ditambahkan ke meeting',action:i.action,stage:i.stage,pic:i.pic,deadline:i.deadline,meetingDate:i.meetingDate,reason:i.reason,task:i.task,note:i.note,production:i.production,newAdName:i.newAdName,targetKey:i.targetKey});
-  MeetingStore.save(i);$('meetingDialog').close();meetingDraft=null;notify('Tersimpan di browser ini. Ekspor cadangan untuk keamanan data.');if(view==='meeting')render();
+  MeetingStore.save(i);$('meetingDialog').close();meetingDraft=null;notify('Saved to action bucket.');
+  if(view==='meeting'&&meetingTab==='bucket')render();
 }
 function meetingCenterData(){
-  const from=$('startFilter').value,to=$('endFilter').value,span=PeriodLearning.dayCount(from,to),previousEnd=from?PeriodLearning.shift(from,-1):'',previousStart=span?PeriodLearning.shift(from,-span):'',history=trendHistoryRows();
-  return centersInScope().map(center=>{
-    const items=selected.filter(r=>r.center===center),s=A.aggregate(items),past=A.aggregate(history.filter(r=>r.center===center&&r.day>=previousStart&&r.day<=previousEnd));
-    const ads=creatives.filter(g=>g.center===center),kill=ads.filter(g=>g.state==='KILL'&&g.lastDelivery==='active').length,review=ads.filter(g=>needsReview(g)&&g.state!=='KILL').length;
-    const issues=[];if(s.cpr>config.target)issues.push(`CPR ${money(s.cpr)} > ${money(config.target)}`);
-    const complete=span>0&&s.days.size===span&&past.days.size===span&&!s.mixed&&!past.mixed;
-    if(complete){if(s.bookingRows===s.rows&&past.bookingRows===past.rows&&s.booking<past.booking&&s.cpb>past.cpb)issues.push('Booking turun dan CPB naik');if(s.leadRows===s.rows&&past.leadRows===past.rows&&s.leads<past.leads&&s.cpl>past.cpl)issues.push('Leads turun dan CPL naik');}
-    return {...s,items,center,start:from,end:to,kill,review,issues,past,complete,previousStart,previousEnd};
-  }).sort((a,b)=>b.kill-a.kill||b.issues.length-a.issues.length||b.spend-a.spend);
+  const groups=new Map();
+  for(const row of selected){
+    if(isPreheat(row))continue;
+    if(!groups.has(row.center))groups.set(row.center,[]);
+    groups.get(row.center).push(row);
+  }
+  return Array.from(groups,([center,items])=>({...summaryAggregate(items),center,start:$('startFilter').value,end:$('endFilter').value}));
+}
+function addMeetingCenter(code,key){
+  const c=meetingCenterData().find(center=>center.center===code);
+  if(!c)return;
+  const metric=key.toUpperCase(),outcome=key==='cpl'?'Leads':'Booking';
+  const reason=Number.isFinite(c[key])?metric+' '+money(c[key]):money(c.spend)+' spent · 0 '+outcome;
+  meetingCompose({kind:'center',entityKey:JSON.stringify(['center',code,$('brandFilter').value,$('objectiveFilter').value,$('resultFilter').value,$('accountFilter').value]),center:code,title:'Evaluasi center '+code,snapshot:meetingSnapshot(c),reason,task:'Review '+metric+' and ads in '+code+'.'},'center');
+}
+function meetingCostPanel(centers,key){
+  const isLead=key==='cpl',outcome=isLead?'Leads':'Booking',count=isLead?'leads':'booking';
+  const paid=centers.filter(c=>c.spend>0);
+  const complete=paid.filter(c=>(isLead?c.leadRows:c.bookingRows)===c.rows);
+  const ranked=complete.filter(c=>Number.isFinite(c[key])).sort((a,b)=>b[key]-a[key]||b.spend-a.spend||a.center.localeCompare(b.center));
+  const zero=complete.filter(c=>c[count]===0).sort((a,b)=>b.spend-a.spend||a.center.localeCompare(b.center));
+  const missing=paid.length-complete.length,metric=key.toUpperCase();
+  function row(c,rank){
+    const amount=rank?money(c[key]):'0 '+outcome;
+    const add=`<button class="button secondary meeting-add" data-meeting-center-add="${esc(c.center)}" data-meeting-cost="${key}" aria-label="Add ${esc(c.center)} ${metric} to action bucket">+ Bucket</button>`;
+    return `<div class="meeting-cost-row">
+      <span class="meeting-rank">${rank||'—'}</span>
+      <button class="meeting-center-link" data-meeting-center="${esc(c.center)}" aria-haspopup="dialog" aria-label="Open ${esc(c.center)} center details">${esc(c.center)} ↗</button>
+      <div class="meeting-cost-value"><strong>${amount}</strong><small>${rank?integer(c[count])+' '+outcome:money(c.spend)+' spent'}</small></div>
+      ${add}</div>`;
+  }
+  return `<section class="card meeting-cost-panel" data-cost-key="${key}"><h3>Worst ${metric}</h3>
+    ${ranked.length?ranked.slice(0,3).map((c,i)=>row(c,i+1)).join(''):'<p class="meeting-cost-empty">No ranked centers</p>'}
+    ${ranked.length>3?`<details><summary>${ranked.length-3} more centers</summary>${ranked.slice(3).map((c,i)=>row(c,i+4)).join('')}</details>`:''}
+    ${zero.length?`<details><summary>Spend with 0 ${outcome} · ${zero.length}</summary>${zero.map(c=>row(c,null)).join('')}</details>`:''}
+    ${missing?`<details><summary>Incomplete ${outcome} · ${missing}</summary><div class="meeting-unranked">${paid.filter(c=>(isLead?c.leadRows:c.bookingRows)<c.rows).map(c=>`<button class="meeting-center-link" data-meeting-center="${esc(c.center)}" aria-haspopup="dialog">${esc(c.center)} ↗</button>`).join('')}</div></details>`:''}</section>`;
+}
+
+function meetingActionPeriod(){
+  const end=$('endFilter').value,latest=ruleIndex?.latest;
+  const asOf=end&&end<latest?end:latest;
+  return asOf?`Last 7 days · ${prettyDate(Rules.dayOffset(asOf,-6))} – ${prettyDate(asOf)}`:'Last 7 days';
+}
+function meetingAdIdentityCell(g){
+  const context=[g.center,g.brand,g.account,g.campaign,g.adset,...A.identitySuffix(g)].join(' · ');
+  return `<td class="adset-name meeting-ad-identity">
+    <button class="ad-link" data-detail="${esc(g.id)}" data-meeting-window aria-haspopup="dialog" title="${esc(context)}">${esc(g.ad)}</button>
+    <small class="meeting-ad-context"><span title="${esc(context)}">${esc(g.adset)}</span>${accountBadge(g.account)}</small>
+  </td>`;
+}
+function meetingBucketCell(g,action,outcome){
+  return `<td class="meeting-row-action"><button class="button secondary" data-meeting-ad="${esc(g.id)}" data-meeting-action="${action}" ${outcome?`data-meeting-outcome="${esc(outcome)}"`:''} aria-label="Add ${esc(g.ad)} to action bucket">+ Bucket</button></td>`;
+}
+function meetingBarMaxima(ads){
+  const maxima={results:1,leads:1,booking:1};
+  for(const g of ads)for(const key of Object.keys(maxima)){
+    const {value,partial}=metricDisplayData(g,key);
+    if(!partial&&Number.isFinite(value))maxima[key]=Math.max(maxima[key],value);
+  }
+  return maxima;
+}
+function meetingReviewTable(model){
+  const priority=['KILL','CRITICAL','WATCH','MIXED','EVALUATE'];
+  const reviewState=g=>priority.includes(g.state)?g.state:'EVALUATE';
+  const ads=creatives.filter(g=>mapCenterMatches(model,g)&&needsReview(g)).map(actionMetrics);
+  ads.sort((a,b)=>priority.indexOf(reviewState(a))-priority.indexOf(reviewState(b))||b.spend-a.spend||a.ad.localeCompare(b.ad));
+  const maxima=meetingBarMaxima(ads);
+  const control=ads.length?`<div class="scope-switch meeting-switch" role="group" aria-label="Review columns">
+    <button type="button" data-meeting-columns="core" aria-pressed="true" class="selected">Key metrics</button>
+    <button type="button" data-meeting-columns="all" aria-pressed="false">All metrics</button>
+  </div>`:'';
+  return `<section class="card adset-performance meeting-review-table" data-columns="core" aria-label="Active ads to review">
+    <header class="meeting-list-heading"><div><h2>Active ads to review <span>${integer(ads.length)}</span></h2><p>${esc(meetingActionPeriod())}</p></div>${control}</header>
+    ${ads.length?`<div class="table-wrap" role="region" aria-label="Ad review metrics" tabindex="0"><table>
+      <thead><tr><th scope="col">Ad / ad set</th><th scope="col">Review</th><th scope="col" class="num">Ad age</th>
+      ${AD_PERIOD_METRICS.map(([key,label])=>`<th scope="col" class="num" data-adset-metric="${key}">${label}</th>`).join('')}
+      <th scope="col">Action</th></tr></thead><tbody>${ads.map(g=>{
+        const state=reviewState(g);
+        const reason=state==='EVALUATE'?g.ruleWarnings?.[0]?.text:g.diagnosis?.reasons[1];
+        return `<tr>${meetingAdIdentityCell(g)}
+          <td class="meeting-review-state" title="${esc(reason||'')}">${pill(state)}</td>
+          <td class="num meeting-age">${ageCell(g)}</td>
+          ${adsetMetricCells(g,g.share,[],{compact:true,maxima,shareLabel:'Share of total ad set spend during this ad’s action window'})}
+          ${meetingBucketCell(g,state==='KILL'?'kill':'monitor')}</tr>`;
+      }).join('')}</tbody></table></div>`:'<p class="meeting-list-empty">No active ads need review for these filters.</p>'}
+  </section>`;
 }
 function meetingBriefing(){
-  const centers=meetingCenterData(),ads=creatives.filter(needsReview).map(actionMetrics).sort((a,b)=>(b.state==='KILL')-(a.state==='KILL')||b.spend-a.spend);
-  return section('Centers to review','')+`<div class="center-grid">${centers.map(c=>`<article class="center-card"><div class="row"><h3>${esc(c.center)}</h3><span class="pill">${c.kill} kill · ${c.review} review</span></div>${meetingMetricStrip(displaySnapshot(c))}<p>${c.rows?esc(c.issues.join(' / ')):c.center==='BDS'?'Dalam pembangunan; belum dinilai.':'Tidak ada data pada filter ini.'}</p><small>${c.complete?'Pembanding: '+c.previousStart+' – '+c.previousEnd:'Comparison unavailable'}</small><div class="meeting-card-actions"><button class="text-button" data-meeting-center="${esc(c.center)}">Fokus center →</button>${c.rows?meetingAddButton({kind:'center',entityKey:JSON.stringify(['center',c.center,$('brandFilter').value,$('objectiveFilter').value,$('resultFilter').value,$('accountFilter').value]),center:c.center,title:'Evaluasi center '+c.center,snapshot:meetingSnapshot(c),reason:c.issues.join('; '),task:'Periksa ad, key message, pillar, dan tindak lanjut Leads ke Booking di center ini.'},'center'):''}</div></article>`).join('')}</div>`+section('Active ads to review','Last 7 days')+(!ads.length?empty('No active ads to review','Ubah filter atau lihat kandidat iterasi.'): `<div class="card table-wrap meeting-review-table"><table><thead><tr><th>Center / ad</th><th>Rekomendasi</th><th class="num">Umur ad</th><th class="num">Spend</th><th class="num">Spend share</th><th class="num">Results</th><th class="num">Leads</th><th class="num">Results → Leads</th><th class="num">CPR</th><th class="num">CPL</th><th class="num">Booking</th><th class="num">CPB</th><th class="num">Leads → Booking (%)</th><th>Alasan</th><th>Meeting</th></tr></thead><tbody>${ads.map(g=>`<tr><td class="cell-name"><b>${esc(g.center)}</b><button class="ad-link" data-detail="${g.id}">${esc(g.ad)}</button><small>${esc(g.adset)}</small>${accountBadge(g.account)}</td><td>${actionStatus(g)}</td><td class="num meeting-ad-age" title="${esc('Sejak publish: '+prettyDate(g.history?.published)+'; dinilai sampai '+prettyDate(g.history?.asOf))}">${ageCell(g)}<small>sejak publish</small><small>${g.history?.activeDays??0} hari tercatat aktif</small></td>${[money(g.spend),percent(g.share),integer(g.results),displayMetric(g,'leads',integer),displayMetric(g,'leadRate',percent),money(g.cpr),displayMetric(g,'cpl',money),displayMetric(g,'booking',integer),displayMetric(g,'cpb',money),displayMetric(g,'bookingRate',percent)].map(value=>`<td class="num">${value}</td>`).join('')}<td class="cell-name">${esc(g.diagnosis.reasons.join(' '))}</td><td>${meetingAddButton(meetingAdSource(g),g.state==='KILL'?'kill':'monitor')}</td></tr>`).join('')}</tbody></table></div>`);
+  const centers=meetingCenterData(),center=$('centerFilter').value;
+  const back=center!=='ALL'?`<div class="meeting-scope-path"><button class="text-button" data-meeting-all-centers>All centers</button><span aria-hidden="true"> / </span>${esc(center)}</div>`:'';
+  const canvas=selected.some(r=>r.center==='C.IN')?'<button class="text-button" data-meeting-center="C.IN" aria-haspopup="dialog">Canvas · C.IN ↗</button>':'';
+  if(workView==='preheat')return canvas||empty('No Canvas ads in this selection','');
+  return `${back}<div class="meeting-cost-grid">${meetingCostPanel(centers,'cpl')}${meetingCostPanel(centers,'cpb')}</div>${canvas}`;
 }
+function meetingCenterModel(code){
+  const items=selected.filter(r=>r.center===code);
+  if(!items.length)return null;
+  const loc=mapCatalog().find(l=>l.code===code);
+  if(!loc)return null;
+  const brands=new Set(items.map(r=>r.brand)),brand=brands.size===1?items[0].brand:'ALL';
+  const ads=creatives.filter(g=>g.center===code&&(brand==='ALL'||g.brand===brand));
+  const model=mapCenterModel(loc,brand,items,buildPriorities(ads).sets);
+  model.sourceCreatives=creatives;
+  return model;
+}
+function openMeetingCenter(trigger){
+  const model=meetingCenterModel(trigger.dataset.meetingCenter);
+  if(model)openCenterDialog(model,trigger);
+}
+function refreshMeetingCenterDialog(){
+  const dialog=$('centerMapDialog');
+  if(!dialog.open||dialog.dataset.origin!=='meeting'||mapFocus.sourceCreatives===creatives)return;
+  const model=meetingCenterModel(mapFocus.code);
+  if(!model){dialog.close();return;}
+  mapFocus=model;
+  drawCenterDialog(dialog);
+}
+$('centerMapDialog').addEventListener('close',()=>{
+  const dialog=$('centerMapDialog');
+  if(dialog.dataset.origin!=='meeting'||view!=='meeting')return;
+  const panel=dialog.dataset.costKey?document.querySelector('.meeting-cost-panel[data-cost-key="'+dialog.dataset.costKey+'"]'):$('viewContent');
+  const opener=Array.from(panel?.querySelectorAll('[data-meeting-center]')||[]).find(b=>b.dataset.meetingCenter===mapFocus.code);
+  if(opener){
+    const group=opener.closest('details');
+    if(group)group.open=true;
+    opener.focus({preventScroll:true});
+  }
+});
 function meetingLearningGroups(dimension=meetingDimension){
   const field=dimension==='pillar'?'pillar':'message',metric=Iteration.categories.find(c=>c.key===meetingOutcome);
   return A.group(selected.filter(r=>r[field]),r=>JSON.stringify([r.center,A.metricContext(r),r[field]])).map(g=>{
@@ -125,26 +250,72 @@ function meetingBucket(){
   const all=MeetingStore.read().items,items=all.filter(i=>(bucketAction==='ALL'||i.action===bucketAction)&&(bucketCenter==='ALL'||i.center===bucketCenter)&&(!bucketDate||i.meetingDate===bucketDate)&&(!bucketSearch||`${i.title} ${i.task} ${i.pic}`.toLowerCase().includes(bucketSearch.toLowerCase()))).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
   return `<div class="toolbar bucket-filters"><label>Tindakan<select id="bucketAction">${meetingSelectOptions({ALL:'Semua tindakan',...MEETING_ACTIONS},bucketAction)}</select></label><label>Center bucket<select id="bucketCenter">${meetingSelectOptions({ALL:'Semua center',...Object.fromEntries([...new Set(all.map(i=>i.center))].sort().map(c=>[c,c]))},bucketCenter)}</select></label><label>Tanggal meeting<input type="date" id="bucketDate" value="${esc(bucketDate)}"></label><label>Cari judul / PIC<input id="bucketSearch" type="search" value="${esc(bucketSearch)}"></label></div><p class="mini-note">${items.length} / ${all.length} items | Saved decision metrics</p><div class="meeting-board">${Object.entries(MEETING_STAGES).map(([stage,title])=>{const list=items.filter(i=>i.stage===stage);return `<section class="meeting-lane"><h3>${title} <span>${list.length}</span></h3>${list.map(i=>`<article class="meeting-task"><div class="row"><span class="pill">${esc(MEETING_ACTIONS[i.action])}</span><b>${esc(i.center)}</b></div><h3>${esc(i.title)}</h3>${i.snapshot.accountScope==='ALL'&&!i.snapshot.account?'<span class="account-badge">All Accounts</span>':accountBadge(i.snapshot.account)}<p>${esc(i.task)}</p><small>${esc(i.meetingDate)} · PIC ${esc(i.pic||'Belum ditentukan')}<br>Deadline ${esc(i.deadline||'Belum diisi')}${i.deadline&&i.deadline<meetingToday()&&i.stage!=='done'?' · TERLEWAT':''}</small><p class="mini-note">${integer(i.snapshot.metrics.booking)} Booking · CPB ${money(i.snapshot.metrics.cpb)}<br>Leads → Booking (%): ${percent(meetingStoredRate(i.snapshot.metrics))}<br>${i.evaluations.length?'Sudah dievaluasi '+i.evaluations.length+'×':['iterate','test'].includes(i.action)?'Hasil iterasi belum dievaluasi':''}</p><div class="meeting-card-actions"><button class="button secondary" data-meeting-edit="${esc(i.id)}">Buka / tindak lanjuti</button><button class="button meeting-delete" data-meeting-delete="${esc(i.id)}" aria-label="Hapus ${esc(i.title)} dari bucket">Hapus</button></div></article>`).join('')||'<p class="mini-note">Belum ada item.</p>'}</section>`;}).join('')}</div>`;
 }
+function meetingStats(items){
+  const open=items.filter(i=>i.stage!=='done'),today=meetingToday();
+  const overdue=open.filter(i=>i.deadline&&i.deadline<today).length;
+  const awaiting=items.filter(i=>['iterate','test'].includes(i.action)&&!i.evaluations.length).length;
+  return `${open.length} open items · ${overdue} overdue · ${awaiting} awaiting evaluation`;
+}
 function renderMeeting(){
-  meetingSources=[];const items=MeetingStore.read().items,latest=rows.reduce((v,r)=>r.day>v?r.day:v,''),yesterday=PeriodLearning.shift(meetingToday(),-1),overdue=items.filter(i=>i.stage!=='done'&&i.deadline&&i.deadline<meetingToday()).length;
-  return `<div class="meeting-hero"><div><span class="eyebrow">DAILY MEETING · 10.00 WIB</span><h2>Action summary</h2><p>${items.filter(i=>i.stage!=='done').length} open items · ${overdue} overdue · ${items.filter(i=>['iterate','test'].includes(i.action)&&!i.evaluations.length).length} iterations awaiting evaluation</p><small>Data terakhir ${esc(latest||'belum tersedia')}${latest&&latest<yesterday?' · belum mencakup kemarin':''}</small></div><button class="button secondary" data-meeting-preset>7 hari s.d. kemarin</button></div><div class="meeting-storage"><span>${MeetingStore.error()?esc(MeetingStore.error()):'Saved in this browser. Export a backup before switching devices.'}</span><div><button class="button secondary" data-meeting-export>Ekspor cadangan</button><button class="button secondary" data-meeting-import>Impor cadangan</button></div></div><div class="meeting-tabs" role="group" aria-label="Bagian meeting">${Object.entries({briefing:'Center briefing',iterate:'Iteration candidates',learning:'Key message & pillar',bucket:'Action bucket'}).map(([key,title])=>`<button data-meeting-tab="${key}" class="${meetingTab===key?'selected':''}" aria-pressed="${meetingTab===key}">${title}</button>`).join('')}</div>${meetingTab==='briefing'?meetingBriefing():meetingTab==='iterate'?renderIteration(candidates()):meetingTab==='learning'?meetingLearning():meetingBucket()}`;
+  meetingSources=[];refreshMeetingCenterDialog();
+  const latest=ruleIndex?.latest,items=MeetingStore.read().items;
+  const storageError=MeetingStore.error();
+  const backup=`<details class="meeting-backup"><summary>Bucket backup</summary>
+    <div><span>Saved in this browser.</span><button class="button secondary" data-meeting-export>Export backup</button>
+    <button class="button secondary" data-meeting-import>Import backup</button></div></details>`;
+  const tabNames={briefing:'Center briefing',iterate:'Iteration candidates',learning:'Key message & pillar',bucket:'Action bucket'};
+  const bucket=meetingTab==='bucket';
+  let content;
+  if(bucket)content=meetingBucket();
+  else if(!loaded)content=lastError?empty('Unable to load performance data',lastError):empty('Loading center performance','');
+  else if(meetingTab==='briefing')content=meetingBriefing();
+  else if(meetingTab==='iterate')content=renderIteration(candidates());
+  else content=meetingLearning();
+  return `<div class="meeting-navigation">
+    <div class="meeting-tabs" role="group" aria-label="Meeting sections">${Object.entries(tabNames).map(([key,title])=>`<button data-meeting-tab="${key}" class="${meetingTab===key?'selected':''}" aria-pressed="${meetingTab===key}">${title}</button>`).join('')}</div>
+    ${!bucket&&loaded?'<button class="text-button meeting-preset" data-meeting-preset>7 days through yesterday</button>':''}</div>
+    ${bucket?`<div class="meeting-hero"><div><h2>Action summary</h2><p>${meetingStats(items)}</p>${latest?`<small>Data through ${esc(prettyDate(latest))}</small>`:''}</div></div>`:''}
+    ${storageError?`<p class="notice error" role="alert">${esc(storageError)}</p>`:''}
+    ${content}${bucket||storageError?backup:''}`;
 }
 function meetingExport(){const text=MeetingStore.error()?MeetingStore.raw():JSON.stringify({...MeetingStore.read(),exportedAt:new Date().toISOString()},null,2);const url=URL.createObjectURL(new Blob([text||''],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=`sparks-meeting-${meetingToday()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 document.addEventListener('submit',e=>{if(e.target.id!=='meetingForm')return;e.preventDefault();try{meetingSave(e.target);}catch(error){$('meetingFormError').textContent=error.message;}});
 document.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
-  if(b.dataset.meetingTab){meetingTab=b.dataset.meetingTab;return render();}
+  if(b.dataset.meetingTab){
+    if(b.dataset.meetingTab===meetingTab)return;
+    meetingTab=b.dataset.meetingTab;render();
+    document.querySelector('.meeting-tabs [aria-pressed="true"]')?.focus({preventScroll:true});return;
+  }
   if(b.dataset.meetingSource!==undefined){const pick=meetingSources[+b.dataset.meetingSource];if(pick)meetingCompose(pick.source,pick.action);return;}
-  if(b.dataset.meetingAd!==undefined)return meetingAddAd(b.dataset.meetingAd,b.dataset.meetingAction);
+  if(b.dataset.meetingAd!==undefined)return meetingAddAd(b.dataset.meetingAd,b.dataset.meetingAction,b.dataset.meetingOutcome);
   if(b.dataset.meetingEdit)return meetingEdit(b.dataset.meetingEdit);
   if(b.dataset.meetingDelete){
     const item=MeetingStore.read().items.find(i=>i.id===b.dataset.meetingDelete);if(!item)return;
     if(!confirm(`Hapus "${item.title}" (${item.center}) dari bucket?\n\nCatatan, riwayat keputusan, dan evaluasi item ini ikut dihapus dari browser ini. Data Google Sheet dan iklan Meta tidak berubah. Pemulihan memerlukan cadangan yang sudah diekspor.`))return;
     try{MeetingStore.remove(item.id);notify('Item bucket beserta riwayatnya sudah dihapus dari penyimpanan lokal.');render();}catch(error){notify('Gagal menghapus: '+error.message);}return;
   }
-  if(b.dataset.meetingCenter){$('centerFilter').value=b.dataset.meetingCenter;return render();}
+  if(b.dataset.meetingCenterAdd){addMeetingCenter(b.dataset.meetingCenterAdd,b.dataset.meetingCost);return;}
+  if(b.dataset.meetingCenter){openMeetingCenter(b);return;}
+  if(b.hasAttribute('data-meeting-all-centers')){
+    $('centerFilter').value='ALL';$('centerFilter').dispatchEvent(new Event('change'));return;
+  }
+  if(b.dataset.meetingColumns){
+    const list=b.closest('.meeting-review-table');
+    list.dataset.columns=b.dataset.meetingColumns;
+    for(const option of list.querySelectorAll('[data-meeting-columns]')){
+      const active=option===b;
+      option.classList.toggle('selected',active);option.setAttribute('aria-pressed',String(active));
+    }
+    return;
+  }
+  if(b.dataset.iterationCategory){
+    meetingIterationCategory=b.dataset.iterationCategory;
+    $('iterationCandidates').outerHTML=renderIteration(candidates());
+    $('iterationCandidates').querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});return;
+  }
   if(b.dataset.meetingDimension){meetingDimension=b.dataset.meetingDimension;return render();}
-  if(b.hasAttribute('data-meeting-preset')){const end=PeriodLearning.shift(meetingToday(),-1);$('endFilter').value=end;$('startFilter').value=PeriodLearning.shift(end,-6);rollingPeriod=false;return render();}
+  if(b.hasAttribute('data-meeting-preset')){const end=PeriodLearning.shift(meetingToday(),-1);$('endFilter').value=end;$('startFilter').value=PeriodLearning.shift(end,-6);$('startFilter').dispatchEvent(new Event('change'));return;}
   if(b.hasAttribute('data-meeting-export'))return meetingExport();
   if(b.hasAttribute('data-meeting-import'))$('meetingImport').click();
 });

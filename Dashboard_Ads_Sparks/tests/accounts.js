@@ -16,7 +16,13 @@
  check('Filter keeps user date range',$('startFilter').value==='2026-11-01'&&$('endFilter').value==='2026-11-02');
  navigate('creatives');explorerGrain='summary';render();check('Explorer labels account',document.querySelector('#viewContent .account-secondary')!==null);
  explorerGrain='weekly';explorerLayout='compare';render();check('Weekly table labels account',document.querySelector('.comparison-matrix .account-secondary')!==null);
- rows=rows.map(r=>r.account==='Secondary'?{...r,spend:r.spend*10}:r);navigate('meeting');meetingTab='briefing';render();check('Meeting labels account',document.querySelector('.meeting-review-table .account-secondary')!==null);
+ rows=rows.map(r=>r.account==='Secondary'?{...r,spend:r.spend*10}:r);navigate('meeting');meetingTab='briefing';render();
+ check('The briefing opens with center rankings only',document.querySelectorAll('.meeting-cost-panel').length===2&&!$('viewContent').querySelector('table'));
+ document.querySelector('[data-cost-key="cpl"] [data-meeting-center="BHI"]').click();
+ check('Center opens in the map dialog without replacing the account scope',$('centerMapDialog').open&&$('centerFilter').value==='ALL'&&$('accountFilter').value==='Secondary');
+ $('centerMapDialog').querySelector('[data-map-tab="review"]').click();
+ check('Meeting labels account',document.querySelector('.meeting-review-table .account-secondary')!==null);
+ $('centerMapDialog').querySelector('[data-map-close]').click();
  $('accountFilter').value='ALL';$('brandFilter').value='ALL';render();check('Comparison never pools brands',accountComparisonData().length===2);
  check('Missing outcome remains unknown',accountMetric(A.aggregate([make('Main','2026-11-01',10,1,null,null)]),'leads')===null);
  check('Account retained in meeting snapshot',meetingSnapshot(creatives.find(g=>g.account==='Secondary')).account==='Secondary');

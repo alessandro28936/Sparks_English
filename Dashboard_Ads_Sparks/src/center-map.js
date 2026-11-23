@@ -70,15 +70,22 @@ function mapLocationVisible(loc,items){
  if(narrowed||preheat)return items.length>0;
  return true;
 }
-function buildMapModels(){
- const brands=$('brandFilter').value==='ALL'?['English','SLSA']:[$('brandFilter').value];
- return mapCatalog().flatMap(loc=>brands.map(brand=>{
-  const codes=loc.codes||[loc.code],items=selected.filter(r=>r.brand===brand&&codes.includes(r.center));if(!mapLocationVisible(loc,items))return null;const s=summaryAggregate(items);
+function mapCenterMatches(model,row){
+ return (model.brand==='ALL'||row.brand===model.brand)&&model.codes.includes(row.center);
+}
+function mapCenterModel(loc,brand,items,alertSets){
+  const codes=loc.codes||[loc.code],s=summaryAggregate(items);
   let thresholds={cpr:config.target,cpl:config.cplTarget,cpb:300000};
   if(brand==='SLSA'){const scope=JSON.parse(ScorecardTargets.scopeKey());scope[2]=loc.code;const days=[...s.days];thresholds=Object.fromEntries(['cpr','cpl','cpb'].map(k=>[k,ScorecardTargets.target(days,k,brand,JSON.stringify(scope))]));}
   const state=loc.construction&&!items.length?{tone:'off',label:'Under construction',reason:'BDS is distinct from BSD; its location is not yet mapped.'}:MapPerformance.classify(s,items,thresholds);
-  const alerts=priorityData.sets.filter(a=>codes.includes(a.center)&&a.items[0]?.brand===brand);
+  const alerts=alertSets.filter(a=>a.items[0]&&mapCenterMatches({codes,brand},a.items[0]));
   return {...loc,codes,brand,id:brand+'|'+loc.code,items,s,...state,alerts};
+}
+function buildMapModels(){
+ const brands=$('brandFilter').value==='ALL'?['English','SLSA']:[$('brandFilter').value];
+ return mapCatalog().flatMap(loc=>brands.map(brand=>{
+  const codes=loc.codes||[loc.code],items=selected.filter(r=>mapCenterMatches({codes,brand},r));
+  return mapLocationVisible(loc,items)?mapCenterModel(loc,brand,items,priorityData.sets):null;
  })).filter(Boolean);
 }
 function mapBuilding(x,y,scale=1){return `<g transform="translate(${x} ${y}) scale(${scale})" class="map-building"><ellipse cx="0" cy="18" rx="29" ry="10" fill="#193e3630"/><path d="M-24-17L0-30 24-17 0-4Z" fill="#f5ecd0"/><path d="M-24-17L0-4V25L-24 11Z" fill="#faf9e9"/><path d="M0-4L24-17V11L0 25Z" fill="#bec8ae"/><path d="M-27-22L0-38 27-22 0-7Z" fill="#e5eea0" stroke="#617d67"/><path d="M-27-22L0-7V-1L-27-16Z" fill="#b2c77b"/><path d="M0-7L27-22V-16L0-1Z" fill="#8ea768"/><path d="M-18-9L-10-5V4L-18 0ZM-7-3L-2 0V9L-7 6Z" fill="#81b8c0"/><path d="M8 3L16-2V16L8 20Z" fill="#426e61"/><path d="M-22 7L-2 18V24L-22 13Z" fill="currentColor"/></g>`;}
@@ -147,14 +154,14 @@ function mapSummary(m){
   const tone=m.brand!=='English'&&key.startsWith('cp')?'neutral':MetricScorecards.tone(m.s,key);
   const status={good:'Within target',warning:'Warning',review:'Review',bad:'Outside target',neutral:'Unscored'}[tone];
   const target=key==='bookingRate'?CostTargets.bookingRateGuide:scorecardTarget(key);
-  return `<div class="map-metric-${tone}" title="${esc(status+' ? '+target)}"><span>${label}</span><b>${scorecardFormat(reading.value,key)}${reading.partial?'*':''}</b></div>`;
+  return `<div class="map-metric-${tone}" title="${esc(status+' · '+target)}"><span>${label}</span><b>${scorecardFormat(reading.value,key)}${reading.partial?'*':''}</b></div>`;
  });
  return `<div class="map-metrics">${cards.join('')}</div>${m.s.leadRows<m.s.rows||m.s.bookingRows<m.s.rows?'<p class="mini-note">* Incomplete outcome reports; values use available matched records.</p>':''}`;
 }
 
 function scopedMapTable(){
  const saved={selected,base,creatives,adsetDetails,adsetMetric,adsetOrder,adsetDelivery,expanded:[...expandedAdsets]};
- try{selected=mapFocus.items;base=base.filter(r=>r.brand===mapFocus.brand&&mapFocus.codes.includes(r.center));creatives=creatives.filter(g=>g.brand===mapFocus.brand&&mapFocus.codes.includes(g.center));adsetMetric=mapTableState.metric;adsetOrder=mapTableState.order;adsetDelivery=mapTableState.delivery;expandedAdsets.clear();mapTableState.expanded.forEach(k=>expandedAdsets.add(k));const html=renderAdsetPerformance();mapAdDetails=adsetDetails.map(g=>({...g,id:g.id.replace('adset_ad_','map_ad_')}));return html.replaceAll('adset_ad_','map_ad_').replace(/(id|for)="(adsetDelivery|adsetMetric|adsetOrder)"/g,'$1="map_$2"');}
+ try{selected=mapFocus.items;base=base.filter(r=>mapCenterMatches(mapFocus,r));creatives=creatives.filter(g=>mapCenterMatches(mapFocus,g));adsetMetric=mapTableState.metric;adsetOrder=mapTableState.order;adsetDelivery=mapTableState.delivery;expandedAdsets.clear();mapTableState.expanded.forEach(k=>expandedAdsets.add(k));const html=renderAdsetPerformance();mapAdDetails=adsetDetails.map(g=>({...g,id:g.id.replace('adset_ad_','map_ad_')}));return html.replaceAll('adset_ad_','map_ad_').replace(/(id|for)="(adsetDelivery|adsetMetric|adsetOrder)"/g,'$1="map_$2"');}
  finally{selected=saved.selected;base=saved.base;creatives=saved.creatives;adsetDetails=saved.adsetDetails;adsetMetric=saved.adsetMetric;adsetOrder=saved.adsetOrder;adsetDelivery=saved.adsetDelivery;expandedAdsets.clear();saved.expanded.forEach(k=>expandedAdsets.add(k));}
 }
 
@@ -255,20 +262,52 @@ function centerStreetMap(m){
 
 function renderMapDetailBody(){
  const m=mapFocus;if(!m)return '';
+ if(mapTab==='review')return meetingReviewTable(m);
  if(mapTab==='location')return centerStreetMap(m);
  if(mapTab==='sets')return scopedMapTable();
  if(mapTab==='weekly'){
   const all=MetricScorecards.build(m.items,$('startFilter').value,$('endFilter').value,latestSourceDay()),end=all.length-mapWeekPage*4,weeks=all.slice(Math.max(0,end-4),end);
   return `<div class="map-week-controls"><div class="scope-switch">${Object.entries(SCORECARD_PAIRS).map(([id,p])=>`<button data-map-pair="${id}" class="${mapPair===id?'selected':''}">${p.label}</button>`).join('')}<button data-map-pair="spend" class="${mapPair==='spend'?'selected':''}">Spend</button></div><button class="text-button" data-map-weeks="older" ${end<=4?'disabled':''}>← Earlier</button><button class="text-button" data-map-weeks="newer" ${mapWeekPage===0?'disabled':''}>Later →</button></div>${weeks.length?`<div class="sc-grid">${(mapPair==='spend'?['spend','results']:SCORECARD_PAIRS[mapPair].keys).map(k=>scorecardTable(weeks,k,false,m.brand==='English')).join('')}</div>`:empty('No weekly data','Adjust the global date range or filters.')}<p class="mini-note">Week Num from Raw Data · WoW uses matching weekdays. * Incomplete reports. Operational colors use dashboard thresholds; no brand-wide monthly target is applied to an individual center.</p>`;
  }
- return `${LOCAL_AREAS[m.region]?'<button class="button secondary center-location-open" data-map-tab="location">View street location ↗</button>':''}${mapSummary(m)}<div class="map-detail-columns"><section><h3>Locations ${m.brand==='SLSA'?'<small>Temporary shared addresses</small>':''}</h3>${m.shared?'<p class="mini-note">Shared report. These outcomes cannot be attributed to individual branches.</p>':''}${m.sites.length?m.sites.map(([name,address])=>`<article class="map-address"><b>${esc(name)}</b><p>${esc(address)}</p><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Sparks English '+name+' '+address)}" target="_blank" rel="noopener">Open address ↗</a></article>`).join(''):`<p>${esc(m.locationNote||'Address not mapped yet.')}</p>`}</section><section><h3>Ad set alerts <small>Last 7 days</small></h3>${m.alerts.length?m.alerts.map(a=>`<button class="map-detail-alert" data-map-review="${esc(adsetIdentity(a.items[0]))}"><b>${esc(a.adset)}</b><span>${esc(a.issues[0]?.text)}</span><small>${esc(a.start)} – ${esc(a.end)}</small></button>`).join(''):'<p>No ad set alerts in this selection.</p>'}</section></div>`;
+ return `${LOCAL_AREAS[m.region]&&m.sites.length?'<button class="button secondary center-location-open" data-map-tab="location">View street location ↗</button>':''}${mapSummary(m)}<div class="map-detail-columns"><section><h3>Locations ${m.brand==='SLSA'?'<small>Temporary shared addresses</small>':''}</h3>${m.shared?'<p class="mini-note">Shared report. These outcomes cannot be attributed to individual branches.</p>':''}${m.sites.length?m.sites.map(([name,address])=>`<article class="map-address"><b>${esc(name)}</b><p>${esc(address)}</p><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Sparks English '+name+' '+address)}" target="_blank" rel="noopener">Open address ↗</a></article>`).join(''):`<p>${esc(m.locationNote||'Address not mapped yet.')}</p>`}</section><section><h3>Ad set alerts <small>Last 7 days</small></h3>${m.alerts.length?m.alerts.map(a=>`<button class="map-detail-alert" data-map-review="${esc(adsetIdentity(a.items[0]))}"><b>${esc(a.adset)}</b><span>${esc(a.issues[0]?.text)}</span><small>${esc(a.start)} – ${esc(a.end)}</small></button>`).join(''):'<p>No ad set alerts in this selection.</p>'}</section></div>`;
 }
-function refreshMapDetail(){if($('mapDetailBody'))$('mapDetailBody').innerHTML=renderMapDetailBody();document.querySelectorAll('[data-map-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.mapTab===mapTab));}
+function refreshMapDetail(){
+ const dialog=$('centerMapDialog');
+ if(!dialog)return;
+ $('mapDetailBody').innerHTML=renderMapDetailBody();
+ for(const button of dialog.querySelectorAll('nav [data-map-tab]')){
+  const active=button.dataset.mapTab===mapTab;
+  button.classList.toggle('selected',active);
+  button.setAttribute('aria-pressed',String(active));
+ }
+}
+function drawCenterDialog(dialog){
+ const m=mapFocus,meeting=dialog.dataset.origin==='meeting';
+ const brands={English:'Sparks English',SLSA:'SLSA',ALL:'All brands'};
+ const reviewCount=creatives.filter(g=>mapCenterMatches(m,g)&&needsReview(g)).length;
+ const tabs=[['summary','Summary'],...(LOCAL_AREAS[m.region]&&m.sites.length?[['location','Location']]:[]),
+  ['review','Ads to review ('+reviewCount+')'],['weekly','Weekly scorecards'],['sets','Ad sets & ads']];
+ dialog.innerHTML=`<header class="map-detail-header"><div><span class="eyebrow">${esc(brands[m.brand]||m.brand)} · ${esc(m.code)}</span>
+  <h2 id="mapDetailTitle">${esc(m.name)}</h2><p>${esc(dateRangeText())} · <b class="map-state tone-${m.tone}">${esc(m.label)}</b></p><small>${esc(m.reason)}</small></div>
+  ${meeting?'':'<button type="button" class="icon-button" data-map-close aria-label="Close center detail">×</button>'}</header>
+  <nav class="map-detail-tabs scope-switch${meeting?' meeting-center-tabs':''}" aria-label="Center detail">
+  ${tabs.map(([key,label])=>`<button type="button" data-map-tab="${key}" aria-pressed="${mapTab===key}" class="${mapTab===key?'selected':''}">${label}</button>`).join('')}
+  ${meeting?'<button type="button" class="meeting-center-back" data-map-close>← Back to briefing</button>':''}</nav>
+  <div id="mapDetailBody">${renderMapDetailBody()}</div>`;
+}
+function openCenterDialog(model,meetingTrigger=null){
+ mapFocus=model;mapTab='summary';mapWeekPage=0;mapAdDetails=[];
+ mapTableState={delivery:'active',metric:'cpr',order:'best',expanded:new Set()};
+ const dialog=$('centerMapDialog');
+ dialog.dataset.origin=meetingTrigger?'meeting':'map';
+ dialog.dataset.costKey=meetingTrigger?.closest('[data-cost-key]')?.dataset.costKey||'';
+ drawCenterDialog(dialog);
+ dialog.showModal();dialog.scrollTop=0;
+ if($('mapHover'))$('mapHover').hidden=true;
+}
 function openMapCenter(id){
- const m=mapModels.find(m=>m.id===id);if(!m)return;mapFocus=m;mapTab='summary';mapWeekPage=0;mapTableState={delivery:'active',metric:'cpr',order:'best',expanded:new Set()};
- let dialog=$('centerMapDialog');if(!dialog){dialog=document.createElement('dialog');dialog.id='centerMapDialog';document.body.append(dialog);}dialog.setAttribute('aria-labelledby','mapDetailTitle');
- dialog.innerHTML=`<header class="map-detail-header"><div><span class="eyebrow">${esc(m.brand==='English'?'SPARKS ENGLISH':'SLSA')} · ${esc(m.code)}</span><h2 id="mapDetailTitle">${esc(m.name)}</h2><p>${esc(dateRangeText())} · <b class="map-state tone-${m.tone}">${esc(m.label)}</b></p><small>${esc(m.reason)}</small></div><button class="icon-button" data-map-close aria-label="Close center detail">×</button></header><nav class="map-detail-tabs scope-switch" aria-label="Center detail"><button data-map-tab="summary" class="selected">Summary</button>${LOCAL_AREAS[m.region]?'<button data-map-tab="location">Location</button>':''}<button data-map-tab="weekly">Weekly scorecards</button><button data-map-tab="sets">Ad sets & ads</button></nav><div id="mapDetailBody">${renderMapDetailBody()}</div>`;
- dialog.showModal();if($('mapHover'))$('mapHover').hidden=true;
+ const model=mapModels.find(m=>m.id===id);
+ if(model)openCenterDialog(model);
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;

@@ -6,6 +6,20 @@
   const normalized=A.normalize([{'Campaign name':'Traffic_WA_Main','Ad set name':'BHI_T_M_W','Ad name':'9/9/26 - V_TEST','Content Pillar':' Affordability Price ','Key Message Content':'Harga','Results':10}])[0];
   check('Content Pillar imported by header',normalized.pillar==='Affordability Price');
   navigate('meeting');
+  meetingTab='briefing';render();
+  check('The briefing starts with Worst CPL and Worst CPB and no ad table',
+    [...document.querySelectorAll('.meeting-cost-panel h3')].map(h=>h.textContent).join('|')==='Worst CPL|Worst CPB'&&!$('viewContent').querySelector('table'));
+  const rankingButton=document.querySelector('.meeting-cost-panel [data-meeting-center]');
+  const initialCenter=$('centerFilter').value,initialStart=$('startFilter').value,initialEnd=$('endFilter').value;
+  rankingButton.click();
+  const popup=$('centerMapDialog');
+  check('Ranked center uses the map summary',popup.open&&mapTab==='summary'&&mapFocus.code===rankingButton.dataset.meetingCenter);
+  popup.querySelector('[data-map-tab="review"]').click();
+  const reviewCount=creatives.filter(g=>mapCenterMatches(mapFocus,g)&&needsReview(g)).length;
+  check('Review contains exactly the active ads flagged for this center',popup.querySelectorAll('.meeting-review-table tbody tr').length===reviewCount);
+  popup.querySelector('[data-map-close]').click();
+  check('Closing restores briefing without changing its analysis scope',
+    !popup.open&&meetingTab==='briefing'&&$('centerFilter').value===initialCenter&&$('startFilter').value===initialStart&&$('endFilter').value===initialEnd);
   for(const tab of ['briefing','iterate','learning','bucket']){meetingTab=tab;render();check(tab+' renders content',document.querySelector('.meeting-tabs')&&$('viewContent').textContent.length>100);}
   const source=meetingAdSource(creatives.find(g=>g.results>=5&&meetingTargets({center:g.center,snapshot:{brand:g.brand,objective:g.objective,resultType:g.resultType,ad:g.ad,adset:g.adset,campaign:g.campaign}}).length));
   source.entityKey+='-qa-'+meetingId();source.title='QA meeting '+source.title;

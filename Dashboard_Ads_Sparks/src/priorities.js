@@ -15,8 +15,8 @@ function priorityIssues(s,items,source){
   if(s.results>=config.minResults&&s.leadRows===s.rows&&Number.isFinite(s.leadRate)&&s.leadRate<80)issues.push({text:`Results → Leads ${percent(s.leadRate)} <80%`,severity:3});
   return issues;
 }
-function buildPriorities(){
-  const active=[...new Map(creatives.filter(g=>g.lastDelivery==='active'&&g.operational?.rows).map(g=>[Rules.identity(g),g])).values()],source=rows.filter(r=>workspaceMatches(r)&&accountMatches(r));
+function buildPriorities(adsInScope=creatives){
+  const active=[...new Map(adsInScope.filter(g=>g.lastDelivery==='active'&&g.operational?.rows).map(g=>[Rules.identity(g),g])).values()],source=rows.filter(r=>workspaceMatches(r)&&accountMatches(r));
   const ads=active.map(g=>{
     const s=g.operational,items=s.items,peers=source.filter(r=>r.day>=s.start&&r.day<=s.end),issues=priorityIssues(s,items,peers);
     if(g.state==='KILL')issues.unshift({text:g.killReasons?.[0]||'Review kill recommendation',severity:0});

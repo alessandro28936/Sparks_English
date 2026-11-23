@@ -79,9 +79,11 @@ function adsetAge(g){
   const lo=Math.min(...g.ages),hi=Math.max(...g.ages);
   return `${lo===hi?lo:lo+'–'+hi} days${g.ages.length<g.ads.length?'*':''}`;
 }
-function adsetMetricCells(g,share,peers=[]){
-  const comparable=peers.filter(p=>p!==g&&!p.mixed&&A.sameMetricContext(p,g)),benchmark=A.aggregate(comparable.flatMap(p=>p.items)),peerLabel=g.ads?'other center ad sets':'other ads in set';
-  return [['spend',money],['share',percent],['results',integer],['leads',integer],['leadRate',percent],['cpr',money],['cpl',money],['booking',integer],['cpb',money],['bookingRate',percent]].map(([key,format])=>{
+function adsetMetricCells(g,share,peers=[],options={}){
+  const {columns=AD_PERIOD_METRICS,compact=false,maxima={},shareLabel}=options;
+  const comparable=peers.filter(p=>p!==g&&!p.mixed&&A.sameMetricContext(p,g));
+  const benchmark=comparable.length?A.aggregate(comparable.flatMap(p=>p.items)):null,peerLabel=g.ads?'other center ad sets':'other ads in set';
+  return columns.map(([key,label,format])=>{
     const reading=key==='share'?{value:share}:metricDisplayData(g,key),value=reading.value,known=Number.isFinite(value)&&!reading.partial;
     let tone='',note='',strength=0,bar='';
     if(!known){
@@ -95,11 +97,14 @@ function adsetMetricCells(g,share,peers=[]){
       note=key==='cpb'?CostTargets.cpbLabel(value):key==='leadRate'?(good?'Meets 80%':'Below 80%'):`${good?'Meets':'Above'} target ${money(target)}`;
     }
     if(known&&['results','leads','booking'].includes(key)){
-      const max=Math.max(value,...peers.map(p=>metricDisplayData(p,key)).filter(r=>!r.partial&&Number.isFinite(r.value)).map(r=>r.value),1);
+      const max=maxima[key]??Math.max(value,...peers.map(p=>metricDisplayData(p,key)).filter(r=>!r.partial&&Number.isFinite(r.value)).map(r=>r.value),1);
       bar=`<span class="adset-data-bar ${key}" aria-hidden="true"><i style="width:${Math.max(0,Math.min(100,value/max*100))}%"></i></span>`;
     }
-    const title=key==='cpl'||key==='cpb'?`Target ${key.toUpperCase()}: ${money(CostTargets.limit(key,config))}. Context only: weighted ${key.toUpperCase()} of ${peerLabel}, same account, period, Delivery and filters. ${comparable.length?money(metricDisplayData(benchmark,key).value):'No benchmark'}`:key==='cpr'?`Target CPR: ${money(config.target)}`:key==='share'?(g.ads?'Share of selected spend':'Share of this ad set’s filtered spend'):note;
-    return `<td class="num adset-reading ${tone}" data-adset-metric="${key}" style="--heat:${(.10+.19*strength).toFixed(3)}" title="${esc(title)}"><b>${key==='share'?percent(share):displayMetric(g,key,format)}</b>${note?`<small>${esc(note)}</small>`:''}${bar}</td>`;
+    let title=note;
+    if(!compact&&(key==='cpl'||key==='cpb'))title=`Target ${label}: ${money(CostTargets.limit(key,config))}. Context only: weighted ${label} of ${peerLabel}, same account, period, Delivery and filters. ${benchmark?money(metricDisplayData(benchmark,key).value):'No benchmark'}`;
+    if(key==='share')title=shareLabel||(g.ads?'Share of selected spend':'Share of this ad set’s filtered spend');
+    if(compact&&bar)title=`${label} relative to ads in this list`;
+    return `<td class="num adset-reading ${tone}" data-adset-metric="${key}" style="--heat:${(.10+.19*strength).toFixed(3)}" title="${esc(title)}"><b>${key==='share'?percent(share):displayMetric(g,key,format)}</b>${note?`<small${compact&&known?' class="sr-only"':''}>${esc(note)}</small>`:''}${bar}</td>`;
   }).join('');
 }
 function renderAdsetPerformance(){
@@ -107,7 +112,7 @@ function renderAdsetPerformance(){
   const controls=`<div class="adset-controls"><label for="adsetDelivery">Delivery<select id="adsetDelivery">${[['active','Active ads'],['inactive','Inactive ads'],['all','All ads']].map(([key,label])=>`<option value="${key}" ${key===adsetDelivery?'selected':''}>${label}</option>`).join('')}</select></label><label for="adsetMetric">Rank by<select id="adsetMetric">${ADSET_METRICS.map(([key,label])=>`<option value="${key}" ${key===adsetMetric?'selected':''}>${label}</option>`).join('')}</select></label><label for="adsetOrder">Order<select id="adsetOrder"><option value="best" ${adsetOrder==='best'?'selected':''}>Best first</option><option value="worst" ${adsetOrder==='worst'?'selected':''}>Worst first</option></select></label></div>`;
   const heading=section('Ad set Performance',`Selected period: ${esc($('startFilter').value)} / ${esc($('endFilter').value)} | Actions: last 7 days`,controls);
   if(!groups.length)return heading+`<section class="card adset-performance">${empty('No '+(adsetDelivery==='all'?'matching':adsetDelivery)+' ads','Change Delivery or the date range to see other ads.')}</section>`;
-  return heading+`<section class="card adset-performance"><div class="adset-legend"><span class="good">Meets target</span><span class="warning" title="CPB >Rp300,000–Rp400,000">CPB warning</span><span class="review" title="CPB >Rp400,000–Rp500,000">CPB review</span><span class="bad" title="CPB >Rp500,000; other metrics outside target">Outside limit</span><span>Gray: unavailable or no comparison</span></div><div class="table-wrap"><table><thead><tr><th>Ad set / ad name</th><th class="num" title="Active ads in this ad set, based on the latest recorded status in the selected period. Search and key-message filters do not reduce this capacity count. Maximum: 7 active ads.">Active ads</th><th>Rank · ${esc(metric[1])}</th><th class="num" title="Publish age of each ad; the parent row shows the youngest–oldest range.">Ad age</th>${['Spend','Spend share','Results','Leads','Results → Leads','CPR','CPL','Booking','CPB','Leads → Booking (%)'].map(k=>`<th class="num">${k}</th>`).join('')}</tr></thead><tbody>${groups.map(g=>{
+  return heading+`<section class="card adset-performance"><div class="adset-legend"><span class="good">Meets target</span><span class="warning" title="CPB >Rp300,000–Rp400,000">CPB warning</span><span class="review" title="CPB >Rp400,000–Rp500,000">CPB review</span><span class="bad" title="CPB >Rp500,000; other metrics outside target">Outside limit</span><span>Gray: unavailable or no comparison</span></div><div class="table-wrap"><table><thead><tr><th>Ad set / ad name</th><th class="num" title="Active ads in this ad set, based on the latest recorded status in the selected period. Search and key-message filters do not reduce this capacity count. Maximum: 7 active ads.">Active ads</th><th>Rank · ${esc(metric[1])}</th><th class="num" title="Publish age of each ad; the parent row shows the youngest–oldest range.">Ad age</th>${AD_PERIOD_METRICS.map(([,k])=>`<th class="num">${k}</th>`).join('')}</tr></thead><tbody>${groups.map(g=>{
     const open=expandedAdsets.has(g.key),rankText=g.rank===null?g.spend<config.minSpend?'Low spend':g.mixed?'Mixed Results':metricDisplayData(g,adsetMetric).partial?reportIssueLabel(g,adsetMetric):'No result denominator':`#${g.rank} / ${g.rankedCount}`;
     const costTarget=CostTargets.limit(adsetMetric,config),costKnown=costTarget&&g.rank!==null,aboveTarget=costKnown&&!CostTargets.meets(g.rankingValue,adsetMetric,config);
     const badge=costKnown?(!Number.isFinite(g.rankingValue)?'No '+({cpr:'Results',cpl:'Leads',cpb:'Booking'}[adsetMetric]):adsetMetric==='cpb'?CostTargets.cpbLabel(g.rankingValue):aboveTarget?'Above target':'Meets target'):g.rank===1&&g.rankedCount>1?'Highest '+metric[1]:g.isWorst?'Lowest '+metric[1]:'';

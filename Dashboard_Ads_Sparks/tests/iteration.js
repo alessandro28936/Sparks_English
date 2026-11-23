@@ -33,7 +33,14 @@
     }
     $('viewContent').querySelector('[data-action="winners"]').click();
     check('Candidate shortcut opens meeting iteration',view==='meeting'&&meetingTab==='iterate');
-    check('October shows all category rows, not a four-ad cap',document.querySelectorAll('#iterationCandidates tbody tr').length===wins.reduce((n,g)=>n+g.opportunities.length,0));
+    for(const {key} of Iteration.categories){
+      const expected=wins.filter(g=>g.opportunities.some(o=>o.key===key));
+      const button=document.querySelector('[data-iteration-category="'+key+'"]');
+      if(!expected.length){check(key+' is unavailable without candidates',!button||button.disabled);continue;}
+      button.click();
+      const visible=[...document.querySelectorAll('#iterationCandidates tbody [data-detail]')].map(b=>b.dataset.detail);
+      check(key+' shows exactly the eligible ads',visible.length===expected.length&&expected.every(g=>visible.includes(String(g.id))));
+    }
     check('All displayed candidates have sample and target support',wins.every(g=>g.spend>=config.minSpend&&g.results>=config.minResults&&g.opportunities.every(o=>CostTargets.meets(g[o.cost],o.cost,config))));
     checks.push({name:'October live candidate counts',ok:true,unique:wins.length,categories:Object.fromEntries(Iteration.categories.map(c=>[c.key,wins.filter(g=>g.opportunities.some(o=>o.key===c.key)).length]))});
     check('Candidates include add to meeting actions',!!document.querySelector('[data-meeting-ad]'));
